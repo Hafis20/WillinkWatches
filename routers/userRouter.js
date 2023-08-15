@@ -1,6 +1,24 @@
 const express = require("express");
 const userRouter = express();
 
+//Session
+const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+const store = new MongoDBStore({
+   uri:process.env.MONGO_URL,
+   collection:'mySession'
+})
+
+userRouter.use(session({
+   secret:process.env.SECRET_ID,
+   resave:false,
+   saveUninitialized:false,
+   store:store,
+}))
+
+// User Controller 
+
 const userController = require("../controllers/userController");
 
 // Static

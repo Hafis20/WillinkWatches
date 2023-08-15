@@ -16,4 +16,9 @@ const PORT = process.env.PORT || 5000;
 const userRouter = require('./routers/userRouter');
 app.use('/',userRouter);
 
+// Admin Router
+const adminRouter = require('./routers/adminRouter');
+app.use('/admin',adminRouter);
+
+
 app.listen(PORT,()=>console.log(`Server running at port ${PORT}`));

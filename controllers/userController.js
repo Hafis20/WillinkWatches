@@ -1,11 +1,9 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt')
 
-const loadLogin = async(req,res)=>{
-   res.render('login');
-}
-
 const loadSignup = async(req,res)=>{
+   req.session.auth = true;
+   console.log(req.session.id)
    res.render('signup',{message:''});
 }
 
@@ -28,6 +26,12 @@ const insertUser = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+
+const loadLogin = async(req,res)=>{
+   res.render('login');
+}
+
 
 const loadHome = async(req,res)=>{
    res.render('home');
