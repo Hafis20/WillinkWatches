@@ -28,12 +28,26 @@ userRouter.set("view engine", "ejs");
 userRouter.set("views", "./views/user");
 userRouter.use(express.json())
 userRouter.use(express.urlencoded({extended:true}))
+
+// Load register page
+userRouter.get("/", userController.loadRegister);
+userRouter.get("/register",userController.loadRegister);
+
+// Register post
+userRouter.post("/",userController.insertUser);
+userRouter.post("/register",userController.insertUser);
+
+// otp verification
+userRouter.get('/verifyotp',userController.loadVerfiyOTP);
+userRouter.post('/verifyotp',userController.verifyotp);
+
 // Load the login page for user
-userRouter.get("/", userController.loadSignup);
-userRouter.get("/signup",userController.loadSignup);
-userRouter.post("/signup",userController.insertUser);
 
 userRouter.get("/login",userController.loadLogin);
+// userRouter.post("/login",userController.verifyUser);
+
+// Load home page for user
 userRouter.get("/home",userController.loadHome);
+
 
 module.exports = userRouter;

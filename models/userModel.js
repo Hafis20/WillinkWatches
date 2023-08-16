@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
    email:{
       type:String,
       required:true,
-      unique:true,
    },
    password:{
       type:String,
@@ -21,10 +20,6 @@ const userSchema = new mongoose.Schema({
    mobile:{
       type:Number,
       required:true,
-   },
-   is_verified :{
-      type:Number,
-      default:0,
    }
 })
 

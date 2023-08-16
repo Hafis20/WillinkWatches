@@ -9,6 +9,7 @@ function validateForm(){
 
 
    //Regex
+   
    const nameRegex = /^[A-Z][a-z]*$/;
    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail+\.com$/;
    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -16,6 +17,7 @@ function validateForm(){
 
 
    // Error feilds
+
    const fnameError = document.getElementById('fnameError');
    const lnameError = document.getElementById('lnameError');
    const emailError = document.getElementById('emailError');
@@ -33,7 +35,7 @@ function validateForm(){
       fname.style.borderColor = 'red'
       fnameError.innerHTML = "Feild is required"
       setTimeout(() => {
-         fname.style.borderColor = '#fff'
+         fname.style.borderColor = 'grey'
          fnameError.innerHTML = ''
       }, 5000);
       return false
@@ -44,7 +46,7 @@ function validateForm(){
       fname.style.borderColor = 'red'
       fnameError.innerHTML = "First letter should be capital"
       setTimeout(() => {
-         fname.style.borderColor = '#fff'
+         fname.style.borderColor = 'grey'
          fnameError.innerHTML = ''
       }, 5000);
       return false
@@ -55,7 +57,7 @@ function validateForm(){
       lname.style.borderColor = 'red'
       lnameError.innerHTML = "Feild is required"
       setTimeout(() => {
-         lname.style.borderColor = '#fff'
+         lname.style.borderColor = 'grey'
          lnameError.innerHTML = ''
       }, 5000);
       return false
@@ -67,7 +69,7 @@ function validateForm(){
       email.style.borderColor = 'red'
       emailError.innerHTML = "Feild is required"
       setTimeout(() => {
-         email.style.borderColor = '#fff'
+         email.style.borderColor = 'grey'
          emailError.innerHTML = ''
       }, 5000);
       return false
@@ -78,7 +80,7 @@ function validateForm(){
       email.style.borderColor = 'red'
       emailError.innerHTML = "Please Enter a valid email";
       setTimeout(() => {
-         email.style.borderColor = '#fff'
+         email.style.borderColor = 'grey'
          emailError.innerHTML = ""
       }, 5000);
       return false
@@ -89,7 +91,7 @@ function validateForm(){
       password.style.borderColor = 'red'
       passwordError.innerHTML = "Feild is required"
       setTimeout(() => {
-         password.style.borderColor = '#fff'
+         password.style.borderColor = 'grey'
          passwordError.innerHTML = ''
       }, 5000);
       return false
@@ -100,7 +102,7 @@ function validateForm(){
      password.style.borderColor = 'red'
       passwordError.innerHTML = "Password contains eight character with capital-number-symbols";
       setTimeout(() => {
-         password.style.borderColor = '#fff'
+         password.style.borderColor = 'grey'
          passwordError.innerHTML = ""
       }, 5000);
       return false
@@ -111,7 +113,7 @@ function validateForm(){
       mobile.style.borderColor = 'red'
       mobileError.innerHTML = "Feild is required"
       setTimeout(() => {
-         mobile.style.borderColor = '#fff'
+         mobile.style.borderColor = 'grey'
          mobileError.innerHTML = ''
       }, 5000);
       return false
@@ -123,7 +125,7 @@ function validateForm(){
       mobile.style.borderColor = 'red'
       mobileError.innerHTML = "Please Enter a valid number";
       setTimeout(() => {
-         mobile.style.borderColor = '#fff'
+         mobile.style.borderColor = 'grey'
          mobileError.innerHTML = ""
       }, 5000);
       return false

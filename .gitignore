@@ -1,2 +1,6 @@
 .env
 node_modules/
+public/assets/imgs
+public/user-assets/img
+
+
