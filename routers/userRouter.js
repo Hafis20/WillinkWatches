@@ -17,6 +17,11 @@ userRouter.use(session({
    store:store,
 }))
 
+// nocache middleware
+
+const nocache = require('nocache');
+userRouter.use(nocache());
+
 // User Controller 
 
 const userController = require("../controllers/userController");

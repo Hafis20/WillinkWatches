@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
    mobile:{
       type:Number,
       required:true,
+   },
+   is_admin:{
+      type:Boolean,
+      default:false,
    }
 })
 
