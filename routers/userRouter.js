@@ -21,6 +21,9 @@ userRouter.use(session({
 
 const userController = require("../controllers/userController");
 
+// Authentication
+
+const auth = require('../middleware/userAuth')
 // Static
 userRouter.use(express.static('public'))
 
@@ -30,8 +33,8 @@ userRouter.use(express.json())
 userRouter.use(express.urlencoded({extended:true}))
 
 // Load register page
-userRouter.get("/", userController.loadRegister);
-userRouter.get("/register",userController.loadRegister);
+userRouter.get("/", auth.isLogout, userController.loadRegister);
+userRouter.get("/register",auth.isLogout,userController.loadRegister);
 
 // Register post
 userRouter.post("/",userController.insertUser);
@@ -43,11 +46,12 @@ userRouter.post('/verifyotp',userController.verifyotp);
 
 // Load the login page for user
 
-userRouter.get("/login",userController.loadLogin);
-// userRouter.post("/login",userController.verifyUser);
+userRouter.get("/login",auth.isLogout,userController.loadLogin);
+userRouter.post("/login",auth.isLogout,userController.verifyUser);
 
 // Load home page for user
-userRouter.get("/home",userController.loadHome);
+userRouter.get("/home",auth.isLogin,userController.loadHome);
 
+userRouter.get('/logout',userController.logoutUser);
 
 module.exports = userRouter;

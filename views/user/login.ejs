@@ -133,17 +133,23 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
+						<% if (typeof message !== 'undefined') { %>
+							<div class="alert alert-danger">
+							  <%= message %>
+							</div>
+						  <% } %>
 						<h3>Log in to enter</h3>
-						<form class="row login_form" action="" method="post" id="contactForm" novalidate="novalidate">
+						<form class="row login_form" onsubmit="return validateForm()" action=""  method="post" id="contactForm">
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="firstName" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-								<p id="fnameError"></p>
+								<input type="text" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+								<p style="color: red;" id="emailError"></p>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<p  style="color: red;" id="passwordError"></p>
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Log In</button>
+								<button value="submit" class="primary-btn">Log In</button>
 								<a href="#">Forgot Password?</a>
 							</div>
 						</form>
@@ -249,6 +255,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="/user-assets/js/gmaps.min.js"></script>
 	<script src="/user-assets/js/main.js"></script>
+	<script src="/user-assets/js/loginValidation.js"></script>
+
 </body>
 
 </html>
