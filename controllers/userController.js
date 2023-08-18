@@ -14,35 +14,44 @@ const loadRegister = async(req,res)=>{
 
 const insertUser = async(req,res)=>{
    
+      
+   try{
       const existingEmail = await User.findOne({email:req.body.email});
       const existingMobile = await User.findOne({mobile:req.body.mobile});
-
-      if(existingEmail){
-         res.render('register',{message:"Email Already Exists"});
+      if(existingEmail && existingMobile){
+         res.json({status:'error',message:'Email and Mobile already Exists'})
       }
-      if(existingMobile){
-         res.render('register',{message:"Mobile Number Already Exists"});
+      else if(existingEmail){
+         res.json({status:'error',message:"Email Already Exists"});
       }
-   try{
-      await otpGenerate.sendVerificationCode(req.body.mobile)
-      .then((verification) => {
+      else if(existingMobile){
+         res.json({status:'error',message:"Mobile Number Already Exists"});
+      }
+      else{
          req.session.user = req.body;
-         // Redirecting the otp page after getting otp
-         res.redirect('/verifyotp');
-      })
-      .catch(error => {
-         console.error(error);
-         res.status(500).send("Error sending OTP");
-      });
+         await otpGenerate.sendVerificationCode(req.body.mobile)
+         .then(() => {
+            // Redirecting the otp page after getting otp
+            res.json({status:'success',message:'Registered Please Enter your OTP'})
+         })
+         .catch(error => {
+            console.error(error);
+            res.json({status:'error',message:error.message});
+         });
+      }
    }catch(error){
-      console.log(error);
+      res.json({status:'error',message:'All Feilds are required'})
    }
 }
 
 // when the user click in register button it will gives a page for entering the otp
 
 const loadVerfiyOTP = async(req,res)=>{
-   res.render('verifyotp')
+   try {
+      res.render('verifyotp')   
+   } catch (error) {
+      console.log(error.message)
+   }
 }
 
 
@@ -64,12 +73,12 @@ const verifyotp = async(req,res)=>{
             mobile:userData.mobile,
          })
          await user.save(); // if the otp is correct we save the data into data base
-         res.redirect('/home');
+         res.json({status:'success',message:'OTP Verified Please Login'});
       }else{
-         console.log('error')
+         res.json({status:'error',message:'Please verify your otp'});
       }
    } catch (error) {
-      console.log(error.message);
+      res.json({status:'error',message:'Please verify your otp'});
    }
 }
 
@@ -88,16 +97,15 @@ const verifyUser = async(req,res)=>{
          const isMatch = await pass.checkPassword(password,userData.password);
          if(isMatch){
             req.session.user = userData;
-            res.redirect('/home');
+            res.json({status : "success", message:'login successfull'})
          }else{
-            res.render('login',{message:'Email or password is incorrect'})
+            res.json({status : "error", message:'Email or password is incorrect'})
          }
-
       }else{
-         res.render('login',{message:'Email or password is incorrect'})
+         res.json({status : "error", message:'Email or password is incorrect'})
       }
    } catch (error) {
-      console.log(error.message);
+      res.json({status : "error", message: error.message})
    }
 }
 

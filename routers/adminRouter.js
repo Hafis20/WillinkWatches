@@ -4,18 +4,12 @@ const adminRouter = express();
 
 //Session Handling 
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 
-const store = new MongoDBStore({
-   uri:process.env.MONGO_URL,
-   collection:'mySession'
-})
 
 adminRouter.use(session({
    secret:process.env.SECRET_ID,
    resave:false,
    saveUninitialized:false,
-   store:store
 }));
 
 //nocache middleware
@@ -43,7 +37,23 @@ adminRouter.post('/login',adminController.verifyAdmin)
 // Load the dashboard
 adminRouter.get('/dashboard',auth.isLogin,adminController.loadDashboard);
 
+// Load products List
+adminRouter.get('/product-list',auth.isLogin,adminController.loadProductList);
+
+// Load add products
+adminRouter.get('/add-products',auth.isLogin,adminController.loadaddProducts);
+
+
+// Load add Categories
+adminRouter.get('/add-categories',auth.isLogin,adminController.loadaddCategories);
+adminRouter.post('/add-categories',adminController.addCategories);
+// List Categories
+adminRouter.get('/list-categories',adminController.listCategories);
+// Delete Category
+adminRouter.get('/delete-categories',adminController.deleteCategories);
+
+
 //Logout
-adminRouter.get('/logout',adminController.logoutAdmin)
+adminRouter.get('/logout',auth.isLogin,adminController.logoutAdmin)
 
 module.exports = adminRouter;
