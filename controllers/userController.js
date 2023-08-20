@@ -13,8 +13,7 @@ const loadRegister = async(req,res)=>{
 // User signup the form correctly when it works
 
 const insertUser = async(req,res)=>{
-   
-      
+  
    try{
       const existingEmail = await User.findOne({email:req.body.email});
       const existingMobile = await User.findOne({mobile:req.body.mobile});

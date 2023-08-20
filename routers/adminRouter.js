@@ -28,29 +28,56 @@ adminRouter.set('views','./views/admin')
 const adminController = require('../controllers/adminController')
 // Load login page for admin
 adminRouter.get('/',auth.isLogout,adminController.loadLogin)
-adminRouter.get('/login',auth.isLogout,adminController.loadLogin)
 
 // Verify It is original admin or not
 adminRouter.post('/',adminController.verifyAdmin)
-adminRouter.post('/login',adminController.verifyAdmin)
 
 // Load the dashboard
-adminRouter.get('/dashboard',auth.isLogin,adminController.loadDashboard);
+adminRouter.get('/dashboard',adminController.loadDashboard);
+// --------------------------------------USERS--------------------------------
+
+//Load users list
+adminRouter.get('/list-users',adminController.loadUsersList);
+
+// Edit User
+adminRouter.get('/edit-users',adminController.loadEditUsers);
+adminRouter.post('/edit-users',adminController.editUsers);
+
+// Block User
+adminRouter.get('/block-users',adminController.blockUser);
+// Load blocked Users list
+adminRouter.get('/list-blocked-users',adminController.loadBlockedUser)
+adminRouter.get('/unblock-users',adminController.unBlockUser)
+
+
+//---------------------------------------PRODUCTS-----------------------------
 
 // Load products List
-adminRouter.get('/product-list',auth.isLogin,adminController.loadProductList);
+adminRouter.get('/list-products',adminController.loadProductList);
 
 // Load add products
-adminRouter.get('/add-products',auth.isLogin,adminController.loadaddProducts);
+adminRouter.get('/add-products',adminController.loadaddProducts);
 
+// add products
+adminRouter.post('/add-products',adminController.addProducts);
+
+//---------------------------------------CATEGORY-----------------------------
 
 // Load add Categories
-adminRouter.get('/add-categories',auth.isLogin,adminController.loadaddCategories);
+adminRouter.get('/add-categories',adminController.loadaddCategories);
 adminRouter.post('/add-categories',adminController.addCategories);
+
 // List Categories
 adminRouter.get('/list-categories',adminController.listCategories);
+
+// Edit Category
+adminRouter.get('/edit-categories',adminController.loadEditCategories);
+adminRouter.post('/edit-categories',adminController.editCategories);
+
 // Delete Category
 adminRouter.get('/delete-categories',adminController.deleteCategories);
+
+//--------------------------------------------------------------------------
 
 
 //Logout

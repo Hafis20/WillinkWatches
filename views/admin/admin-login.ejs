@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Login V16</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="/admin-login/images/icons/favicon.ico"/>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/admin-login/images/icons/favicon.ico" />
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/admin-login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/admin-login/css/main.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
+
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/admin-login/images/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
 					Admin Login
 				</span>
-				<form method="post" class="login100-form validate-form p-b-33 p-t-5">
-					<% if (typeof message !== 'undefined') { %>
-					 <div class="alert alert-danger ">
-						<%= message %>
-					 </div>
-					<% } %>
-					<div class="wrap-input100 validate-input" data-validate = "Enter Email">
-						<input class="input100" type="text" name="email" placeholder="Email">
+				<form method="post" id="adminLoginForm" class="login100-form validate-form p-b-33 p-t-5">
+					<div class="wrap-input100 validate-input" data-validate="Enter Email">
+						<input class="input100" type="text" id="email" name="email" placeholder="Email">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="password" placeholder="Password">
+						<input class="input100" type="password" id="password" name="password" placeholder="Password">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
 
@@ -61,26 +60,68 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
+
+	<script>
+		document.getElementById('adminLoginForm').addEventListener('submit', async (event) => {
+			event.preventDefault();
+
+			const formData = {
+				email: event.currentTarget.email.value,
+				password: event.currentTarget.password.value
+			}
+
+			const response = await fetch('./', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+
+			const result = await response.json();
+
+			if (result.status === 'success') {
+				Toastify({
+					text: result.message,
+					className: "info",
+                  style: {
+                     background: "linear-gradient(to right, #082400, #96c93d)",
+               	}
+				}).showToast();
+				setTimeout(() => {
+					location.href = '/admin/dashboard'
+				},2000);
+			} else {
+				Toastify({
+					text:result.message,
+					className: "info",
+                  style: {
+                     background: "linear-gradient(to right, #240400, #ff4c00)",
+                  }
+				}).showToast();
+			}
+		})
+	</script>
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/bootstrap/js/popper.js"></script>
 	<script src="/admin-login/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/daterangepicker/moment.min.js"></script>
 	<script src="/admin-login/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="/admin-login/js/main.js"></script>
 
 </body>
+
 </html>

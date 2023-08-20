@@ -9,10 +9,10 @@ const categorySchema = new mongoose.Schema({
       type:String,
       required:true,
    },
-   is_listed:{
+   is_deleted:{
       type:Boolean,
-      default:true,
+      default:false,
    }
 })
 
-module.exports = mongoose.model('catogory',categorySchema); 
+module.exports = mongoose.model('category',categorySchema); 
