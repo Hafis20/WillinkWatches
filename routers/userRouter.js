@@ -50,6 +50,9 @@ userRouter.post('/verifyotp',userController.verifyotp);
 // Load home page for user
 userRouter.get("/home",auth.isLogin,userController.loadHome);
 
+// Load single image of a product
+userRouter.get('/single-product',userController.loadSingleProduct);
+
 userRouter.get('/logout',userController.logoutUser);
 
 module.exports = userRouter;

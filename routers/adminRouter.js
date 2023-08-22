@@ -5,6 +5,8 @@ const adminRouter = express();
 //Session Handling 
 const session = require('express-session');
 
+// Path
+const path = require('path');
 
 adminRouter.use(session({
    secret:process.env.SECRET_ID,
@@ -23,6 +25,12 @@ const auth = require('../middleware/adminAuth');
 adminRouter.use(express.static('public'))
 adminRouter.set('view engine','ejs');
 adminRouter.set('views','./views/admin')
+
+// Multer
+const upload = require('../helpers/multer');
+
+
+// -------------------------------------ADMIN--------------------------------
 
 //Admin Controller
 const adminController = require('../controllers/adminController')
@@ -59,7 +67,16 @@ adminRouter.get('/list-products',adminController.loadProductList);
 adminRouter.get('/add-products',adminController.loadaddProducts);
 
 // add products
-adminRouter.post('/add-products',adminController.addProducts);
+adminRouter.post('/add-products',upload.single('images'),adminController.addProducts);
+
+// Load edit products
+adminRouter.get('/edit-products',adminController.loadEditProduct);
+
+// Edit products
+adminRouter.post('/edit-products',upload.single('images'),adminController.editProduct);
+
+// Delete Products
+adminRouter.get('/delete-products',adminController.deleteProduct);
 
 //---------------------------------------CATEGORY-----------------------------
 

@@ -1,6 +1,8 @@
 const User = require('../models/userModel');
 const Category = require('../models/categoryModel');
-const pass = require('../helpers/securePass')
+const Product = require('../models/productModel');
+const pass = require('../helpers/securePass');
+
 
 // Load admin Login page
 const loadLogin = async(req,res)=>{
@@ -142,7 +144,8 @@ const unBlockUser = async(req,res)=>{
 
 const loadProductList = async(req,res)=>{
    try {
-      res.render('list-products');
+      const products = await Product.find({is_deleted:false});
+      res.render('list-products',{products:products});
    } catch (error) {
       console.log(error.message);
    }
@@ -152,7 +155,10 @@ const loadProductList = async(req,res)=>{
 
 const loadaddProducts = async(req,res)=>{
    try {
-      res.render('add-products');
+      const category = await Category.find();
+      if(category){
+         res.render('add-products',{categories:category});
+      }
    } catch (error) {
       console.log(error.message);
    }
@@ -161,14 +167,82 @@ const loadaddProducts = async(req,res)=>{
 // add Products
 
 const addProducts = async(req,res)=>{
-   try {
+   try {  
+      const categoryName = req.body.category;
+      const categoryData = await Category.findOne({categoryName:categoryName});
+      
+      if(categoryData){
+         const productData = await Product.create({
+            productName:req.body.productName,
+            description:req.body.description,
+            category:categoryData._id,
+            regularPrice:req.body.regularPrice,
+            salePrice:req.body.salePrice,
+            images:req.file.filename,
+         })
+         await productData.save();
+         res.redirect('/admin/add-products')
+      }else{
+         console.log('data fetching error');
+      }
       
    } catch (error) {
       console.log(error.message);
    }
 }
 
+// Load edit products
 
+const loadEditProduct = async(req,res)=>{
+   try {
+      const id = req.query.id;
+      const productData = await Product.findById(id);
+      const categoryData = await Category.find();
+      if(productData){
+         res.render('edit-products',{products:productData,categories:categoryData});
+      }
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+// Edit the products 
+
+const editProduct = async(req,res)=>{
+   try {
+      const {productName, description, regularPrice, salePrice, category, 
+      id } = req.body
+      const UpdatedData = await Product.findByIdAndUpdate(id,
+         {$set:{
+            productName:productName,
+            description:description,
+            regularPrice:regularPrice,
+            salePrice:salePrice,
+            category:category,
+            images:req.file.filename,
+         }})
+         if(UpdatedData){
+            res.redirect('/admin/list-products')
+         }
+   } catch (error) {
+      console.log(error.message)
+   }
+}
+
+const deleteProduct = async(req,res)=>{
+   try {
+      const id = req.query.id;
+      const productData = await Product.findByIdAndUpdate(id,
+         {$set:{
+            is_deleted:true
+         }})
+         if(productData){
+            res.redirect('/admin/list-products');
+         }
+   } catch (error) {
+      console.log(error.message)
+   }
+}
 //=================================CATEGORY=================================
 
 
@@ -292,6 +366,9 @@ module.exports = {
    loadProductList,
    loadaddProducts,
    addProducts,
+   loadEditProduct, 
+   editProduct,
+   deleteProduct,
    //=====Category========
    loadaddCategories,
    addCategories,

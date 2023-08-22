@@ -1,6 +1,8 @@
 const User = require('../models/userModel'); // Require for User Schemama
 const pass = require('../helpers/securePass'); // Require for password hashing
 const otpGenerate = require('../helpers/otpGenerate');
+const Product = require('../models/productModel');
+const Category = require('../models/categoryModel');
 
 // Load the registration  for user when they call "/register or /"
 
@@ -110,7 +112,29 @@ const verifyUser = async(req,res)=>{
 
 //Rendering the home page
 const loadHome = async(req,res)=>{
-   res.render('home');
+   try {
+      const productData = await Product.find({is_deleted:false});
+      if(productData){
+         res.render('home',{products : productData});
+      }
+   } catch (error) {
+      console.log(error.message)
+   }
+}
+
+
+// Load Single Product
+const loadSingleProduct = async(req,res)=>{
+   try {
+      const id = req.query.id;
+      const productData = await Product.findById(id);
+      if(productData){
+         const productCategory = await Category.findById(productData.category)
+         res.render('single-product',{product:productData,category:productCategory});
+      }
+   } catch (error) {
+      console.log(error.message)
+   }
 }
 
 // User logout 
@@ -126,6 +150,7 @@ module.exports = {
    loadLogin,
    loadRegister,
    loadHome,
+   loadSingleProduct,
    insertUser,
    loadVerfiyOTP,
    verifyotp,
