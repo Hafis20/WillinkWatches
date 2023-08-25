@@ -9,9 +9,9 @@ const categorySchema = new mongoose.Schema({
       type:String,
       required:true,
    },
-   is_deleted:{
+   is_listed:{
       type:Boolean,
-      default:false,
+      default:true,
    }
 })
 

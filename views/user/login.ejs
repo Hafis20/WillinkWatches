@@ -142,7 +142,7 @@
 							</div>
 						  <% } %>
 						<h3>Log in to enter</h3>
-						<form class="row login_form" onsubmit="return validateForm()" action=""  method="post" id="contactForm">
+						<form class="row login_form"  action=""  method="post" id="LoginForm">
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
 								<p style="color: red;" id="emailError"></p>
@@ -152,7 +152,7 @@
 								<p  style="color: red;" id="passwordError"></p>
 							</div>
 							<div class="col-md-12 form-group">
-								<button value="submit" class="primary-btn">Log In</button>
+								<button type="submit" class="primary-btn">Log In</button>
 								<a href="#">Forgot Password?</a>
 							</div>
 						</form>
@@ -243,9 +243,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 	<!-- End footer Area -->
 	<script>
-		document.getElementById('contactForm').addEventListener('submit',async (event)=>{
+		document.getElementById('LoginForm').addEventListener('submit',async (event)=>{
 			event.preventDefault()
-			const formData = {
+
+			const isValid = loginValidate()
+			
+			if(isValid){
+				const formData = {
 				email: event.currentTarget.email.value,
 				password: event.currentTarget.password.value,
 			};
@@ -258,7 +262,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				body: JSON.stringify(formData),
 			});
 
-		const result = await response.json();
+			const result = await response.json();
 		
 			if(result.status === 'success'){
 				Toastify({
@@ -271,15 +275,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					setTimeout(()=>{
 						location.href = '/home'; 
 					}, 1000)
-			}else{
-				Toastify({
-					text: result.message,
-					className: "info",
-					style: {
-						background: "linear-gradient(to right, #240400, #ff4c00)",
-					}
+				}else{
+					Toastify({
+						text: result.message,
+						className: "info",
+						style: {
+							background: "linear-gradient(to right, #240400, #ff4c00)",
+						}
 					}).showToast();
+				}
 			}
+			
 		})
 	</script>
 
@@ -297,7 +303,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="/user-assets/js/gmaps.min.js"></script>
 	<script src="/user-assets/js/main.js"></script>
-	<script src="/user-assets/js/loginValidation.js"></script>
+	<script src="/js/userLoginValidation.js"></script>
 
 </body>
 

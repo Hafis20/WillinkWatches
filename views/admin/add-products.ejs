@@ -17,6 +17,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
     <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -200,33 +202,51 @@
                             <h4>Basic</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action=" " enctype="multipart/form-data">
+                            <form method="post" onsubmit="return addProductValidate()" action="" id="addProductForm" enctype="multipart/form-data">
+                                <% if (typeof message !== 'undefined') { %>
+                                    <div class="alert alert-success">
+                                        <%- message %>
+                                    </div>
+                                    <script>
+                                        // Set a timeout to hide the success message after 5 seconds
+                                        setTimeout(function() {
+                                            var successAlert = document.querySelector('.alert-success');
+                                            if (successAlert) {
+                                                successAlert.style.display = 'none';
+                                            }
+                                        }, 5000); // 5000 milliseconds = 5 seconds
+                                    </script>
+                                <% } %>
                                 <div class="mb-4">
                                     <label for="productName" class="form-label">Product Name</label>
-                                    <input name="productName" type="text" placeholder="Type here" class="form-control" id="product_name">
+                                    <input name="productName" type="text" placeholder="Type here" class="form-control" id="productName">
+                                    <p style="color: red;" id="productNameError"></p>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label">Description</label>
-                                    <textarea name="description" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                    <textarea name="description" id="description" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                    <p style="color: red;" id="descriptionError"></p>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-4">
                                             <label class="form-label">Regular price</label>
                                             <div class="row gx-2">
-                                                <input name="regularPrice" placeholder="&#8377" type="text" class="form-control">
+                                                <input name="regularPrice" id="regularPrice" placeholder="&#8377" type="text" class="form-control">
+                                                <p style="color: red;" id="regularPriceError"></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-4">
                                             <label class="form-label">Selling price</label>
-                                            <input name="salePrice" placeholder="&#8377" type="text" class="form-control">
+                                            <input  name="salePrice" id="salePrice" placeholder="&#8377" type="text" class="form-control">
+                                            <p style="color: red;" id="salePriceError"></p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <label class="form-label">Category</label>
-                                        <select name="category" class="form-select">
+                                        <select id="category" name="category" class="form-select">
                                             <% categories.forEach(category => { %>
                                                 <option><%- category.categoryName %></option>
                                             <% }); %>
@@ -241,7 +261,7 @@
                                         <div class="card-body ">
                                             <div class="input-upload">
                                                 <img src="/assets/imgs/theme/upload.svg" alt="">
-                                                <input name="images" class="form-control" type="file">
+                                                <input value="" id="images" name="images" class="form-control" multiple required type="file">
                                             </div>
                                         </div>
                                     </div> <!-- card end// -->
@@ -278,6 +298,7 @@
     <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="/assets/js/main.js" type="text/javascript"></script>
+    <script src="/js/addProductValidate.js"></script>
 </body>
 
 

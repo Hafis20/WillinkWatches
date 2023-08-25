@@ -226,46 +226,56 @@
                     </div>
                 </header> <!-- card-header end// -->
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (products.length > 0) { %>
-                                <% for (let i = 0; i < products.length; i++) { %>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Edit</th>
+                                    <th>List/UnList</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (products.length > 0) { %>
+                                    <% for (let i = 0; i < products.length; i++) { %>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <img src="/assets/imgs/products/<%- products[i].images[0] %>" class="img-thumbnail" alt="Item" width="50">
+                                            </td>
+                                            <td class="align-middle"><%- products[i].productName %></td>
+                                            <td class="align-middle">&#8377;<%- products[i].salePrice %></td>
+                                            <td class="align-middle"><%- products[i].category%></td>
+                                            <td class="align-middle">
+                                                <a href="/admin/edit-products/?id=<%- products[i]._id %>" class="btn btn-sm btn-warning">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                            <% if (products[i].is_listed === true) { %>
+                                                <td class="align-middle">
+                                                    <a href="/admin/is-unlist-products/?id=<%- products[i]._id %>" class="btn btn-sm btn-danger unlist-btn">
+                                                            Unlist
+                                                    </a>
+                                                </td>
+                                            <% }else{ %>
+                                                <td class="align-middle">
+                                                    <a href="/admin/is-list-products/?id=<%- products[i]._id %>" class="btn btn-sm btn-success list-btn">
+                                                        List
+                                                    </a>
+                                                </td>
+                                            <% } %>
+                                        </tr>
+                                    <% } %>
+                                <% } else { %>
                                     <tr>
-                                        <td>
-                                            <img src="/assets/imgs/products/<%- products[i].images %>" class="img-thumbnail" alt="Item" width="50">
-                                        </td>
-                                        <td><%- products[i].productName %></td>
-                                        <td>&#8377;<%- products[i].salePrice %></td>
-                                        <td><%- products[i].category %></td>
-                                        <td>
-                                            <a href="/admin/edit-products/?id=<%- products[i]._id %>" class="btn btn-sm btn-warning">
-                                                Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/delete-products/?id=<%- products[i]._id %>" class="btn btn-sm btn-danger delete-btn">
-                                                <i class="material-icons md-delete_forever"></i> Delete
-                                            </a>
-                                        </td>
+                                        <td colspan="6" class="text-center">No products found.</td>
                                     </tr>
                                 <% } %>
-                            <% } else { %>
-                                <tr>
-                                    <td colspan="6">No products found.</td>
-                                </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                  <!-- card-body end// -->
             </div> <!-- card end// -->
@@ -287,13 +297,31 @@
     </main>
     <script>
         document.addEventListener('click',async(event)=>{
-            if(event.target.matches('.delete-btn')){
+            if(event.target.matches('.list-btn')){
+                event.preventDefault();
+
+                const response =await Swal.fire({
+                    title: "Confirm List",
+                    text: "Are you sure you want to list the Product?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#990f0f',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText:'No !'
+                });
+
+                if(response.isConfirmed){
+                    location.href = event.target.href;
+                }
+            }
+            if(event.target.matches('.unlist-btn')){
                 event.preventDefault();
 
                 const response = await Swal.fire({
-                    title: "Confirm Deletion",
-                    text: "Are you sure you want to delete the Product?",
-                    icon: "warning",
+                    title: "Confirm UnList",
+                    text: "Are you sure you want to unlist the Product?",
+                    icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#990f0f',

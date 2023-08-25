@@ -246,8 +246,13 @@
                                                     class="btn btn-md-edit rounded font-sm">Edit</a>
                                             </td>
                                             <td class="">
-                                                <a href="/admin/delete-categories?id=<%- categories[i]._id %>"
-                                                    class="btn btn-md-delete rounded font-sm delete-btn">Delete</a>
+                                                <% if (categories[i].is_listed === true) { %>
+                                                    <a href="/admin/is-unlist-categories?id=<%- categories[i]._id %>"
+                                                        class="btn btn-md-delete rounded font-sm  unlist-btn">Unlist</a>
+                                                <% }else{ %>
+                                                    <a href="/admin/is-list-categories?id=<%- categories[i]._id %>"
+                                                        class="btn btn-md-list rounded font-sm list-btn">List</a>
+                                                <% } %>
                                             </td>
                                         </tr>
                                     <% } %>
@@ -281,18 +286,36 @@
     </main>
     <script>
         document.addEventListener('click', async (event) => {
-            if (event.target.matches('.delete-btn')) {
-                event.preventDefault();
+            if(event.target.matches('.unlist-btn')){
+                event.preventDefault()
 
-                const confirmed = await Swal.fire({
-                    title: "Confirm Deletion",
-                    text: "Are you sure you want to delete the category?",
+                const result = await Swal.fire({
+                    title: "Confirm Unlisting",
+                    text: "Are you sure you want to unlist this category?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#990f0f',
-                    confirmButtonText: 'Yes',
-                    cancelButtonText:'No !'
+                    confirmButtonText: 'Yes, Unlist',
+                    cancelButtonText: 'Cancel'
+                })
+
+                if(result.isConfirmed){
+                    location.href = event.target.href;
+                }
+            }
+            if (event.target.matches('.list-btn')) {
+                event.preventDefault();
+
+                const confirmed = await Swal.fire({
+                    title: "Confirm List Action",
+                    text: "Are you certain you wish to perform this action?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#990f0f',
+                    confirmButtonText: 'Yes, Proceed',
+                    cancelButtonText: 'Cancel'
                     
                 });
                 if (confirmed.isConfirmed) {

@@ -52,9 +52,6 @@
                         <a href="/admin/list-products">Product List</a>
                         <a href="/admin/list-categories">Category List</a>
                         <a href="/admin/list-users" class="active">Users List</a>
-                        <div class="sub-menu">
-                            <a href="/admin/list-blocked-users">Blocked Users</a>
-                        </div>
                     </div>
                 </li>
                 <li class="menu-item has-submenu ">
@@ -237,7 +234,7 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Block</th>
+                                    <th scope="col">Block/Unblock</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -253,8 +250,14 @@
                                                     class="btn btn-md-edit rounded font-sm">Edit</a>
                                             </td>
                                             <td class="">
-                                                <a href="/admin/block-users?id=<%- users[i]._id %>"
-                                                    class="btn btn-md-block rounded font-sm block-btn<%= users[i].is_blocked ? 'btn-blocked' : '' %>">Block</a>
+                                                <% if (users[i].is_blocked === true) { %>
+                                                    <a href="/admin/unblock-users?id=<%- users[i]._id %>"
+                                                        class="btn btn-md-unblock rounded font-sm unblock-btn">Unblock</a>
+                                                <% }else{ %>
+                                                    <a href="/admin/block-users?id=<%- users[i]._id %>"
+                                                        class="btn btn-md-block rounded font-sm block-btn">Block</a>
+                                                <% } %>
+                                                
                                             </td>
                                         </tr>
                                         <% } %>
@@ -287,7 +290,9 @@
         </footer>
     </main>
     <script>
-        /// Its for block button
+
+        /// Its for block User
+
         document.addEventListener('click',async(event)=>{
             if(event.target.matches('.block-btn')){
                 event.preventDefault();
@@ -300,6 +305,30 @@
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
                     confirmButtonText: 'Yes, block!',
+                    cancelButtonText: 'Cancel'
+                    
+                })
+                if(response.isConfirmed){
+                    location.href = event.target.href;
+                }
+                
+            }
+        })
+
+        // For unblocking the user
+
+        document.addEventListener('click',async(event)=>{
+            if(event.target.matches('.unblock-btn')){
+                event.preventDefault();
+
+                const response = await Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This action will unblock the user.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, Unblock!',
                     cancelButtonText: 'Cancel'
                     
                 })

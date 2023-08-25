@@ -29,7 +29,7 @@ const insertUser = async(req,res)=>{
          res.json({status:'error',message:"Mobile Number Already Exists"});
       }
       else{
-         req.session.user = req.body;
+         req.session.tempUser = req.body;
          await otpGenerate.sendVerificationCode(req.body.mobile)
          .then(() => {
             // Redirecting the otp page after getting otp
@@ -61,10 +61,10 @@ const loadVerfiyOTP = async(req,res)=>{
 const verifyotp = async(req,res)=>{
    const otp = req.body.otp;
    try {
-      const mobileNumber = req.session.user.mobile;
+      const mobileNumber = req.session.tempUser.mobile;
       const verificationResult = await otpGenerate.verifyOTP(mobileNumber,otp)
       if(verificationResult.status === 'approved'){
-         const userData = req.session.user;
+         const userData = req.session.tempUser;
          const spassword = await pass.securePassword(userData.password);
          const user = await User.create({
             firstName:userData.firstName,
@@ -97,8 +97,12 @@ const verifyUser = async(req,res)=>{
       if(userData){
          const isMatch = await pass.checkPassword(password,userData.password);
          if(isMatch){
-            req.session.user = userData;
-            res.json({status : "success", message:'login successfull'})
+            if(userData.is_blocked === true){
+               res.json({status:'error',message:'You are blocked by user please contact with authority'})
+            }else{
+               req.session.user = userData;
+               res.json({status : "success", message:'login successfull'})
+            }
          }else{
             res.json({status : "error", message:'Email or password is incorrect'})
          }
@@ -113,7 +117,7 @@ const verifyUser = async(req,res)=>{
 //Rendering the home page
 const loadHome = async(req,res)=>{
    try {
-      const productData = await Product.find({is_deleted:false});
+      const productData = await Product.find({is_listed:true});
       if(productData){
          res.render('home',{products : productData});
       }
@@ -129,8 +133,7 @@ const loadSingleProduct = async(req,res)=>{
       const id = req.query.id;
       const productData = await Product.findById(id);
       if(productData){
-         const productCategory = await Category.findById(productData.category)
-         res.render('single-product',{product:productData,category:productCategory});
+         res.render('single-product',{product:productData});
       }
    } catch (error) {
       console.log(error.message)
@@ -152,8 +155,10 @@ module.exports = {
    loadHome,
    loadSingleProduct,
    insertUser,
+   //==Otp====
    loadVerfiyOTP,
    verifyotp,
    verifyUser,
+   //==Logout==
    logoutUser
 }

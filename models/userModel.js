@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
       type:Boolean,
       default:false
    },
+   address:[
+      {
+         
+      }
+   ]
 })
 
 module.exports = mongoose.model('user',userSchema);

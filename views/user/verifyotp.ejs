@@ -108,7 +108,7 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login</h1>
+					<h1>Verify OTP</h1>
 					<nav class="d-flex align-items-center">
 						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="category.html">Login</a>
@@ -138,8 +138,8 @@
 						<h3>Verify the OTP</h3>
 						<form class="row login_form" action="" method="post" id="otpForm" novalidate="novalidate">
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="otp" name="otp" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-								<p id="otpError"></p>
+								<input type="text" class="form-control" id="otp" name="otp" placeholder="Enter your otp" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<p style="color: red;" id="otpError"></p>
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn">Verify</button>
@@ -236,36 +236,40 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		document.getElementById('otpForm').addEventListener('submit',async(event)=>{
 			event.preventDefault();
 
-			const formData = {
-				otp:event.currentTarget.otp.value
-			}
-			const response = await fetch('/verifyotp',{
-				method:'post',
-				headers:{
-					'Content-Type':'application/json',
-				},
-				body:JSON.stringify(formData)
-			})
-			const result = await response.json();
+			const isValid = otpValidate();
 
-			if(result.status === 'success'){
-				Toastify({
-				text: result.message,
-				className: "info",
-  				style: {
-   	 			background: "linear-gradient(to right, #046407, #0aaa4f)",
-  				}
-				}).showToast();
-				setTimeout(()=>{
-					location.href = '/login';
-				},2000);
-			}else{
-				Toastify({
-				text: result.message,
-				style: {
-   	 			background: "linear-gradient(to right, #641204, #641204)",
-  				}
-				}).showToast();
+			if(isValid){
+					const formData = {
+					otp:event.currentTarget.otp.value
+				}
+				const response = await fetch('/verifyotp',{
+					method:'post',
+					headers:{
+						'Content-Type':'application/json',
+					},
+					body:JSON.stringify(formData)
+				})
+				const result = await response.json();
+
+				if(result.status === 'success'){
+					Toastify({
+					text: result.message,
+					className: "info",
+					style:{
+						background: "linear-gradient(to right, #046407, #0aaa4f)",
+					}
+					}).showToast();
+					setTimeout(()=>{
+						location.href = '/login';
+					},2000);
+				}else{
+					Toastify({
+					text: result.message,
+					style: {
+						background: "linear-gradient(to right, #641204, #641204)",
+					}
+					}).showToast();
+				}
 			}
 		})
 	</script>
@@ -284,6 +288,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="/user-assets/js/gmaps.min.js"></script>
 	<script src="/user-assets/js/main.js"></script>
+	<script src="/js/otpValidate.js"></script>
 </body>
 
 </html>

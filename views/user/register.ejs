@@ -136,7 +136,7 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Create An Account</h3>
-						<form  onsubmit="return validateForm()"  class="row login_form" action="" method="post" id="registerForm">
+						<form  class="row login_form" action="" method="post" id="registerForm" >
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'">
                         <p style="color: red;" id="fnameError"></p>
@@ -251,7 +251,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		document.getElementById('registerForm').addEventListener('submit',async(event)=>{
 			event.preventDefault();
 
-			const formData ={
+			const isValid = validateForm();
+
+			if(isValid){
+				const formData ={
 				firstName:event.currentTarget.firstName.value,
 				lastName:event.currentTarget.lastName.value,
 				email:event.currentTarget.email.value,
@@ -269,26 +272,28 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			const result = await response.json();
 
-			if(result.status === 'success'){
-				Toastify({
-					text: result.message,
-					className: "info",
-					style: {
-						background: "linear-gradient(to right, #082400, #96c93d)",
-					}
+				if(result.status === 'success'){
+					Toastify({
+						text: result.message,
+						className: "info",
+						style: {
+							background: "linear-gradient(to right, #082400, #96c93d)",
+						}
+						}).showToast();
+						setTimeout(()=>{
+							location.href = '/verifyotp'; 
+						}, 2000)
+				}else{
+					Toastify({
+						text: result.message,
+						className: "info",
+						style: {
+							background: "linear-gradient(to right, #240400, #ff4c00)",
+						}
 					}).showToast();
-					setTimeout(()=>{
-						location.href = '/verifyotp'; 
-					}, 2000)
-			}else{
-				Toastify({
-					text: result.message,
-					className: "info",
-					style: {
-						background: "linear-gradient(to right, #240400, #ff4c00)",
-					}
-				}).showToast();
+				}
 			}
+			
 		})
 	</script>
 
@@ -306,7 +311,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="/user-assets/js/gmaps.min.js"></script>
 	<script src="/user-assets/js/main.js"></script>
-   <script src="/user-assets/js/registerValidation.js"></script>
+   <script src="/js/registerValidation.js"></script>
 </body>
 
 </html>

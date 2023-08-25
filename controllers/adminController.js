@@ -1,6 +1,4 @@
-const User = require('../models/userModel');
-const Category = require('../models/categoryModel');
-const Product = require('../models/productModel');
+const User = require('../models/userModel'); 
 const pass = require('../helpers/securePass');
 
 
@@ -56,7 +54,7 @@ const loadDashboard = async(req,res)=>{
 
 const loadUsersList = async(req,res)=>{
    try {
-      const usersData = await User.find({is_admin:false,is_blocked:false});
+      const usersData = await User.find({is_admin:false});
       if(usersData){
          res.render('list-users',{users:usersData});
       }
@@ -115,15 +113,6 @@ const blockUser = async(req,res)=>{
       console.log(error.message)
    }
 }
-// Load unblock user list
-const loadBlockedUser = async(req,res)=>{
-   try {
-      const userData = await User.find({is_blocked:true});
-      res.render('list-blocked-users',{users:userData});
-   } catch (error) {
-      console.log(error.message);
-   }
-}
 // Unblock User
 const unBlockUser = async(req,res)=>{
    try {
@@ -132,214 +121,13 @@ const unBlockUser = async(req,res)=>{
          {$set:{
             is_blocked:false
          }})
-         res.redirect('/admin/list-blocked-users');
+         res.redirect('/admin/list-users');
    } catch (error) {
       console.log(error.message);
    }
 }
 
-// ================================PRODUCT==================================
 
-// Rendering the product list
-
-const loadProductList = async(req,res)=>{
-   try {
-      const products = await Product.find({is_deleted:false});
-      res.render('list-products',{products:products});
-   } catch (error) {
-      console.log(error.message);
-   }
-}
-
-// Load product add page
-
-const loadaddProducts = async(req,res)=>{
-   try {
-      const category = await Category.find();
-      if(category){
-         res.render('add-products',{categories:category});
-      }
-   } catch (error) {
-      console.log(error.message);
-   }
-}
-
-// add Products
-
-const addProducts = async(req,res)=>{
-   try {  
-      const categoryName = req.body.category;
-      const categoryData = await Category.findOne({categoryName:categoryName});
-      
-      if(categoryData){
-         const productData = await Product.create({
-            productName:req.body.productName,
-            description:req.body.description,
-            category:categoryData._id,
-            regularPrice:req.body.regularPrice,
-            salePrice:req.body.salePrice,
-            images:req.file.filename,
-         })
-         await productData.save();
-         res.redirect('/admin/add-products')
-      }else{
-         console.log('data fetching error');
-      }
-      
-   } catch (error) {
-      console.log(error.message);
-   }
-}
-
-// Load edit products
-
-const loadEditProduct = async(req,res)=>{
-   try {
-      const id = req.query.id;
-      const productData = await Product.findById(id);
-      const categoryData = await Category.find();
-      if(productData){
-         res.render('edit-products',{products:productData,categories:categoryData});
-      }
-   } catch (error) {
-      console.log(error.message);
-   }
-}
-
-// Edit the products 
-
-const editProduct = async(req,res)=>{
-   try {
-      const {productName, description, regularPrice, salePrice, category, 
-      id } = req.body
-      const UpdatedData = await Product.findByIdAndUpdate(id,
-         {$set:{
-            productName:productName,
-            description:description,
-            regularPrice:regularPrice,
-            salePrice:salePrice,
-            category:category,
-            images:req.file.filename,
-         }})
-         if(UpdatedData){
-            res.redirect('/admin/list-products')
-         }
-   } catch (error) {
-      console.log(error.message)
-   }
-}
-
-const deleteProduct = async(req,res)=>{
-   try {
-      const id = req.query.id;
-      const productData = await Product.findByIdAndUpdate(id,
-         {$set:{
-            is_deleted:true
-         }})
-         if(productData){
-            res.redirect('/admin/list-products');
-         }
-   } catch (error) {
-      console.log(error.message)
-   }
-}
-//=================================CATEGORY=================================
-
-
-// Load the add category page
-
-const loadaddCategories = async(req,res)=>{
-   try {
-      res.render('add-categories')
-   } catch (error) {
-      console.log(error.message);
-   }
-}
-
-// Add category
-
-const addCategories = async(req,res)=>{
-   try {
-      const {categoryName,discription} = req.body;
-      const nameExists = await Category.findOne({categoryName:categoryName});
-      if(nameExists){
-         res.json({status:'error',message:'Category is already Exists'})
-      }else{
-         const category = await Category.create({
-            categoryName :categoryName,
-            discription : discription,
-         });
-         const categoryData = await category.save()
-         res.json({status:'success',message:'Category added successfully'})
-      }
-   } catch (error) {
-      res.json({status:'error',message:'Feilds are required'});
-   }
-}
-// List category
-const listCategories = async(req,res)=>{
-   try {
-      const categories = await Category.find({is_deleted:false}).sort({categoryName:1});
-      res.render('list-categories',{categories:categories})      
-   } catch (error) {
-      console.log(error.message)
-   }
-}
-
-// Load Edit Category page 
-
-const loadEditCategories = async(req,res)=>{
-   try {
-      const id = req.query.id;
-      const category = await Category.findById(id,{is_deleted:false});
-      if(category){
-         res.render('edit-categories',{category:category});
-      }
-   } catch (error) {
-      console.log(error.message)
-   }
-}
-
-// Update Edited Catagory
-const editCategories = async(req,res)=>{
-   try {
-      const {categoryName,discription,id} = req.body
-      if(!categoryName){
-         res.json({status:'error',message:'Category Name is required'});
-      }else if(!discription){
-         res.json({status:'error',message:'Discription is required'});
-      }else{
-         const updateCategory = await Category.findByIdAndUpdate(id,
-            {$set:{
-               categoryName:categoryName,
-               discription:discription
-            }})
-            if(updateCategory){
-               res.json({status:'success',message:'Update successfull'})
-            }else{
-               res.json({status:'error',message:'Please check your data'})
-            }
-      }
-      
-   } catch (error) {
-      console.log(error.message)
-      res.json({status:'error',message:'Feild is required'})
-   }
-}
-// Delete Category
-
-const deleteCategories = async(req,res)=>{
-   try {
-      const id = req.query.id;
-      const category = await Category.findByIdAndUpdate(id,
-         {$set:{
-            is_deleted:true
-         }})
-      res.redirect('/admin/list-categories')
-   } catch (error) {
-      console.log(error)
-   }
-}
 // ======================================ADMIN LOGOUT================================
 
 const logoutAdmin = async(req,res)=>{
@@ -352,6 +140,7 @@ const logoutAdmin = async(req,res)=>{
 }
 
 module.exports = {
+   // ====Login=====
    loadLogin,
    verifyAdmin,
    loadDashboard,
@@ -360,22 +149,7 @@ module.exports = {
    loadEditUsers,
    editUsers,
    blockUser,
-   loadBlockedUser,
    unBlockUser,
-   //=====Product========
-   loadProductList,
-   loadaddProducts,
-   addProducts,
-   loadEditProduct, 
-   editProduct,
-   deleteProduct,
-   //=====Category========
-   loadaddCategories,
-   addCategories,
-   listCategories,
-   loadEditCategories,
-   editCategories,
-   deleteCategories,
    //======Logout========
    logoutAdmin,
 }
