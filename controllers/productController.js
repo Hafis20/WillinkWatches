@@ -81,6 +81,11 @@ const editProduct = async(req,res)=>{
          for(let i=0;i<product.images.length;i++){
             images.push(product.images[i]);
          }
+      }else{
+         const product = await Product.findById(id);
+         for(let i = 0;i<product.images.length;i++){
+            images.unshift(product.images[i]);
+         }
       }
       const UpdatedData = await Product.findByIdAndUpdate(id,
          {$set:{
@@ -130,6 +135,7 @@ const listProducts = async(req,res)=>{
       console.log(error.message)
    }
 }
+
 
 module.exports = {
    //=====Product========

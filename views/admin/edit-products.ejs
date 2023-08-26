@@ -201,7 +201,7 @@
                             <h4>Basic</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" onsubmit="return addProductValidate()" action=""  enctype="multipart/form-data">
+                            <form method="post" onsubmit="return editProductValidate()" action=""  enctype="multipart/form-data">
                                 <div class="mb-4">
                                     <label for="productName" class="form-label">Product Name</label>
                                     <input  name="productName" value="<%- products.productName %>" type="text" placeholder="Type here" class="form-control" id="productName">
@@ -286,7 +286,7 @@
     <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="/assets/js/main.js" type="text/javascript"></script>
-    <script src="/js/addProductValidate.js"></script>
+    <script src="/js/editProductValidate.js"></script>
 </body>
 
 

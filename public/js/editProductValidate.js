@@ -1,18 +1,16 @@
 
-function addProductValidate(){
+function editProductValidate(){
    // Data
    const productName = document.getElementById('productName').value;
    const description = document.getElementById('description').value;
    const regularPrice = document.getElementById('regularPrice').value;
    const salePrice = document.getElementById('salePrice').value;
-   const images = document.getElementById('images');
 
    // Error feilds
    document.getElementById('productNameError').textContent = '';
    document.getElementById('descriptionError').textContent = '';
    document.getElementById('regularPriceError').textContent = '';
    document.getElementById('salePriceError').textContent = '';
-   document.getElementById('imagesError').textContent = ''
 
    let isValid = true;
    //handling
@@ -87,17 +85,6 @@ function addProductValidate(){
       },5000);
       isValid = false
    }
-
-   // Images
-   if(images.files.length < 2){
-      document.getElementById('imagesError').textContent = 'At least two Image is required'
-      setTimeout(()=>{
-         document.getElementById('imagesError').textContent = '';
-      },5000);
-      isValid = false
-   }
-
-
    return isValid;
 }
 

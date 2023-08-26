@@ -53,10 +53,18 @@ userRouter.post('/verifyotp',userController.verifyotp);
 //--------------------------------------HOME-------------------
 
 // Load home page for user
-userRouter.get("/home",auth.isLogin,userController.loadHome);
+userRouter.get("/home",userController.loadHome);
 
 // Load single image of a product
 userRouter.get('/single-product',auth.isLogin,userController.loadSingleProduct);
+
+// -----------------------------------SHOP---------------------------
+
+// Load all products
+userRouter.get('/show-all-products',userController.loadAllProducts);
+
+// Fiter based on category
+userRouter.get('/filter-products',userController.filterProducts);
 
 // -------------------------------------LOGOUT---------------------
 

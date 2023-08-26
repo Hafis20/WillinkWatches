@@ -16,29 +16,43 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title>Karma Shop</title>
+
 	<!--
-		CSS
-		============================================= -->
+            CSS
+            ============================================= -->
 	<link rel="stylesheet" href="/user-assets/css/linearicons.css">
+	<link rel="stylesheet" href="/user-assets/css/owl.carousel.css">
 	<link rel="stylesheet" href="/user-assets/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/user-assets/css/themify-icons.css">
-	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
-	<link rel="stylesheet" href="/user-assets/css/owl.carousel.css">
 	<link rel="stylesheet" href="/user-assets/css/nice-select.css">
 	<link rel="stylesheet" href="/user-assets/css/nouislider.min.css">
-	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.css" />
-	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.skinFlat.css" />
-	<link rel="stylesheet" href="/user-assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/user-assets/css/main.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<style>
-		.banner-content p{
-			color: #ffff;
+		/* Custom CSS for the filter dropdown */
+
+		.filter-link a {
+			 color: #000000; /* Change this color to your preferred color */
+			 text-decoration: none;
+			 transition: color 0.5s ease-in-out;
 		}
-	</style>
+
+		.filter-link a:hover {
+			 color: #ffba00; /* Change this color to the desired hover color */
+		}
+
+		.filter-icon {
+			 font-size: 18px;
+			 margin-right: 5px;
+		}
+		.filter-options {
+			font-size: 14px;
+		}
+  </style>
 </head>
 
-<body>
+<body id="category">
 
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -46,7 +60,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="/home"><img src="/user-assets/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="index.html"><img src="/user-assets/img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -56,12 +70,12 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+							<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="/show-all-products">Shop Category</a></li>
+									<li class="nav-item active"><a class="nav-link" href="/show-all-products">Shop Category</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
@@ -80,11 +94,12 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
@@ -98,7 +113,7 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between">
+				<form method="post" class="d-flex justify-content-between">
 					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
@@ -108,131 +123,99 @@
 	</header>
 	<!-- End Header Area -->
 
-	<!-- start banner Area -->
-	<section class="banner-area">
+	<!-- Start Banner Area -->
+	<section >
 		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-					<div >
-						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
-							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1>Watch New <br>Collection!</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								
-							</div>
-						</div>
-						<!-- single-slide -->
-					</div>
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Products Page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category.html">Fashon Category</a>
+					</nav>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- End banner Area -->
-
-	<section class="category-area">
-		<div class="container">
-			
-		</div>
-	</section>
-	<!-- End category Area -->
-
-	<!-- start product Area -->
-	<section>
-		<!-- single product slide -->
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1 class="">Latest Products</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-								dolore
-								magna aliqua.</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- single product -->
-					
-					<% if (products.length > 0) { %>
-					 <% for( let i = 0; i < products.length; i++ ) { %>
-						<div class="col-lg-3 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
-								<div class="product-details">
-									<h6><%- products[i].productName %></h6>
-									<div class="price">
-										<h6> &#x20B9;<%- products[i].salePrice %></h6>
-										<h6 class="l-through">&#x20B9;<%- products[i].regularPrice %></h6>
-									</div>
-									<div class="prd-bottom">
 	
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="d-flex justify-content-end filter-link">
+			<ul>
+				<li class="nav-item dropdown submenu">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">
+						<i class="fas fa-filter"></i> FILTER
+					</a>
+					<ul class="dropdown-menu">
+						<li class="nav-item"><a class="nav-link filter-options " href="/show-all-products">ALL PRODUCTS</a></li>
+						<% for( let i = 0; i < categories.length; i++ ) { %>
+							<li class="nav-item"><a class="nav-link filter-options" href="/filter-products/?id=<%- categories[i]._id %>"><%- categories[i].categoryName %></a></li>
+						<% } %>
+						
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-xl-12 col-lg-12 col-md-7 col-12">
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="row">
+						<!-- single product -->
+						<% if (products.length >0) { %>
+							<% for( let i = 0; i < products.length; i++ ) { %>
+								<div class="col-lg-3 col-md-6">
+									<div class="single-product">
+										<img class="img-fluid" src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
+										<div class="product-details">
+											<h6><%- products[i].productName %></h6>
+											<div class="price">
+												<h6> &#x20B9;<%- products[i].salePrice %></h6>
+												<h6 class="l-through"> &#x20B9;<%- products[i].regularPrice %></h6>
+											</div>
+											<div class="prd-bottom">
+		
+												<a href="" class="social-info">
+													<span class="ti-bag"></span>
+													<p class="hover-text">add to bag</p>
+												</a>
+												<a href="" class="social-info">
+													<span class="lnr lnr-heart"></span>
+													<p class="hover-text">Wishlist</p>
+												</a>
+												<a href="" class="social-info">
+													<span class="lnr lnr-sync"></span>
+													<p class="hover-text">compare</p>
+												</a>
+												<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
+													<span class="lnr lnr-move"></span>
+													<p class="hover-text">view more</p>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					 <% } %>
-					<% }else{ %>
-						<h1>No Products Found</h1>
-					<% } %>
-				</div>
+							<% } %>
+							
+						<% }else{ %>
+							<div class="col-lg-12">
+								<div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+									 <h1>No Products Found</h1>
+								</div>
+						  </div>
+						<% } %>
+						
+				</section>
+				
+				
 			</div>
 		</div>
-		<!-- single product slide -->
-		
-	</section>
-	<!-- end product Area -->
-	<!-- Start brand Area -->
-	<section class="brand-area section_gap">
-		<div class="container">
-			<div class="row">
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="/user-assets/img/brand/1.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="/user-assets/img/brand/2.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="/user-assets/img/brand/3.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="/user-assets/img/brand/4.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="/user-assets/img/brand/5.png" alt="">
-				</a>
-			</div>
-		</div>
-	</section>
-	<!-- End brand Area -->
+	</div>
 
-
+	<!-- Start related-product Area -->
+	
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
 		<div class="container">
@@ -267,8 +250,8 @@
 									</div>
 
 									<!-- <div class="col-lg-4 col-md-4">
-												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  -->
+													<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+												</div>  -->
 								</div>
 								<div class="info"></div>
 							</form>
@@ -313,6 +296,75 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 	<!-- End footer Area -->
 
+	<!-- Modal Quick Product View -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="container relative">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="product-quick-view">
+					<div class="row align-items-center">
+						<div class="col-lg-6">
+							<div class="quick-view-carousel">
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="quick-view-content">
+								<div class="top">
+									<h3 class="head">Mill Oil 1000W Heater, White</h3>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="category">Category: <span>Household</span></div>
+									<div class="available">Availibility: <span>In Stock</span></div>
+								</div>
+								<div class="middle">
+									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
+										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+										warm feeling during the winter.</p>
+									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
+								</div>
+								<div class="bottom">
+									<div class="color-picker d-flex align-items-center">Color:
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+									</div>
+									<div class="quantity-container d-flex align-items-center mt-15">
+										Quantity:
+										<input type="text" class="quantity-amount ml-15" value="1" />
+										<div class="arrow-btn d-inline-flex flex-column">
+											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+										</div>
+
+									</div>
+									<div class="d-flex mt-20">
+										<a href="#" class="view-btn color-2"><span>Add to Cart</span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-heart"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
@@ -321,7 +373,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="/user-assets/js/jquery.nice-select.min.js"></script>
 	<script src="/user-assets/js/jquery.sticky.js"></script>
 	<script src="/user-assets/js/nouislider.min.js"></script>
-	<script src="/user-assets/js/countdown.js"></script>
 	<script src="/user-assets/js/jquery.magnific-popup.min.js"></script>
 	<script src="/user-assets/js/owl.carousel.min.js"></script>
 	<!--gmaps Js-->
