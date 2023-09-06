@@ -6,13 +6,16 @@ function addProductValidate(){
    const regularPrice = document.getElementById('regularPrice').value;
    const salePrice = document.getElementById('salePrice').value;
    const images = document.getElementById('images');
+   const stock = document.getElementById('stock').value;
 
    // Error feilds
    document.getElementById('productNameError').textContent = '';
    document.getElementById('descriptionError').textContent = '';
    document.getElementById('regularPriceError').textContent = '';
    document.getElementById('salePriceError').textContent = '';
-   document.getElementById('imagesError').textContent = ''
+   document.getElementById('imagesError').textContent = '';
+   document.getElementById('stockError').textContent = '';
+
 
    let isValid = true;
    //handling
@@ -50,7 +53,23 @@ function addProductValidate(){
       },5000);
       isValid = false
    }
+ // Stock validation
+   if(!validatePrice(stock)){
+      document.getElementById('stockError').textContent = 'Stock should be a positive number';
+      setTimeout(()=>{
+         document.getElementById('stockError').textContent = '';
+      },5000);
+      isValid = false
+   }
 
+   // Stock feild empty
+   if(stock.trim === ''){
+      document.getElementById('stockError').textContent = 'Stock is required';
+      setTimeout(()=>{
+         document.getElementById('stockError').textContent = '';
+      },5000);
+      isValid = false
+   }
    // Regular price valid price
 
    if(!validatePrice(regularPrice)){

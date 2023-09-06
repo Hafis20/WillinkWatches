@@ -39,6 +39,7 @@ const addProducts = async(req,res)=>{
             productName:req.body.productName,
             description:req.body.description,
             category:req.body.category.toUpperCase(),
+            stock:req.body.stock,
             regularPrice:req.body.regularPrice,
             salePrice:req.body.salePrice,
             images:images,
@@ -71,7 +72,7 @@ const loadEditProduct = async(req,res)=>{
 
 const editProduct = async(req,res)=>{
    try {
-      const {productName, description, regularPrice, salePrice, category, id } = req.body
+      const {productName, description, regularPrice, salePrice, stock, category, id } = req.body
       const images = [];
       for(let i=0;i<req.files.length;i++){
          images.push(req.files[i].filename);
@@ -93,6 +94,7 @@ const editProduct = async(req,res)=>{
             description:description,
             regularPrice:regularPrice,
             salePrice:salePrice,
+            stock:stock,
             category:category,
             images:images,
          }})

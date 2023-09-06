@@ -28,12 +28,7 @@ const userSchema = new mongoose.Schema({
    is_blocked:{
       type:Boolean,
       default:false
-   },
-   address:[
-      {
-         
-      }
-   ]
+   }
 })
 
 module.exports = mongoose.model('user',userSchema);

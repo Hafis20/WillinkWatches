@@ -227,7 +227,7 @@
                                     <p style="color: red;" id="descriptionError"></p>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="mb-4">
                                             <label class="form-label">Regular price</label>
                                             <div class="row gx-2">
@@ -236,14 +236,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="mb-4">
                                             <label class="form-label">Selling price</label>
                                             <input  name="salePrice" id="salePrice" placeholder="&#8377" type="text" class="form-control">
                                             <p style="color: red;" id="salePriceError"></p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label class="form-label">Stock</label>
+                                            <input  name="stock" id="stock" type="text" class="form-control">
+                                            <p style="color: red;" id="stockError"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
                                         <label class="form-label">Category</label>
                                         <select id="category" name="category" class="form-select">
                                             <% categories.forEach(category => { %>

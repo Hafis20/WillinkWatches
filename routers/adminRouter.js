@@ -41,63 +41,63 @@ const categoryController = require('../controllers/categoryController');
 adminRouter.get('/',auth.isLogout,adminController.loadLogin)
 
 // Verify It is original admin or not
-adminRouter.post('/',adminController.verifyAdmin)
+adminRouter.post('/',auth.isLogout,adminController.verifyAdmin)
 
 // Load the dashboard
-adminRouter.get('/dashboard',adminController.loadDashboard);
+adminRouter.get('/dashboard',auth.isLogin,adminController.loadDashboard);
 // --------------------------------------USERS--------------------------------
 
 //Load users list
-adminRouter.get('/list-users',adminController.loadUsersList);
+adminRouter.get('/list-users',auth.isLogin,adminController.loadUsersList);
 
 // Edit User
-adminRouter.get('/edit-users',adminController.loadEditUsers);
-adminRouter.post('/edit-users',adminController.editUsers);
+adminRouter.get('/edit-users',auth.isLogin,adminController.loadEditUsers);
+adminRouter.post('/edit-users',auth.isLogin,adminController.editUsers);
 
 // Block User
-adminRouter.get('/block-users',adminController.blockUser);
+adminRouter.get('/block-users',auth.isLogin,adminController.blockUser);
 // Load blocked Users list
-adminRouter.get('/unblock-users',adminController.unBlockUser)
+adminRouter.get('/unblock-users',auth.isLogin,adminController.unBlockUser)
 
 
 //---------------------------------------PRODUCTS-----------------------------
 
 // Load products List
-adminRouter.get('/list-products',productController.loadProductList);
+adminRouter.get('/list-products',auth.isLogin,productController.loadProductList);
 
 // Load add products
-adminRouter.get('/add-products',productController.loadaddProducts);
+adminRouter.get('/add-products',auth.isLogin,productController.loadaddProducts);
 
 // add products
 adminRouter.post('/add-products',upload.array('images'),productController.addProducts);
 
 // Load edit products
-adminRouter.get('/edit-products',productController.loadEditProduct);
+adminRouter.get('/edit-products',auth.isLogin,productController.loadEditProduct);
 
 // Edit products
 adminRouter.post('/edit-products',upload.array('images'),productController.editProduct);
 
 // Delete Products
-adminRouter.get('/is-unlist-products',productController.unListProducts);
+adminRouter.get('/is-unlist-products',auth.isLogin,productController.unListProducts);
 
-adminRouter.get('/is-list-products',productController.listProducts)
+adminRouter.get('/is-list-products',auth.isLogin,productController.listProducts)
 
 //---------------------------------------CATEGORY-----------------------------
 
 // Load add Categories
-adminRouter.get('/add-categories',categoryController.loadaddCategories);
-adminRouter.post('/add-categories',categoryController.addCategories);
+adminRouter.get('/add-categories',auth.isLogin,categoryController.loadaddCategories);
+adminRouter.post('/add-categories',auth.isLogin,categoryController.addCategories);
 
 // List Categories
-adminRouter.get('/list-categories',categoryController.loadCategories);
+adminRouter.get('/list-categories',auth.isLogin,categoryController.loadCategories);
 
 // Edit Category
-adminRouter.get('/edit-categories',categoryController.loadEditCategories);
-adminRouter.post('/edit-categories',categoryController.editCategories);
+adminRouter.get('/edit-categories',auth.isLogin,categoryController.loadEditCategories);
+adminRouter.post('/edit-categories',auth.isLogin,categoryController.editCategories);
 
 // List/Unlist Category
-adminRouter.get('/is-unlist-categories',categoryController.unListCategories);
-adminRouter.get('/is-list-categories',categoryController.listCategories);
+adminRouter.get('/is-unlist-categories',auth.isLogin,categoryController.unListCategories);
+adminRouter.get('/is-list-categories',auth.isLogin,categoryController.listCategories);
 
 //--------------------------------------------------------------------------
 

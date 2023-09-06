@@ -3,6 +3,7 @@ const pass = require('../helpers/securePass'); // Require for password hashing
 const otpGenerate = require('../helpers/otpGenerate');
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
+const Address = require('../models/addressModel');
 
 // Load the registration  for user when they call "/register or /"
 
@@ -125,7 +126,7 @@ const verifyUser = async(req,res)=>{
 //Rendering the home page
 const loadHome = async(req,res)=>{
    try {
-      const productData = await Product.find({is_listed:true}).limit(4);
+      const productData = await Product.find({is_listed:true}).sort({date:-1}).limit(4);
       if(productData){
          res.render('home',{products : productData});
       }
@@ -160,6 +161,8 @@ const loadAllProducts = async(req,res)=>{
    }
 }
 
+// Filter Product using category
+
 const filterProducts = async(req,res)=>{
    try {
       const id = req.query.id;
@@ -171,6 +174,74 @@ const filterProducts = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+// Search Products using name
+
+const searchProducts = async(req,res)=>{
+   try {
+      const regex = req.body.regex
+      const products = await Product.find({productName:{$regex:regex,$options:'i'}});
+      const categories = await Category.find();
+      res.render('all-products',{products,categories})
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+// User Profile
+const userProfile = async(req,res)=>{
+   try {
+      res.render('user-profile');
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+
+// Adding address 
+
+const addingAddress = async(req,res)=>{
+   try {
+      const {name,mobile,homeAddress,city,street,postalCode} = req.body;
+      // console.log(name)
+      // console.log(mobile)
+      // console.log(homeAddress)
+      // console.log(city)
+      // console.log(street)
+      // console.log(postalCode)
+
+      let newAddress ={
+         name:name,
+         mobile:mobile,
+         homeAddress:homeAddress,
+         city:city,
+         street:street,
+         postalCode:postalCode,
+         isDefault:false,
+      }
+      const user_id  = req.session.user._id;
+      let userAddress = await Address.findOne({userId:user_id});
+
+      if(!userAddress){
+         newAddress.isDefault = true;
+         userAddress = new Address({userId:user_id,address:[newAddress]});
+      }else{
+         userAddress.address.push(newAddress);
+
+         if(userAddress.address.length === 1){
+            userAddress.address[0].isDefault = true;
+         }
+      }
+       
+      await userAddress.save();
+      // console.log(userAddress);
+      res.json({status:'success'});
+   } catch (error) {
+      console.log(error.message);
+      res.json({status:'error'});
+   }
+}
+
 
 // User logout 
 const logoutUser = async (req,res)=>{
@@ -187,8 +258,13 @@ module.exports = {
    loadHome,
    loadSingleProduct,
    insertUser,
+   // --Products--
    loadAllProducts,
    filterProducts,
+   searchProducts,
+   userProfile,
+   //-- Address --
+   addingAddress,
    //==Otp====
    loadVerfiyOTP,
    verifyotp,

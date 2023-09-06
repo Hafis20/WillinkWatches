@@ -13,8 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Morgan
-const logger = require('morgan');
-app.use(logger('dev'))
+// const logger = require('morgan');
+// app.use(logger('dev'))
 
 // User router
 const userRouter = require('./routers/userRouter');

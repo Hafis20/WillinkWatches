@@ -28,8 +28,11 @@
 	<link rel="stylesheet" href="/user-assets/css/nouislider.min.css">
 	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/user-assets/css/main.css">
+	<!-- Option 1: Include in HTML -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-	<style>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
 		/* Custom CSS for the filter dropdown */
 
 		.filter-link a {
@@ -60,7 +63,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="/user-assets/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="/home"><h1 style="font-weight: bold;">Willink Watches</h1></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -101,10 +104,11 @@
 							</li>
 							
 						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
-							<li class="nav-item">
-								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+						<ul class="nav navbar-nav navbar-right d-flex align-items-center">
+							<li class="nav-item"><a href="/user-profile" class="profile-icon"><span style="font-size: 22px; width: 30px; height: 30px;" class="bi bi-person"></span></a></li>
+							<li class="nav-item"><a href="/cart" class="cart"><span style="font-size: 20px; width: 30px; height: 30px;" class="bi bi-cart"></span></a></li>
+							<li class="nav-item"> 
+								<button class="search"><span style="font-size: 16px; width: 30px; height: 30px;" class="bi bi-search" id="search"></span></button>
 							</li>
 						</ul>
 					</div>
@@ -114,7 +118,7 @@
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form method="post" class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<input name="regex" type="text" class="form-control" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -122,22 +126,22 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-
+	
 	<!-- Start Banner Area -->
 	<section >
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Products Page</h1>
-					<nav class="d-flex align-items-center">
-						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Fashon Category</a>
-					</nav>
 				</div>
 			</div>
 		</div>
 	</section>
+	<section>
+		<div class="container">
+			 <h1 class="text-center">SHOP</h1> 
+			 <!-- Add this line -->
+		</div>
+  </section>
 	
 	<!-- End Banner Area -->
 	<div class="container">
@@ -168,7 +172,7 @@
 							<% for( let i = 0; i < products.length; i++ ) { %>
 								<div class="col-lg-3 col-md-6">
 									<div class="single-product">
-										<img class="img-fluid" src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
+										<img class="img-fluid" style="height: 300px; width: 300px;" src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
 										<div class="product-details">
 											<h6><%- products[i].productName %></h6>
 											<div class="price">
@@ -177,7 +181,8 @@
 											</div>
 											<div class="prd-bottom">
 		
-												<a href="" class="social-info">
+												<a type="button" href="" data-productId="<%-products[i]._id  %>" 
+													 class="social-info addToCart">
 													<span class="ti-bag"></span>
 													<p class="hover-text">add to bag</p>
 												</a>
@@ -363,7 +368,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 
+	<script>
+		 const addToCartButtons = document.querySelectorAll('.addToCart');
 
+			addToCartButtons.forEach(button => {
+				button.addEventListener('click', async (event) => {
+					event.preventDefault();
+
+				const productId = button.getAttribute('data-productId'); // Get data-id attribute
+
+				const response = await fetch(`/add-to-cart/?productId=${productId}`);
+				const result = await response.json();
+				if(result.status === 'success'){
+					Swal.fire({
+					icon: 'success',
+					title: 'Added to Cart',
+					showConfirmButton: false,
+					timer: 1500
+					})
+				}else{
+					Swal.fire({
+					icon: 'error',
+					title: 'Something went wrong',
+					showConfirmButton: false,
+					timer: 1500
+					})
+				}
+			});
+		});
+		
+	</script>
 
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

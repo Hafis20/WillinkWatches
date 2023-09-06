@@ -19,6 +19,10 @@ userRouter.use(nocache());
 
 const userController = require("../controllers/userController");
 
+// Cart Controller
+
+const cartController = require('../controllers/cartController');
+
 // Authentication
 
 const auth = require('../middleware/userAuth')
@@ -65,6 +69,31 @@ userRouter.get('/show-all-products',userController.loadAllProducts);
 
 // Fiter based on category
 userRouter.get('/filter-products',userController.filterProducts);
+
+// Search products 
+userRouter.post('/show-all-products',userController.searchProducts);
+
+
+// -------------------------------------CART------------------------
+
+// Load cart page
+userRouter.get('/cart',auth.isLogin,cartController.loadCart);
+
+// Add to cart
+userRouter.get('/add-to-cart',auth.isLogin,cartController.addToCart);
+
+// Incriment the quantity
+
+userRouter.post('/update-quantity',auth.isLogin,cartController.updateQuantity);
+
+userRouter.get('/checkout',auth.isLogin,cartController.loadCheckOut);
+
+userRouter.get('/confirmation',auth.isLogin,cartController.loadConfirmation);
+
+// ----------------------------------ADDRESS MANAGEMENT--------------------
+userRouter.post('/add-address',auth.isLogin,userController.addingAddress);
+// -------------------------------------USER PROFILE ------------------
+userRouter.get('/user-profile',auth.isLogin,userController.userProfile);
 
 // -------------------------------------LOGOUT---------------------
 
