@@ -7,6 +7,7 @@ const ordersModel = new mongoose.Schema({
    },
    date:{
       type:Date,
+      default:Date.now,
       required:true,
    },
    totalAmount:{
@@ -32,8 +33,30 @@ const ordersModel = new mongoose.Schema({
       }
    }],
    address:{
-      type:mongoose.Types.ObjectId,
-      required:true,
+      name:{
+         type:String,
+         required:true,
+      },
+      mobile:{
+         type:Number,
+         required:true,
+      },
+      homeAddress:{
+         type:String,
+         required:true,
+      },
+      city:{
+         type:String,
+         required:true,
+      },
+      street:{
+         type:String,
+         required:true,
+      },
+      postalCode:{
+         type:Number,
+         required:true
+      }
    },
    orderStatus:{
       type:String,
@@ -41,3 +64,4 @@ const ordersModel = new mongoose.Schema({
    }
 })
 
+module.exports = mongoose.model('Order',ordersModel);

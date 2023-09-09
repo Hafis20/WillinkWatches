@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+   <!-- Mobile Specific Meta -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Favicon-->
+   <link rel="shortcut icon" href="/user-assets/img/fav.png">
+   <!-- Author Meta -->
+   <meta name="author" content="CodePixar">
+   <!-- Meta Description -->
+   <meta name="description" content="">
+   <!-- Meta Keyword -->
+   <meta name="keywords" content="">
+   <!-- meta character set -->
+   <meta charset="UTF-8">
+   <!-- Site Title -->
+   <title>Karma Shop</title>
+
+   <!--
+            CSS
+            ============================================= -->
+   <link rel="stylesheet" href="/user-assets/css/linearicons.css">
+   <link rel="stylesheet" href="/user-assets/css/owl.carousel.css">
+   <link rel="stylesheet" href="/user-assets/css/themify-icons.css">
+   <link rel="stylesheet" href="/user-assets/css/font-awesome.min.css">
+   <link rel="stylesheet" href="/user-assets/css/nice-select.css">
+   <link rel="stylesheet" href="/user-assets/css/nouislider.min.css">
+   <link rel="stylesheet" href="/user-assets/css/bootstrap.css">
+   <link rel="stylesheet" href="/user-assets/css/main.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <style>
+      /* Style for the card */
+      .card {
+         border: 1px solid #f3efef;
+         border-radius: 8px;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+         margin-bottom: 20px;
+         background-color: rgb(14, 13, 13);
+      }
+
+      /* Style for the radio button and label */
+      .radion_btn {
+         display: flex;
+         align-items: center;
+         margin-bottom: 10px;
+      }
+
+      .radion_btn input[type="radio"] {
+         margin-right: 10px;
+      }
+
+      /* Style for the card text */
+      .card-text {
+         font-size: 14px;
+         color: #ffffff;
+      }
+
+      /* Optional: Style for the card header (if needed) */
+      .card-header {
+         background-color: #f8f9fa;
+         font-weight: bold;
+         padding: 10px;
+         border-bottom: 1px solid #e5e5e5;
+      }
+
+      .addAddress_form p {
+         color: red;
+      }
+
+      /* Style the radio button */
+      .radio_btn {
+         appearance: none;
+         /* Remove the default radio button appearance */
+         width: 15px;
+         /* Adjust the width of the radio button */
+         height: 15px;
+         /* Adjust the height of the radio button */
+         border: 1px solid #09b01a;
+         /* Border color */
+         border-radius: 10%;
+         /* Make it round */
+         outline: none;
+         /* Remove the outline when focused */
+         cursor: pointer;
+         /* Add a pointer cursor */
+         vertical-align: middle;
+         /* Center it vertically with the label */
+         margin-right: 10px;
+         /* Add some spacing between the radio button and label */
+      }
+
+      /* Style the radio button when checked */
+      .radio_btn:checked {
+         background-color: #09b01a;
+         /* Background color when checked */
+      }
+
+      /* Style the radio button label */
+      label {
+         font-size: 14px;
+         /* Label text size */
+         color: #000000;
+         /* Label text color */
+         margin-bottom: 10px;
+      }
+   </style>
+</head>
+
+<body>
+
+   <!-- Start Header Area -->
+   <header class="header_area sticky-header">
+      <div class="main_menu">
+         <nav class="navbar navbar-expand-lg navbar-light main_box">
+            <div class="container">
+               <!-- Brand and toggle get grouped for better mobile display -->
+               <a class="navbar-brand logo_h" href="/home">
+                  <h1 style="font-weight: bold;">Willink Watches</h1>
+               </a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+               </button>
+               <!-- Collect the nav links, forms, and other content for toggling -->
+               <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav menu_nav ml-auto">
+                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                     <li class="nav-item submenu dropdown active">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu">
+                           <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
+                           <li class="nav-item"><a class="nav-link" href="single-product.html">Product
+                                 Details</a></li>
+                           <li class="nav-item active"><a class="nav-link" href="checkout.html">Product
+                                 Checkout</a></li>
+                           <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
+                           <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="nav-item submenu dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Blog</a>
+                        <ul class="dropdown-menu">
+                           <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                           <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="nav-item submenu dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu">
+                           <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                           <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
+                           <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                        </ul>
+                     </li>
+                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item"><a href="/user-profile" class="profile-icon"><span
+                                 style="font-size: 22px; width: 30px; height: 30px;" class="bi bi-person"></span></a>
+                        </li>
+                        <li class="nav-item"><a href="/cart" class="cart"><span
+                                 style="font-size: 20px; width: 30px; height: 30px;" class="bi bi-cart"></span></a></li>
+                     </ul>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+      </div>
+
+   </header>
+   <!-- End Header Area -->
+
+   <!-- Start Banner Area -->
+   <section class="">
+      <div class="container">
+         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+
+         </div>
+      </div>
+   </section>
+   <section>
+      <div class="container">
+         <h1 class="text-center">EDIT ADDRESS</h1>
+         <!-- Add this line -->
+      </div>
+   </section>
+   <!-- End Banner Area -->
+
+   <!--================Checkout Area =================-->
+
+   <section class="checkout_area section_gap">
+      <div class="container">
+         <div class="billing_details">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h3>Edit Address</h3>
+                  <form class="row addAddress_form" id="editAddressForm" action="" method="post" novalidate="novalidate">
+                     <div class="col-md-6 form-group ">
+                        <input type="text" class="form-control" value="" id="name" name="name" placeholder="Name">
+                        <p id="nameError"></p>
+                     </div>
+                     <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" value="" id="mobileNumber" name="mobileNumber"
+                           placeholder="Phone number">
+                        <p id="mobileError"></p>
+                     </div>
+                     <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" value="" id="address" name="address" placeholder="Address">
+                        <p id="addressError"></p>
+                     </div>
+                     <div class="col-md-12 form-group ">
+                        <input type="text" class="form-control" value="" id="city" name="city" placeholder="Town/City">
+                        <p id="cityError"></p>
+                     </div>
+                     <div class="col-md-12 form-group ">
+                        <input type="text" class="form-control" value="" id="street" name="street" placeholder="Street">
+                        <p id="streetError"></p>
+                     </div>
+
+                     <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" value="" id="pcode" name="pcode" placeholder="Postcode">
+                        <p id="pcodeError"></p>
+                     </div>
+                     <input type="text" id="addressId" value="" hidden>
+                     <div class="col-12 col-md-12 form-group justify-content-center d-flex">
+                        <button type="submit" class="btn btn-primary">Edit Address</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--================End Checkout Area =================-->
+
+   <!-- start footer Area -->
+   <footer class="footer-area section_gap">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-3  col-md-6 col-sm-6">
+               <div class="single-footer-widget">
+                  <h6>About Us</h6>
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                     ut labore dolore
+                     magna aliqua.
+                  </p>
+               </div>
+            </div>
+            <div class="col-lg-4  col-md-6 col-sm-6">
+               <div class="single-footer-widget">
+                  <h6>Newsletter</h6>
+                  <p>Stay update with our latest</p>
+                  <div class="" id="mc_embed_signup">
+
+                     <form target="_blank" novalidate="true"
+                        action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                        method="get" class="form-inline">
+
+                        <div class="d-flex flex-row">
+
+                           <input class="form-control" name="EMAIL" placeholder="Enter Email"
+                              onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required=""
+                              type="email">
+
+
+                           <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
+                                 aria-hidden="true"></i></button>
+                           <div style="position: absolute; left: -5000px;">
+                              <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                           </div>
+
+                           <!-- <div class="col-lg-4 col-md-4">
+													<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+												</div>  -->
+                        </div>
+                        <div class="info"></div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3  col-md-6 col-sm-6">
+               <div class="single-footer-widget mail-chimp">
+                  <h6 class="mb-20">Instragram Feed</h6>
+                  <ul class="instafeed d-flex flex-wrap">
+                     <li><img src="/user-assets/img/i1.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i2.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i3.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i4.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i5.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i6.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i7.jpg" alt=""></li>
+                     <li><img src="/user-assets/img/i8.jpg" alt=""></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6">
+               <div class="single-footer-widget">
+                  <h6>Follow Us</h6>
+                  <p>Let us be social</p>
+                  <div class="footer-social d-flex align-items-center">
+                     <a href="#"><i class="fa fa-facebook"></i></a>
+                     <a href="#"><i class="fa fa-twitter"></i></a>
+                     <a href="#"><i class="fa fa-dribbble"></i></a>
+                     <a href="#"><i class="fa fa-behance"></i></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+            <p class="footer-text m-0">
+               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+               Copyright &copy;
+               <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+               made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+         </div>
+      </div>
+   </footer>
+   <!-- End footer Area -->
+
+   <script>
+      document.getElementById('editAddressForm').addEventListener('submit', async (event) => {
+         event.preventDefault()
+
+         const isValid = addressValidate();
+
+         if (isValid) {
+
+            const formData = {
+               name: event.currentTarget.name.value,
+               mobile: event.currentTarget.mobileNumber.value,
+               homeAddress: event.currentTarget.address.value,
+               city: event.currentTarget.city.value,
+               street: event.currentTarget.street.value,
+               postalCode: event.currentTarget.pcode.value,
+               addressId:event.currentTarget.addressId.value
+            }
+
+            const response = await fetch('/edit-address', {
+               method: 'post',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(formData)
+            })
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+               Swal.fire({
+                  icon: 'success',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1500
+               })
+               setTimeout(() => {
+                  location.href = '/manage-address'
+               }, 2000);
+            } else {
+               Swal.fire({
+                  icon: 'error',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1500
+               })
+            }
+         }
+      })
+
+   </script>
+
+
+   <script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+      integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+      crossorigin="anonymous"></script>
+   <script src="/user-assets/js/vendor/bootstrap.min.js"></script>
+   <script src="/user-assets/js/jquery.ajaxchimp.min.js"></script>
+   <script src="/user-assets/js/jquery.nice-select.min.js"></script>
+   <script src="/user-assets/js/jquery.sticky.js"></script>
+   <script src="/user-assets/js/nouislider.min.js"></script>
+   <script src="/user-assets/js/jquery.magnific-popup.min.js"></script>
+   <script src="/user-assets/js/owl.carousel.min.js"></script>
+   <!--gmaps Js-->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+   <script src="/user-assets/js/gmaps.min.js"></script>
+   <script src="/user-assets/js/main.js"></script>
+   <script src="/js/addressValidate.js"></script>
+</body>
+
+</html>

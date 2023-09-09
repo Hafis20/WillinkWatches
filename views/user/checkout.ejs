@@ -37,7 +37,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
-            background-color: rgb(203, 202, 202);
+            background-color: rgb(14, 13, 13);
         }
 
         /* Style for the radio button and label */
@@ -54,7 +54,7 @@
         /* Style for the card text */
         .card-text {
             font-size: 14px;
-            color: #333;
+            color: #ffffff;
         }
 
         /* Optional: Style for the card header (if needed) */
@@ -203,7 +203,7 @@
     <section class="checkout_area section_gap">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <% if (address.length> 0) { %>
                         <% for( let i=0; i < address.length; i++ ) { %>
                             <div class="card">
@@ -228,7 +228,17 @@
                                 </div>
                             </div>
                             <% } %>
-                                <% } %>
+                                <% }else{ %>
+                                    <div class="row justify-content-center mb-5">
+                                        <div class="card col-md-6 text-center bg-danger text-white">
+                                            <div class="card-body">
+                                                <h1 style="color: #ffffff;"><i class="bi bi-eye-slash"></i> Address Not
+                                                    Found </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <% } %>
                 </div>
             </div>
             <div class="billing_details">
@@ -285,7 +295,8 @@
 
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Grand Total <span> &#x20B9; <%- grandTotal %></span></a></li>
+                                <li><a href="#">Grand Total <span id="cartTotal" data-cartTotal="<%- grandTotal %>">
+                                            &#x20B9; <%- grandTotal %></span></a></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
@@ -296,7 +307,8 @@
                                 <p>If you take the cash on delivery, you only pay after it reached in your destination
                                 </p>
                             </div>
-                            <a class="primary-btn" id="placeOrder" href="/confirmation">Place order</a>
+                            <a class="primary-btn" id="placeOrder" data-addressCount="<%- address.length %>"
+                                href="">Place order</a>
                         </div>
                     </div>
                 </div>
@@ -444,9 +456,9 @@
 
     </script>
     <script>
-        document.getElementById('placeOrder').addEventListener('click', (event) => {
+        document.getElementById('placeOrder').addEventListener('click', async (event) => {
             event.preventDefault();
-
+            // Taking address id 
             const radioButtons = document.getElementsByName('address-option');
             let selectedRadioButtonId = null;
             for (const radioButton of radioButtons) {
@@ -455,9 +467,82 @@
                     break;
                 }
             }
-            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
-            console.log(paymentMethod)
-            console.log(selectedRadioButtonId);
+            const total = parseInt(document.getElementById('cartTotal').getAttribute('data-cartTotal'));
+            if (!selectedRadioButtonId) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Address Needed',
+                })
+            } else if (total === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Items'
+                })
+            } else {
+                // console.log(selectedRadioButtonId)
+                // Taking paymentMethod
+                const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
+                // console.log(paymentMethod)
+                const total = parseInt(document.getElementById('cartTotal').getAttribute('data-cartTotal'));
+                // console.log(total)
+
+                const data = {
+                    totalAmount: total,
+                    paymentMethod: paymentMethod,
+                    addressId: selectedRadioButtonId,
+                }
+
+                const response = await fetch('/place-order', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+
+                const result = await response.json()
+
+                if (result.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Placed',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(() => {
+                        location.href = `/confirmation/?orderId=${result.placedOrderId}`
+                    }, 1500);
+                } else if (result.status === 'LoginError') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    setTimeout(() => {
+                        location.href = '/login'
+                    }, 1500);
+                }
+                else if (result.status === 'BlockError') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    setTimeout(() => {
+                        location.href = '/login'
+                    }, 1500);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            }
+
 
         })
     </script>

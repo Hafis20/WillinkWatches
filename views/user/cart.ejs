@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="/user-assets/css/bootstrap.css">
     <link rel="stylesheet" href="/user-assets/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -159,7 +160,8 @@
                                         </td>
                                         <td>
                                             <div class="product_count">
-                                                <input type="text" name="qty" id="sst" maxlength="12" data-product-id="<%= products[i].productId._id %>"
+                                                <input type="text" name="qty" id="sst" maxlength="12"
+                                                    data-product-id="<%= products[i].productId._id %>"
                                                     value="<%- products[i].quantity %>" title="Quantity:"
                                                     class="input-text qty">
 
@@ -177,8 +179,8 @@
                                         </td>
                                         <td>
                                             <!-- Delete Icon -->
-                                            <a href="#" style="text-decoration: none; color: black;"
-                                                class="delete-product" data-product-id="<%= products[i].productId %>">
+                                            <a href="" style="text-decoration: none; color: black;"
+                                                class="removeProduct" data-productId="<%= products[i].productId._id %>">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
@@ -226,8 +228,10 @@
                                                     </td>
                                                     <td>
                                                         <div class="checkout_btn_inner d-flex justify-content-end">
-                                                            <a class="gray_btn" href="/show-all-products">Back</a>
-                                                            <a class="primary-btn" href="/checkout">Proceed to Checkout</a>
+                                                            <a class="gray_btn" href="/show-all-products">Shop</a>
+                                                            <a class="primary-btn" id="proceedBtn"
+                                                                data-productsCount="<%- products.length %>"
+                                                                href="/checkout">Proceed to Checkout</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -335,27 +339,27 @@
             console.log(productId)
             console.log(value)
 
-               
-                    const data = {
-                    proId: productId,
-                    count: value
-                };
 
-                const response = await fetch('/update-quantity', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
+            const data = {
+                proId: productId,
+                count: value
+            };
 
-                const result = await response.json();
+            const response = await fetch('/update-quantity', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-                if (result.status === 'success') {
-                    console.log('hello');
-                }
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                console.log('hello');
             }
-                
+        }
+
 
         function updateCartTotal() {
             const productRows = document.querySelectorAll('tbody tr'); // Get all product rows
@@ -385,24 +389,24 @@
 
 
         // Function to increase the quantity of a product
-        function increaseQuantity(inputField,productId,value) {
+        function increaseQuantity(inputField, productId, value) {
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue)) {
                 inputField.value = currentValue + 1;
                 updateQuantity(inputField);
-                changeQuantity(productId,value);
+                changeQuantity(productId, value);
                 updateCart(); // Update the cart total when the quantity changes
             }
         }
 
         // Function to decrease the quantity of a product
-        function decreaseQuantity(inputField,productId,value) {
+        function decreaseQuantity(inputField, productId, value) {
             console.log(productId)
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue) && currentValue > 1) {
                 inputField.value = currentValue - 1;
                 updateQuantity(inputField);
-                changeQuantity(productId,value);
+                changeQuantity(productId, value);
                 updateCart(); // Update the cart total when the quantity changes
             }
         }
@@ -436,11 +440,11 @@
             const productId = inputField.dataset.productId;
 
             increaseButton.addEventListener('click', function () {
-                increaseQuantity(inputField,productId,1);
+                increaseQuantity(inputField, productId, 1);
             });
 
             decreaseButton.addEventListener('click', function () {
-                decreaseQuantity(inputField,productId,-1);
+                decreaseQuantity(inputField, productId, -1);
             });
         });
 
@@ -452,7 +456,91 @@
 
     <!-- ... (other JavaScript includes) ... -->
 
+    <script>
+        // When the user click into the proceed button with out any product
+        document.getElementById('proceedBtn').addEventListener('click', (event) => {
+            event.preventDefault()
 
+            const productCount = parseInt(event.currentTarget.getAttribute('data-productsCount'));
+            // console.log(productCount)
+            if (productCount === 0) {
+                Swal.fire({
+                    title: 'Cart is Empty',
+                    icon: 'error',
+                })
+            } else {
+                location.href = event.currentTarget.href;
+            }
+        })
+    </script>
+
+    <script>
+        // Removing the product from cart
+        const removeBtn = document.querySelectorAll('.removeProduct');
+        removeBtn.forEach(btn => {
+            btn.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                const productId = event.currentTarget.getAttribute('data-productId');
+                // console.log(productId)
+                if (productId) {
+                    const response = await Swal.fire({
+                        title: "Are you Sure ",
+                        text: "To Remove Product from Cart",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#990f0f',
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No !'
+                    });
+
+                    if (response.isConfirmed) {
+                        const response = await fetch(`/remove-product/?productId=${productId}`);
+                        const result = await response.json();
+
+                        if (result.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Added to Cart',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        } else if (result.status === 'LoginError') {
+                            Swal.fire({
+                                icon: 'info',
+                                title: result.message,
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                            setTimeout(() => {
+                                location.href = '/login'
+                            }, 1500);
+                        }
+                        else if (result.status === 'BlockError') {
+                            Swal.fire({
+                                icon: 'info',
+                                title: result.message,
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                            setTimeout(() => {
+                                location.href = '/login'
+                            }, 1500);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Something went wrong',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    }
+                }
+
+            })
+        })
+    </script>
 
     <script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"

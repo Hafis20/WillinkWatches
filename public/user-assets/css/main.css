@@ -1574,15 +1574,10 @@ h1, h2, h3, h4, h5, h6 {
         transition: all 0.3s ease 0s;
         opacity: 0;
         visibility: hidden; }
-      .single-product .product-details .prd-bottom .social-info:hover {
-        width: 115px; }
+      /*  */
         .single-product .product-details .prd-bottom .social-info:hover span:after {
           opacity: 1;
           visibility: visible; }
-        .single-product .product-details .prd-bottom .social-info:hover .hover-text {
-          opacity: 1;
-          visibility: visible;
-          left: 40px; }
 
 /* end product area css
 ============================================================================================ */

@@ -99,7 +99,7 @@ function validateForm() {
 }
 
 // First name validation helper function
-function validateName(name) {
+ function validateName(name) {
   const namePattern = /^[A-Z][a-z]*$/;
   return namePattern.test(name);
 }

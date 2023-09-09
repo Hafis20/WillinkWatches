@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/user-assets/css/main.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 	</head>
 
 <body>
@@ -114,47 +116,40 @@
 	</section>
 	<section>
 		<div class="container">
-			 <h1 class="text-center">Order Received</h1>
-			 <!-- Add this line -->
+			 <h1 class="text-center">
+				  <i class="fas fa-check-circle text-success"></i> Order Placed
+			 </h1>
 		</div>
   </section>
+  
 	<!-- End Banner Area -->
 
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
 		<div class="container">
-			<h3 class="title_confirmation">Thank you. Your order has been received.</h3>
 			<div class="row order_d_inner">
-				<div class="col-lg-4">
+				<div class="col-lg-6 col-12 mb-2">
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
-							<li><a href="#"><span>Order number</span> : 60235</a></li>
-							<li><a href="#"><span>Date</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Total</span> : USD 2210</a></li>
-							<li><a href="#"><span>Payment method</span> : Check payments</a></li>
+							<li><a href="#"><span>Order number</span>: <%- orderDetails._id %></a></li>
+							<li><a href="#"><span>Date</span> : <%- orderDetails.date.toDateString() %></a></li>
+							<li><a href="#"><span>Total</span> : &#x20B9;  <%- orderDetails.totalAmount %></a></li>
+							<li><a href="#"><span>Payment method</span> : <%- orderDetails.paymentMethod %></a></li>
+							<li><a href="#"><span>Status</span> : <%- orderDetails.orderStatus %></a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="details_item">
-						<h4>Billing Address</h4>
-						<ul class="list">
-							<li><a href="#"><span>Street</span> : 56/8</a></li>
-							<li><a href="#"><span>City</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Country</span> : United States</a></li>
-							<li><a href="#"><span>Postcode </span> : 36952</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="details_item">
 						<h4>Shipping Address</h4>
 						<ul class="list">
-							<li><a href="#"><span>Street</span> : 56/8</a></li>
-							<li><a href="#"><span>City</span> : Los Angeles</a></li>
-							<li><a href="#"><span>Country</span> : United States</a></li>
-							<li><a href="#"><span>Postcode </span> : 36952</a></li>
+							<li><a href="#"><span>Name</span> : <%- orderDetails.address.name %></a></li>
+							<li><a href="#"><span>Mobile</span> : <%- orderDetails.address.mobile %></a></li>
+							<li><a href="#"><span>Home Address</span> : <%- orderDetails.address.homeAddress %></a></li>
+							<li><a href="#"><span>City </span> : <%- orderDetails.address.city %></a></li>
+							<li><a href="#"><span>Street </span> : <%- orderDetails.address.street %></a></li>
+							<li><a href="#"><span>Postal Code </span> : <%- orderDetails.address.postalCode %></a></li>
 						</ul>
 					</div>
 				</div>
@@ -163,7 +158,7 @@
 				<h2>Order Details</h2>
 				<div class="table-responsive">
 					<table class="table">
-						<thead>
+						<thead class="table-dark">
 							<tr>
 								<th scope="col">Product</th>
 								<th scope="col">Quantity</th>
@@ -171,61 +166,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
-								</td>
-								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Subtotal</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>$2160.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Shipping</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>Flat rate: $50.00</p>
-								</td>
-							</tr>
+							<% for( let i = 0; i < orderDetails.products.length; i++ ) { %>
+								<tr>
+									<td>
+										<p><%- orderDetails.products[i].productId.productName %></p>
+									</td>
+									<td>
+										<h5>x <%- orderDetails.products[i].quantity %></h5>
+									</td>
+									<td>
+										<p>&#x20B9; <%- orderDetails.products[i].total %></p>
+									</td>
+								</tr>
+							<% } %>
 							<tr>
 								<td>
 									<h4>Total</h4>
@@ -234,14 +187,20 @@
 									<h5></h5>
 								</td>
 								<td>
-									<p>$2210.00</p>
+									<p style="font-weight: bold;"> &#x20B9; <%- orderDetails.totalAmount %></p>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<div class="container mt-5">
+				<div class="row mt-2 justify-content-center">
+					<a href="/list-orders" class="btn btn-secondary col-md-6">Order Details</a>
+				</div>
+			</div>
 		</div>
+		
 	</section>
 	<!--================End Order Details Area =================-->
 

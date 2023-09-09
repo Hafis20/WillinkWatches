@@ -33,6 +33,7 @@ const upload = require('../helpers/multer');
 const adminController = require('../controllers/adminController');
 const productController = require('../controllers/productController');
 const categoryController = require('../controllers/categoryController');
+const ordersController = require('../controllers/ordersController');
 
 
 // -------------------------------------ADMIN--------------------------------
@@ -101,6 +102,10 @@ adminRouter.get('/is-list-categories',auth.isLogin,categoryController.listCatego
 
 //--------------------------------------------------------------------------
 
+//----------------------------------------------ORDERS-----------------------------
+adminRouter.get('/list-orders',auth.isLogin,ordersController.loadOrdersPage);
+adminRouter.get('/order-details',auth.isLogin,ordersController.adminOrderDetails);
+adminRouter.post('/change-status',auth.isLogin,ordersController.changeStatus);
 
 //Logout
 adminRouter.get('/logout',auth.isLogin,adminController.logoutAdmin)

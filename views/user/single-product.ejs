@@ -124,11 +124,11 @@
 	<div class="product_image_area">
 		<div class="container">
 			<div class="row s_product_inner">
-				<div class="col-lg-6">
+				<div class="col-lg-4">
 					<div class="s_Product_carousel">
 						<% for( let i = 0; i < product.images.length; i++ ) { %>
 							<div class="single-prd-item">
-								<img class="img-fluid" src="/assets/imgs/products/<%- product.images[i] %>" alt="">
+								<img class="img-fluid" style="height: 360px; width: 360px; object-fit: contain;" src="/assets/imgs/products/<%- product.images[i] %>" alt="">
 							</div>
 						<% } %>
 					</div>

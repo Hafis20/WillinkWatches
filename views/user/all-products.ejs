@@ -32,27 +32,30 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<style>
+	<style>
 		/* Custom CSS for the filter dropdown */
 
 		.filter-link a {
-			 color: #000000; /* Change this color to your preferred color */
-			 text-decoration: none;
-			 transition: color 0.5s ease-in-out;
+			color: #000000;
+			/* Change this color to your preferred color */
+			text-decoration: none;
+			transition: color 0.5s ease-in-out;
 		}
 
 		.filter-link a:hover {
-			 color: #ffba00; /* Change this color to the desired hover color */
+			color: #ffba00;
+			/* Change this color to the desired hover color */
 		}
 
 		.filter-icon {
-			 font-size: 18px;
-			 margin-right: 5px;
+			font-size: 18px;
+			margin-right: 5px;
 		}
+
 		.filter-options {
 			font-size: 14px;
 		}
-  </style>
+	</style>
 </head>
 
 <body id="category">
@@ -63,9 +66,11 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="/home"><h1 style="font-weight: bold;">Willink Watches</h1></a>
+					<a class="navbar-brand logo_h" href="/home">
+						<h1 style="font-weight: bold;">Willink Watches</h1>
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -75,10 +80,11 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
 							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item active"><a class="nav-link" href="/show-all-products">Shop Category</a></li>
+									<li class="nav-item active"><a class="nav-link" href="/show-all-products">Shop Category</a>
+									</li>
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
@@ -86,29 +92,32 @@
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
 							</li>
-							
+
 						</ul>
 						<ul class="nav navbar-nav navbar-right d-flex align-items-center">
-							<li class="nav-item"><a href="/user-profile" class="profile-icon"><span style="font-size: 22px; width: 30px; height: 30px;" class="bi bi-person"></span></a></li>
-							<li class="nav-item"><a href="/cart" class="cart"><span style="font-size: 20px; width: 30px; height: 30px;" class="bi bi-cart"></span></a></li>
-							<li class="nav-item"> 
-								<button class="search"><span style="font-size: 16px; width: 30px; height: 30px;" class="bi bi-search" id="search"></span></button>
+							<li class="nav-item"><a href="/user-profile" class="profile-icon"><span
+										style="font-size: 22px; width: 30px; height: 30px;" class="bi bi-person"></span></a></li>
+							<li class="nav-item"><a href="/cart" class="cart"><span
+										style="font-size: 20px; width: 30px; height: 30px;" class="bi bi-cart"></span></a></li>
+							<li class="nav-item">
+								<button class="search"><span style="font-size: 16px; width: 30px; height: 30px;"
+										class="bi bi-search" id="search"></span></button>
 							</li>
 						</ul>
 					</div>
@@ -126,9 +135,9 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
-	
+
 	<!-- Start Banner Area -->
-	<section >
+	<section>
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -138,11 +147,11 @@
 	</section>
 	<section>
 		<div class="container">
-			 <h1 class="text-center">SHOP</h1> 
-			 <!-- Add this line -->
+			<h1 class="text-center">SHOP</h1>
+			<!-- Add this line -->
 		</div>
-  </section>
-	
+	</section>
+
 	<!-- End Banner Area -->
 	<div class="container">
 		<div class="d-flex justify-content-end filter-link">
@@ -153,11 +162,14 @@
 						<i class="fas fa-filter"></i> FILTER
 					</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link filter-options " href="/show-all-products">ALL PRODUCTS</a></li>
-						<% for( let i = 0; i < categories.length; i++ ) { %>
-							<li class="nav-item"><a class="nav-link filter-options" href="/filter-products/?id=<%- categories[i]._id %>"><%- categories[i].categoryName %></a></li>
-						<% } %>
-						
+						<li class="nav-item"><a class="nav-link filter-options " href="/show-all-products">ALL PRODUCTS</a>
+						</li>
+						<% for( let i=0; i < categories.length; i++ ) { %>
+							<li class="nav-item"><a class="nav-link filter-options"
+									href="/filter-products/?id=<%- categories[i]._id %>"><%- categories[i].categoryName %></a>
+							</li>
+							<% } %>
+
 					</ul>
 				</li>
 			</ul>
@@ -168,11 +180,12 @@
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 						<!-- single product -->
-						<% if (products.length >0) { %>
-							<% for( let i = 0; i < products.length; i++ ) { %>
+						<% if (products.length>0) { %>
+							<% for( let i=0; i < products.length; i++ ) { %>
 								<div class="col-lg-3 col-md-6">
 									<div class="single-product">
-										<img class="img-fluid" style="height: 300px; width: 300px;" src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
+										<img class="img-fluid" style="height: 300px; width: 300px; object-fit: contain;"
+											src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
 										<div class="product-details">
 											<h6><%- products[i].productName %></h6>
 											<div class="price">
@@ -180,47 +193,41 @@
 												<h6 class="l-through"> &#x20B9;<%- products[i].regularPrice %></h6>
 											</div>
 											<div class="prd-bottom">
-		
-												<a type="button" href="" data-productId="<%-products[i]._id  %>" 
-													 class="social-info addToCart">
+
+												<a type="button" href="" data-productId="<%-products[i]._id  %>"
+													class="social-info addToCart">
 													<span class="ti-bag"></span>
-													<p class="hover-text">add to bag</p>
 												</a>
 												<a href="" class="social-info">
-													<span class="lnr lnr-heart"></span>
-													<p class="hover-text">Wishlist</p>
+													<span class="bi bi-heart"></span>
 												</a>
-												<a href="" class="social-info">
-													<span class="lnr lnr-sync"></span>
-													<p class="hover-text">compare</p>
-												</a>
+
 												<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
 													<span class="lnr lnr-move"></span>
-													<p class="hover-text">view more</p>
 												</a>
 											</div>
 										</div>
 									</div>
 								</div>
-							<% } %>
-							
-						<% }else{ %>
-							<div class="col-lg-12">
-								<div class="d-flex justify-content-center align-items-center" style="height: 300px;">
-									 <h1>No Products Found</h1>
-								</div>
-						  </div>
-						<% } %>
-						
+								<% } %>
+
+									<% }else{ %>
+										<div class="col-lg-12">
+											<div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+												<h1>No Products Found</h1>
+											</div>
+										</div>
+										<% } %>
+
 				</section>
-				
-				
+
+
 			</div>
 		</div>
 	</div>
 
 	<!-- Start related-product Area -->
-	
+
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
 		<div class="container">
@@ -229,7 +236,8 @@
 					<div class="single-footer-widget">
 						<h6>About Us</h6>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+							labore dolore
 							magna aliqua.
 						</p>
 					</div>
@@ -240,16 +248,19 @@
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
 
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
+							<form target="_blank" novalidate="true"
+								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+								method="get" class="form-inline">
 
 								<div class="d-flex flex-row">
 
-									<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-									 required="" type="email">
+									<input class="form-control" name="EMAIL" placeholder="Enter Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required=""
+										type="email">
 
 
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
+											aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
 									</div>
@@ -292,10 +303,14 @@
 				</div>
 			</div>
 			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
+				<p class="footer-text m-0">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+					with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+						target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -327,13 +342,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							<div class="quick-view-content">
 								<div class="top">
 									<h3 class="head">Mill Oil 1000W Heater, White</h3>
-									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span
+											class="ml-10">$149.99</span></div>
 									<div class="category">Category: <span>Household</span></div>
 									<div class="available">Availibility: <span>In Stock</span></div>
 								</div>
 								<div class="middle">
-									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
-										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern
+										technology. If you are
+										looking for something that can make your interior look awesome, and at the same time give
+										you the pleasant
 										warm feeling during the winter.</p>
 									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
 								</div>
@@ -349,8 +367,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 										Quantity:
 										<input type="text" class="quantity-amount ml-15" value="1" />
 										<div class="arrow-btn d-inline-flex flex-column">
-											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
-											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+											<button class="increase arrow" type="button" title="Increase Quantity"><span
+													class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span
+													class="lnr lnr-chevron-down"></span></button>
 										</div>
 
 									</div>
@@ -369,39 +389,51 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 
 	<script>
-		 const addToCartButtons = document.querySelectorAll('.addToCart');
+		const addToCartButtons = document.querySelectorAll('.addToCart');
 
-			addToCartButtons.forEach(button => {
-				button.addEventListener('click', async (event) => {
-					event.preventDefault();
+		addToCartButtons.forEach(button => {
+			button.addEventListener('click', async (event) => {
+				event.preventDefault();
 
-				const productId = button.getAttribute('data-productId'); // Get data-id attribute
-
+				const productId = event.currentTarget.getAttribute('data-productId'); // Get data-id attribute
+				console.log(productId)
 				const response = await fetch(`/add-to-cart/?productId=${productId}`);
 				const result = await response.json();
-				if(result.status === 'success'){
+				if (result.status === 'success') {
 					Swal.fire({
-					icon: 'success',
-					title: 'Added to Cart',
-					showConfirmButton: false,
-					timer: 1500
+						icon: 'success',
+						title: 'Added to Cart',
+						showConfirmButton: false,
+						timer: 1500
 					})
-				}else{
+				} else if (result.status === 'sessionError') {
 					Swal.fire({
-					icon: 'error',
-					title: 'Something went wrong',
-					showConfirmButton: false,
-					timer: 1500
+						icon: 'info',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1000
+					})
+					setTimeout(() => {
+						location.href = '/login'
+					}, 1500);
+				}
+				else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Something went wrong',
+						showConfirmButton: false,
+						timer: 1500
 					})
 				}
 			});
 		});
-		
+
 	</script>
 
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
 	<script src="/user-assets/js/vendor/bootstrap.min.js"></script>
 	<script src="/user-assets/js/jquery.ajaxchimp.min.js"></script>
 	<script src="/user-assets/js/jquery.nice-select.min.js"></script>

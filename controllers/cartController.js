@@ -2,6 +2,7 @@ const { default: mongoose } = require('mongoose');
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
 const Address = require('../models/addressModel');
+const Order = require('../models/ordersModel');
 
 // Load Cart page
 
@@ -10,11 +11,9 @@ const loadCart = async(req,res)=>{
       const user_id = req.session.user._id
       let cart = await Cart.findOne({userId:user_id}).populate('products.productId');
       if(!cart){
-         let newCart = new Cart({userId:req.session.user._id,products:[]});
-         await newCart.save();
-         cart = newCart;
+         cart = new Cart({userId:req.session.user._id,products:[]});
+         await cart.save();
       }
-      else{
          cart.total = cart.products.reduce((total,product)=>{
             return total + product.total;
          },0);
@@ -22,7 +21,7 @@ const loadCart = async(req,res)=>{
          const userProducts = cart.products;
          const cartTotal = cart.total
          res.render('cart',{products:userProducts,cartTotal});
-      }
+
    } catch (error) {
       console.log(error.message);
    }
@@ -33,7 +32,7 @@ const loadCart = async(req,res)=>{
 const addToCart = async(req,res)=>{
    try {
       const proId = req.query.productId;
-      
+      console.log(proId)
       let cart = await Cart.findOne({userId:req.session.user._id}); // Find the user
       // console.log(cart);
 
@@ -113,19 +112,46 @@ const updateQuantity = async (req, res) => {
    }
 };
 
+// Remove product from the cart
+const removeProduct = async(req,res)=>{
+   try {
+      const user_id = req.session.user._id;
+      const productId = req.query.productId;
+
+      const products = await Cart.findOneAndUpdate({userId:user_id},
+         {$pull:{
+            products:{productId:productId},
+         }},
+         {new:true});
+      res.json({status:'success',message:'Product Removed'})
+   } catch (error) {
+      res.json({status:'error',message:'Something went wrong'});
+      console.log(error.message);
+   }
+}
+
 // Loading the checkout page
 
 const loadCheckOut = async(req,res)=>{
    try {
       const user_id = req.session.user._id;
-      const user = await Address.findOne({userId:user_id}); // Find the user
+      let userAddress = await Address.findOne({userId:user_id}); // Find the user
+
+      // If no user
+      if(!userAddress){
+         userAddress = new Address({userId:user_id,address:[]});
+         await userAddress.save();
+      }
+
       const cart = await Cart.findOne({userId:user_id}).populate('products.productId'); // Taking the product details
       const cartDetails = cart.products;
-      // console.log(cartDetails)
       cart.total = cart.products.reduce((total,product)=>{
          return total + product.total;
       },0);
-      const address = user.address;
+
+      const address =userAddress.address;
+
+      
       res.render('checkout',{address,cartDetails,grandTotal:cart.total});
    } catch (error) {
       console.log(error.message)
@@ -134,7 +160,12 @@ const loadCheckOut = async(req,res)=>{
 
 const loadConfirmation = async(req,res)=>{
    try {
-      res.render('confirmation');
+      const orderId = req.query.orderId
+      
+      const orderDetails = await Order.findById(orderId).populate('products.productId')
+
+      // console.log(orderDetails.products)
+      res.render('confirmation',{orderDetails});
    } catch (error) {
       console.log(error.message);
    }
@@ -143,6 +174,7 @@ module.exports = {
    loadCart,
    addToCart,
    updateQuantity,
+   removeProduct,
    loadCheckOut,
    loadConfirmation,
 }

@@ -191,12 +191,16 @@ const searchProducts = async(req,res)=>{
 // User Profile
 const userProfile = async(req,res)=>{
    try {
-      res.render('user-profile');
+      const user_id = req.session.user._id;
+      // console.log(user_id);
+      const userData = await User.findById(user_id);
+      res.render('user-profile',{userData});
    } catch (error) {
       console.log(error.message);
    }
 }
 
+// ===============================ADDRESS=========================
 
 // Adding address 
 
@@ -242,6 +246,151 @@ const addingAddress = async(req,res)=>{
    }
 }
 
+// Managing User address
+
+const loadManageAddress = async(req,res)=>{
+   try {
+      const user_id = req.session.user._id;
+      let userAddress = await Address.findOne({userId:user_id});
+
+      if(!userAddress){
+         userAddress = new Address({userId:user_id,address:[]});
+         await userAddress.save();
+      }
+      // console.log(userAddress)
+      res.render('manage-address',{address:userAddress.address});
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+
+//Load the Edit User address page
+const loadEditAddress = async(req,res)=>{
+   try{
+      const user_id = req.session.user._id;
+      const addressId = req.query.addressId;
+      const user = await Address.findOne({userId:user_id});
+      // console.log(userAddress)
+      
+      const userAddress = user.address.find((address)=>{
+         return address._id.toString() === addressId;
+      })
+      // console.log(userAddress);
+      
+      res.render('edit-address',{userAddress});
+   }catch(error){
+      console.log(error.message);
+   }
+}
+
+// Edit address
+
+const editAddress = async(req,res)=>{
+   try {
+      const {name,mobile,homeAddress,city,street,postalCode,addressId} = req.body
+      
+      const user_id = req.session.user._id;
+      const updatedAddress = await Address.findOneAndUpdate({userId:user_id,'address._id':addressId},
+      {$set:{
+         'address.$.name':name,
+         'address.$.mobile':mobile,
+         'address.$.homeAddress':homeAddress,
+         'address.$.city':city,
+         'address.$.street':street,
+         'address.$.postalCode':postalCode,
+      }},
+      {new:true});
+      
+      // console.log(updatedAddress)
+      res.json({status:'success',message:'Address Edited'});
+   } catch (error) {
+      res.json({status:'error',message:'Something went wrong'});
+      console.log(error.message);
+   }
+}
+
+// Delete the user address 
+const deleteAddress = async(req,res)=>{
+   try {
+      const user_id = req.session.user._id;
+      const addressId = req.query.addressId;
+      // console.log(req.query.addressId);
+      const address = await Address.findOne({userId:user_id});
+
+      const deletedAddress = address.address.find(address=>address._id.toString() === addressId);
+      // console.log(deletedAddress);
+
+      const isDefaultedAddress = deletedAddress.isDefault;
+      // console.log(isDefaultedAddress);
+
+      // Remove the address
+      address.address = address.address.filter((addr)=>addr._id.toString() !== addressId);
+      // console.log(address.address);
+      console.log(address.address.length)
+      if(isDefaultedAddress && address.address.length > 0){
+         let newDefaultAddress = address.address.find(addr=>addr._id.toString() !== addressId);
+         if(newDefaultAddress){
+            newDefaultAddress.isDefault = true;
+         }
+         // console.log(newDefaultAddress)
+      }
+      // console.log(address);
+      await address.save();
+      res.json({status:'success',message:'Address Removed'});
+   } catch (error) {
+      res.json({status:'success',message:'Something went wrong'});
+      console.log(error.message);
+   }
+}
+
+// ====================User profile Management ======
+
+// Edit user profile 
+
+const EditProfile = async(req,res)=>{
+   try {
+      const {firstName,lastName,email,mobile,userId} = req.body;
+      const usersData = await User.find();
+
+     // Find other Users and find is the email already exist or not
+
+      const anotherUser = usersData.filter(user=>user._id.toString() !== userId);
+      const emailExists = anotherUser.filter(user=>user.email === email);
+      const mobileExist = anotherUser.filter(user=>user.mobile.toString() === mobile);
+      
+      if(emailExists.length && mobileExist.length){
+         res.json({status:'error',message:'Email and Mobile Number Already Exists'});
+      }else if(emailExists.length){
+         res.json({status:'error',message:'Email Already Exists'});
+      }else if(mobileExist.length){
+         res.json({status:'error',message:'Mobile Number Already Exists'});
+      }else{
+         const user = await User.findByIdAndUpdate(userId,
+            {$set:{
+               firstName:firstName,
+               lastName:lastName,
+               email:email,
+               mobile:mobile
+            }},
+            {new:true});
+         res.json({status:'success',message:'Profile Edited'});
+      }
+   } catch (error) {
+      console.log(error.message);
+      res.json({status:'error',message:'Something went Wrong'});
+   }
+}
+
+// Change user password
+
+const changePassword = async(req,res)=>{
+   try {
+       
+   } catch (error) {
+      console.log(error.message);
+   }
+}
 
 // User logout 
 const logoutUser = async (req,res)=>{
@@ -265,6 +414,12 @@ module.exports = {
    userProfile,
    //-- Address --
    addingAddress,
+   loadManageAddress,
+   loadEditAddress,
+   editAddress,
+   deleteAddress,
+   // --profile--
+   EditProfile,
    //==Otp====
    loadVerfiyOTP,
    verifyotp,

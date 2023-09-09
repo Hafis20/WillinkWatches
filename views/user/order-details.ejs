@@ -28,10 +28,17 @@
 	<link rel="stylesheet" href="/user-assets/css/nouislider.min.css">
 	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/user-assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-</head>
+	<style>
+		.btn-warning{
+			background-color: #ff0000;
+			color: #ffffff;
+		}
+	</style>
+	</head>
 
 <body>
 
@@ -53,8 +60,8 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
@@ -62,7 +69,7 @@
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
+									<li class="nav-item active"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
@@ -73,11 +80,11 @@
 									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 								</ul>
 							</li>
-							<li class="nav-item submenu dropdown active">
+							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item active"><a class="nav-link" href="login.html">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
@@ -107,61 +114,111 @@
 	<!-- End Header Area -->
 
 	<!-- Start Banner Area -->
-	<section>
+	<section class="">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					
-				</div>
+				
 			</div>
 		</div>
 	</section>
 	<section>
 		<div class="container">
-			 <h1 class="text-center">LOGIN</h1>
+			 <h1 class="text-center">
+				   Order Details
+			 </h1>
 		</div>
   </section>
-
+  
 	<!-- End Banner Area -->
 
-	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
+	<!--================Order Details Area =================-->
+	<section class="order_details section_gap">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="/user-assets/img/login.jpg" alt="">
-						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" href="/register">Create an Account</a>
-						</div>
+			<div class="row order_d_inner">
+				<div class="col-lg-6 col-12 mb-2">
+					<div class="details_item">
+						<h4>Order Info</h4>
+						<ul class="list">
+							<li><a href="#"><span>Order number</span>: <%- orderDetails._id %></a></li>
+							<li><a href="#"><span>Date</span> : <%- orderDetails.date.toDateString() %></a></li>
+							<li><a href="#"><span>Total</span> : &#x20B9;  <%- orderDetails.totalAmount %></a></li>
+							<li><a href="#"><span>Payment method</span> : <%- orderDetails.paymentMethod %></a></li>
+							<li><a href="#"><span>Status</span> : <%- orderDetails.orderStatus %></a></li>
+						</ul>
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="login_form_inner">
-						
-						<h3>Log in to enter</h3>
-						<form class="row login_form"  action=""  method="post" id="LoginForm">
-							<div class="col-md-12 form-group">
-								<input type="text" value="hafis@gmail.com" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
-								<p style="color: red;" id="emailError"></p>
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="password" value="Hafis@123" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-								<p  style="color: red;" id="passwordError"></p>
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" class="primary-btn">Log In</button>
-								<a href="#">Forgot Password?</a>
-							</div>
-						</form>
+					<div class="details_item">
+						<h4>Shipping Address</h4>
+						<ul class="list">
+							<li><a href="#"><span>Name</span> : <%- orderDetails.address.name %></a></li>
+							<li><a href="#"><span>Mobile</span> : <%- orderDetails.address.mobile %></a></li>
+							<li><a href="#"><span>Home Address</span> : <%- orderDetails.address.homeAddress %></a></li>
+							<li><a href="#"><span>City </span> : <%- orderDetails.address.city %></a></li>
+							<li><a href="#"><span>Street </span> : <%- orderDetails.address.street %></a></li>
+							<li><a href="#"><span>Postal Code </span> : <%- orderDetails.address.postalCode %></a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
+			<div class="order_details_table">
+				<h2>Order Details</h2>
+				<div class="table-responsive">
+					<table class="table">
+						<thead class="table-dark">
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for( let i = 0; i < orderDetails.products.length; i++ ) { %>
+								<tr>
+									<td>
+										<p><%- orderDetails.products[i].productId.productName %></p>
+									</td>
+									<td>
+										<h5>x <%- orderDetails.products[i].quantity %></h5>
+									</td>
+									<td>
+										<p>&#x20B9; <%- orderDetails.products[i].total %></p>
+									</td>
+								</tr>
+							<% } %>
+							<tr>
+								<td>
+									<h4>Total</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p style="font-weight: bold;"> &#x20B9; <%- orderDetails.totalAmount %></p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="container mt-5">
+				<div class="row justify-content-center">
+					<% if (orderDetails.orderStatus ==='Delivered') { %>
+					<a href="" class="btn btn-info  col-md-5 mx-md-auto mx-0 mb-2 mb-md-0">Return Items</a>
+					<% }else if (orderDetails.orderStatus === 'Cancelled') {%>
+
+					<% }else{ %>
+						<a href="" id="cancelButton" data-orderId="<%- orderDetails._id %>" class="btn btn-warning  col-md-5 mx-md-auto mx-0">Cancel Order</a>
+					<% } %>
+				</div>
+				<div class="row mt-2 justify-content-center">
+					<a href="/list-orders" class="btn btn-secondary col-md-6">Go back</a>
+				</div>
+			</div>
 		</div>
+		
 	</section>
-	<!--================End Login Box Area =================-->
+	<!--================End Order Details Area =================-->
 
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
@@ -242,52 +299,37 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 	<!-- End footer Area -->
+
 	<script>
-		document.getElementById('LoginForm').addEventListener('submit',async (event)=>{
+		document.getElementById('cancelButton').addEventListener('click',async(event)=>{
 			event.preventDefault()
 
-			const isValid = loginValidate()
+			const orderId = event.target.getAttribute('data-orderId')
 			
-			if(isValid){
-				const formData = {
-				email: event.currentTarget.email.value,
-				password: event.currentTarget.password.value,
-			};
-
-			const response = await fetch("/login", {
-				method: "POST", // or 'PUT'
-				headers: {
-				"Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-			});
-
+			const response = await fetch(`/cancel-order/?orderId=${orderId}`)
 			const result = await response.json();
-		
 			if(result.status === 'success'){
-				Toastify({
-					text: result.message,
-					className: "info",
-					style: {
-						background: "linear-gradient(to right, #082400, #96c93d)",
-					}
-					}).showToast();
+					Swal.fire({
+					icon: 'success',
+					title: result.message,
+					showConfirmButton: false,
+					timer: 1000
+					})
 					setTimeout(()=>{
-						location.href = '/home'; 
-					}, 1000)
+						location.href = location.href
+					},1500)
 				}else{
-					Toastify({
-						text: result.message,
-						className: "info",
-						style: {
-							background: "linear-gradient(to right, #240400, #ff4c00)",
-						}
-					}).showToast();
+					Swal.fire({
+					icon: 'error',
+					title: result.message,
+					showConfirmButton: false,
+					timer: 1500
+					})
 				}
-			}
 			
 		})
 	</script>
+
 
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -303,8 +345,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="/user-assets/js/gmaps.min.js"></script>
 	<script src="/user-assets/js/main.js"></script>
-	<script src="/js/userLoginValidation.js"></script>
-
 </body>
 
 </html>
