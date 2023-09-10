@@ -383,16 +383,60 @@
 
    <!-- change password form functionality -->
    <script>
-      document.getElementById('changePasswordForm').addEventListener('submit',(event)=>{
+      document.getElementById('changePasswordForm').addEventListener('submit', async (event) => {
          event.preventDefault()
-         
+
          const isValid = changePasswordValidate();
 
-         if(isValid){
-            console.log('afaj')
-         }else{
-            console.log('hhi')
+         if (isValid) {
+            const formData = {
+               currentPassword: event.currentTarget.currentPassword.value,
+               newPassword: event.currentTarget.newPassword.value
+            }
+
+            const response = await fetch('/change-password', {
+               method: 'post',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(formData)
+            })
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+               Swal.fire({
+                  icon: 'success',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1000
+               })
+
+               $('#changePasswordModal').modal('hide')
+               setTimeout(() => {
+                  location.href = location.href;
+               }, 1500);
+            } else if (result.status === 'sessionError') {
+               Swal.fire({
+                  icon: 'info',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1000
+               })
+               setTimeout(() => {
+                  location.href = '/login'
+               }, 1500);
+            }
+            else {
+               Swal.fire({
+                  icon: 'error',
+                  title: result.message,
+                  showConfirmButton: false,
+                  timer: 1500
+               })
+            }
          }
+
       })
    </script>
    <script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>

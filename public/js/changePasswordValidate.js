@@ -8,6 +8,14 @@ function changePasswordValidate(){
    document.getElementById('confirmNewPassError').textContent = ''
 
    let isValid = true;
+   // Current password obey the rules or not , if no! pasword is wrong
+   if(!validatePassword(currentPass)){
+      document.getElementById('currentPassError').textContent = 'Incorrect Password'
+      setTimeout(()=>{
+         document.getElementById('currentPassError').textContent = ''
+      },5000)
+      isValid = false
+   }
 
    // Current Pass 
    if(currentPass.trim() === ''){

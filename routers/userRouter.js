@@ -118,6 +118,7 @@ userRouter.get('/delete-address',auth.isLogin,userController.deleteAddress);
 // -------------------------------------USER PROFILE ------------------
 userRouter.get('/user-profile',auth.isLogin,userController.userProfile);
 userRouter.post('/edit-profile',auth.ftisLogin,userController.EditProfile);
+userRouter.post('/change-password',auth.ftisLogin,userController.changePassword);
 
 // -------------------------------------LOGOUT---------------------
 

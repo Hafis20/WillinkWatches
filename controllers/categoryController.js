@@ -61,23 +61,27 @@ const loadEditCategories = async(req,res)=>{
 const editCategories = async(req,res)=>{
    try {
       const {categoryName,discription,id} = req.body
-      if(!categoryName){
-         res.json({status:'error',message:'Category Name is required'});
-      }else if(!discription){
-         res.json({status:'error',message:'Discription is required'});
-      }else{
-         const updateCategory = await Category.findByIdAndUpdate(id,
-            {$set:{
-               categoryName:categoryName.toUpperCase(),
-               discription:discription
-            }})
-            if(updateCategory){
-               res.json({status:'success',message:'Update successfull'})
-            }else{
-               res.json({status:'error',message:'Please check your data'})
-            }
-      }
-      
+     // This category name already existing or not
+      // Taking the whole category list
+         const category = await Category.find();
+         // Taking the categories other than edit
+         const existingCategory =  category.filter((category) => category._id.toString() !== id);
+         // In other categories exist the name which user provided
+         const categoryExist = existingCategory.find((category)=>category.categoryName === categoryName.toUpperCase());
+         
+         // if provided or not
+         if(categoryExist){
+            res.json({status:'error',message:'Category Already Exists'});
+         }else{
+            const updateCategory = await Category.findByIdAndUpdate(id,
+               {$set:{
+                  categoryName:categoryName.toUpperCase(),
+                  discription:discription
+               }})
+               if(updateCategory){
+                  res.json({status:'success',message:'Update successfull'})
+               }
+         }
    } catch (error) {
       console.log(error.message)
       res.json({status:'error',message:'Feild is required'})

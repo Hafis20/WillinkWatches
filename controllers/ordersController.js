@@ -81,7 +81,7 @@ const listOrders = async(req,res)=>{
 const orderDetails = async(req,res)=>{
    try {
       const orderId = req.query.orderId;
-      const orderDetails = await Order.findById(orderId).populate('products.productId')
+      const orderDetails = await Order.findById(orderId).populate('products.productId').sort({date:1})
       console.log(orderDetails)
       res.render('order-details',{orderDetails});
    } catch (error) {

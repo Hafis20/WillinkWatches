@@ -502,10 +502,13 @@
                         if (result.status === 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Added to Cart',
+                                title: 'Item Removed',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 1000
                             })
+                            setTimeout(()=>{
+                                location.href = location.href
+                            },1500)
                         } else if (result.status === 'LoginError') {
                             Swal.fire({
                                 icon: 'info',
