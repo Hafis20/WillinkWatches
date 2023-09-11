@@ -52,42 +52,18 @@
                     </button>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav ml-auto">
+                        <ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
                             <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-                            <li class="nav-item submenu dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Shop</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="single-product.html">Product
-                                            Details</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-                                    </li>
-                                    <li class="nav-item active"><a class="nav-link" href="cart.html">Shopping Cart</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="/user-profile" class="profile-icon"><span
-                                        style="font-size: 22px; width: 30px; height: 30px;"
+                            <li class="nav-item"><a class="nav-link" href="/show-all-products">Shop</a></li>
+                            <li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
+                                        style="font-size: 22px; width: 30px; height: 30px; color: black;"
                                         class="bi bi-person"></span></a></li>
-                            <li class="nav-item"><a href="/cart" class="cart"><span
-                                        style="font-size: 20px; width: 30px; height: 30px;"
+                            <li class="nav-item"><a href="/cart" class="profile-icon nav-link"><span
+                                        style="font-size: 20px; width: 30px; height: 30px; color: #df9708;"
                                         class="bi bi-cart"></span></a></li>
-                            <li class="nav-item">
-                                <button class="search"><span style="font-size: 16px; width: 30px; height: 30px;"
-                                        class="bi bi-search" id="search"></span></button>
-                            </li>
+                            <li class="nav-item"><a href="/whishlist" class="profile-icon nav-link"><span
+                                        style="font-size: 20px; width: 30px; height: 30px; color: black;  margin-right: 45px;"
+                                        class="bi bi-heart"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -332,7 +308,9 @@
         </div>
     </footer>
     <!-- End footer Area -->
-    <!-- Place this JavaScript code at the end of your HTML file, just before the closing </body> tag -->
+
+
+    <!-- Incrimenting the Quantity -->
     <script>
         // Function to calculate and update the cart total
         async function changeQuantity(productId, value) {
@@ -454,8 +432,7 @@
         });
     </script>
 
-    <!-- ... (other JavaScript includes) ... -->
-
+    <!-- Proceed the order btn -->
     <script>
         // When the user click into the proceed button with out any product
         document.getElementById('proceedBtn').addEventListener('click', (event) => {
@@ -473,7 +450,8 @@
             }
         })
     </script>
-<!-- Removing product -->
+
+    <!-- Removing product -->
     <script>
         // Removing the product from cart
         const removeBtn = document.querySelectorAll('.removeProduct');
@@ -496,7 +474,7 @@
                     });
 
                     if (response.isConfirmed) {
-                        const response = await fetch(`/remove-product/?productId=${productId}`);
+                        const response = await fetch(`/remove-from-cart/?productId=${productId}`);
                         const result = await response.json();
 
                         if (result.status === 'success') {
@@ -506,21 +484,11 @@
                                 showConfirmButton: false,
                                 timer: 1000
                             })
-                            setTimeout(()=>{
-                                location.href = location.href
-                            },1500)
-                        } else if (result.status === 'LoginError') {
-                            Swal.fire({
-                                icon: 'info',
-                                title: result.message,
-                                showConfirmButton: false,
-                                timer: 1000
-                            })
                             setTimeout(() => {
-                                location.href = '/login'
-                            }, 1500);
-                        }
-                        else if (result.status === 'BlockError') {
+                                location.href = location.href
+                            }, 1500)
+                        } 
+                        else if (result.status === 'sessionError') {
                             Swal.fire({
                                 icon: 'info',
                                 title: result.message,

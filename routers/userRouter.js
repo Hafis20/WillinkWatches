@@ -15,6 +15,8 @@ userRouter.use(session({
 const nocache = require('nocache');
 userRouter.use(nocache());
 
+// ===============================Controller importing ==============================
+
 // User Controller 
 
 const userController = require("../controllers/userController");
@@ -23,20 +25,30 @@ const userController = require("../controllers/userController");
 
 const cartController = require('../controllers/cartController');
 
+// Whishlist Controller
+
+const whishlistController = require('../controllers/whishlistController');
+
 // Order Controller
 
 const ordersController = require('../controllers/ordersController');
-// Authentication
 
-const auth = require('../middleware/userAuth')
+// ========================================================================================
 
-// Static
+// ----Authentication---
+
+const auth = require('../middleware/userAuth');
+
+//--- Static---
 userRouter.use(express.static('public'))
 
 userRouter.set("view engine", "ejs");
 userRouter.set("views", "./views/user");
 userRouter.use(express.json())
 userRouter.use(express.urlencoded({extended:true}))
+
+
+// =========================================ROUTER STARTS===================
 
 
 //--------------------------------------HOME-------------------
@@ -87,24 +99,40 @@ userRouter.get('/cart',auth.isLogin,cartController.loadCart);
 userRouter.get('/add-to-cart',auth.ftisLogin,cartController.addToCart);
 
 // Remove product from cart
-userRouter.get('/remove-product',auth.ftisLogin,cartController.removeProduct);
+userRouter.get('/remove-from-cart',auth.ftisLogin,cartController.removeFromCart);
 
 // Incriment the quantity
 
 userRouter.post('/update-quantity',auth.ftisLogin,cartController.updateQuantity);
 
+// Load the checkout page
 userRouter.get('/checkout',auth.isLogin,cartController.loadCheckOut);
 
+// Show the confirmation page
 userRouter.get('/confirmation',auth.isLogin,cartController.loadConfirmation);
 
 
+// ---------------------------------------WHISHLIST---------------------------------
+// Load the whishlist page of the user
+userRouter.get('/whishlist',auth.isLogin,whishlistController.loadWhishlist);
+
+// Adding the product into user whishlist
+userRouter.get('/add-to-whishlist',auth.ftisLogin,whishlistController.addtoWhishlist);
+
+// Remove product from whishlist 
+userRouter.get('/remove-from-whishlist',auth.ftisLogin,whishlistController.removeFromWhishlist);
+
 //-----------------------------------------ORDER MANAGEMENT---------------------------
+// Placing the order
 userRouter.post('/place-order',auth.ftisLogin,ordersController.placeOrder);
 
+// Showing the list of orders into user
 userRouter.get('/list-orders',auth.isLogin,ordersController.listOrders);
 
+// Showing the order details
 userRouter.get('/order-details',auth.isLogin,ordersController.orderDetails);
 
+// Cancelling the order
 userRouter.get('/cancel-order',auth.isLogin,ordersController.cancelOrder);
 
 // ----------------------------------ADDRESS MANAGEMENT--------------------

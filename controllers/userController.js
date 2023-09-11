@@ -4,6 +4,7 @@ const otpGenerate = require('../helpers/otpGenerate');
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
 const Address = require('../models/addressModel');
+const Whishlist = require('../models/whishlistModel');
 
 // Load the registration  for user when they call "/register or /"
 
@@ -129,7 +130,7 @@ const loadHome = async(req,res)=>{
       const productData = await Product.find({is_listed:true}).populate('category').sort({date:-1}).limit(4);
       if(productData){
          const availableProducts = productData.filter(products=>products.category.is_listed === true);
-         console.log(availableProducts)
+         // console.log(availableProducts)
          res.render('home',{products : availableProducts});
       }
    } catch (error) {
@@ -158,7 +159,7 @@ const loadAllProducts = async(req,res)=>{
       const productData = await Product.find({is_listed:true}).populate('category');
 
       const availableProducts = productData.filter((product)=>product.category.is_listed === true);
-      console.log(availableProducts);
+      // console.log(availableProducts);
       const categories = await Category.find();
       res.render('all-products',{products:availableProducts,categories});
    } catch (error) {

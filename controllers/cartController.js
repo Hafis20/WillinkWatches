@@ -113,7 +113,7 @@ const updateQuantity = async (req, res) => {
 };
 
 // Remove product from the cart
-const removeProduct = async(req,res)=>{
+const removeFromCart = async(req,res)=>{
    try {
       const user_id = req.session.user._id;
       const productId = req.query.productId;
@@ -174,7 +174,7 @@ module.exports = {
    loadCart,
    addToCart,
    updateQuantity,
-   removeProduct,
+   removeFromCart,
    loadCheckOut,
    loadConfirmation,
 }
