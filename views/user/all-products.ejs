@@ -55,6 +55,12 @@
 		.filter-options {
 			font-size: 14px;
 		}
+		.card {
+			transition: transform 0.3s ease;
+		}
+		.card:hover {
+			transform: scale(1.05);
+		}
 	</style>
 </head>
 
@@ -182,8 +188,8 @@
 						<!-- single product -->
 						<% if (products.length>0) { %>
 							<% for( let i=0; i < products.length; i++ ) { %>
-								<div class="col-lg-3 col-md-6">
-									<div class="single-product">
+								<div class="col-lg-3 col-md-6 d-flex justify-content-center">
+									<div class="card single-product text-center shadow ">
 										<img class="img-fluid" style="height: 300px; width: 300px; object-fit: contain;"
 											src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
 										<div class="product-details">

@@ -7,7 +7,8 @@ const Category = require('../models/categoryModel')
 
 const loadProductList = async(req,res)=>{
    try {
-      const products = await Product.find();
+      const products = await Product.find().populate('category');
+      // console.log('It contains the whole data of category',products)
       res.render('list-products',{products:products});
    } catch (error) {
       console.log(error.message);
@@ -31,22 +32,25 @@ const loadaddProducts = async(req,res)=>{
 
 const addProducts = async(req,res)=>{
    try {  
+      const {productName,description,category,stock,regularPrice,salePrice} = req.body
       const images = [];
       for(let i=0;i<req.files.length;i++){
          images.push(req.files[i].filename);
       }
+      const findCategory = await Category.findOne({categoryName:category});
+      const categoryId = findCategory._id
          const productData = await Product.create({
-            productName:req.body.productName,
-            description:req.body.description,
-            category:req.body.category.toUpperCase(),
-            stock:req.body.stock,
-            regularPrice:req.body.regularPrice,
-            salePrice:req.body.salePrice,
+            productName:productName,
+            description:description,
+            category:categoryId,
+            stock:stock,
+            regularPrice:regularPrice,
+            salePrice:salePrice,
             images:images,
          })
          await productData.save();
-         const category = await Category.find();
-         res.render('add-products',{categories:category,message:'Product Added'});
+         const categoryList = await Category.find();
+         res.render('add-products',{categories:categoryList,message:'Product Added'});
    } catch (error) {
       console.log(error.message);
    }
@@ -57,11 +61,11 @@ const addProducts = async(req,res)=>{
 const loadEditProduct = async(req,res)=>{
    try {
       const id = req.query.id;
-      const productData = await Product.findById(id);
-      const categoryData = await Category.find();
+      const productData = await Product.findById(id).populate('category');
+      // console.log(productData)
       if(productData){
-         const category = await Category.findOne({categoryName:productData.category})
-         res.render('edit-products',{products:productData,categories:categoryData,category});
+         const categories = await Category.find()
+         res.render('edit-products',{productData,categories});
       }
    } catch (error) {
       console.log(error.message);
@@ -72,10 +76,11 @@ const loadEditProduct = async(req,res)=>{
 
 const editProduct = async(req,res)=>{
    try {
-      const {productName, description, regularPrice, salePrice, stock, category, id } = req.body
+      const {productName, description, regularPrice, salePrice, stock, categoryId, id } = req.body
+      // console.log(categoryId)
       const images = [];
       for(let i=0;i<req.files.length;i++){
-         images.push(req.files[i].filename);
+         images.unshift(req.files[i].filename);
       }
       if(images.length === 0){
          const product = await Product.findById(id);
@@ -88,24 +93,52 @@ const editProduct = async(req,res)=>{
             images.unshift(product.images[i]);
          }
       }
-      const UpdatedData = await Product.findByIdAndUpdate(id,
-         {$set:{
-            productName:productName,
-            description:description,
-            regularPrice:regularPrice,
-            salePrice:salePrice,
-            stock:stock,
-            category:category,
-            images:images,
-         }})
-         if(UpdatedData){
-            res.redirect('/admin/list-products');
+
+      if(images.length <=1 ){
+         const productData = await Product.findById(id).populate('category');
+      // console.log(productData)
+         if(productData){
+         const categories = await Category.find()
+         res.render('edit-products',{productData,categories,message:'Set atleast Two Images'});
          }
+      }else{
+         const UpdatedData = await Product.findByIdAndUpdate(id,
+            {$set:{
+               productName:productName,
+               description:description,
+               regularPrice:regularPrice,
+               salePrice:salePrice,
+               stock:stock,
+               category:categoryId,
+               images:images,
+            }})
+            if(UpdatedData){
+               res.redirect('/admin/list-products');
+            }
+      }
+      
    } catch (error) {
       console.log(error.message)
    }
 }
 
+// Remove image while editing
+const removeImage = async(req,res)=>{
+   try {
+      const {imageFile , productId} = req.body
+      console.log('Image File :',imageFile);
+      // console.log('Product Id :', productId);
+
+      const product = await Product.findById(productId);
+      product.images = product.images.filter(img=>img !== imageFile);
+      
+      await product.save();
+      res.json({status:'success',message:'Image removed'})
+   } catch (error) {
+      res.json({status:'error',message:error.message})
+      console.log(error.message);
+   }
+}
 // unlist product 
 
 const unListProducts = async(req,res)=>{
@@ -146,6 +179,7 @@ module.exports = {
    addProducts,
    loadEditProduct, 
    editProduct,
+   removeImage, // remove image while editing
    unListProducts,
    listProducts,
 }

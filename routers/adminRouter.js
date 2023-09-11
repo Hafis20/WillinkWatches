@@ -78,16 +78,20 @@ adminRouter.get('/edit-products',auth.isLogin,productController.loadEditProduct)
 // Edit products
 adminRouter.post('/edit-products',upload.array('images'),productController.editProduct);
 
-// Delete Products
+// Remove image While editing
+adminRouter.post('/remove-image',auth.isLogin,productController.removeImage);
+
+// Unlisting Products
 adminRouter.get('/is-unlist-products',auth.isLogin,productController.unListProducts);
 
+// Listing Products
 adminRouter.get('/is-list-products',auth.isLogin,productController.listProducts)
 
 //---------------------------------------CATEGORY-----------------------------
 
 // Load add Categories
-adminRouter.get('/add-categories',auth.isLogin,categoryController.loadaddCategories);
-adminRouter.post('/add-categories',auth.isLogin,categoryController.addCategories);
+adminRouter.get('/add-category',auth.isLogin,categoryController.loadaddCategories);
+adminRouter.post('/add-category',auth.isLogin,categoryController.addCategories);
 
 // List Categories
 adminRouter.get('/list-categories',auth.isLogin,categoryController.loadCategories);

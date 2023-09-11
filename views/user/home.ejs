@@ -36,7 +36,13 @@
 		.banner-content p {
 			color: #ffff;
 		}
-		
+		.card {
+			transition: transform 0.3s ease;
+		}
+
+		.card:hover {
+			transform: scale(1.05);
+		}
 	</style>
 </head>
 
@@ -146,8 +152,8 @@
 
 					<% if (products.length> 0) { %>
 						<% for( let i=0; i < products.length; i++ ) { %>
-							<div class="col-lg-3 col-md-6">
-								<div class="single-product">
+							<div class="col-lg-3 col-md-6 d-flex justify-content-center">
+								<div class=" card single-product text-center shadow">
 									<img class="img-fluid" style="height: 300px; width: 300px; object-fit: contain;"
 										src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
 									<div class="product-details">
@@ -155,21 +161,6 @@
 										<div class="price">
 											<h6> &#x20B9;<%- products[i].salePrice %></h6>
 											<h6 class="l-through">&#x20B9;<%- products[i].regularPrice %></h6>
-										</div>
-										<div class="prd-bottom">
-
-											<a href="" class="social-info">
-												<span class="ti-bag"></span>
-												<p class="hover-text">add to bag</p>
-											</a>
-											<a href="" class="social-info">
-												<span class="lnr lnr-heart"></span>
-												<p class="hover-text">Wishlist</p>
-											</a>
-											<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
-												<span class="lnr lnr-move"></span>
-												<p class="hover-text">view more</p>
-											</a>
 										</div>
 									</div>
 								</div>

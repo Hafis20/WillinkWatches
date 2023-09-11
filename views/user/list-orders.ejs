@@ -58,22 +58,31 @@
 
         #listOrders th,
         #listOrders td {
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
+            border-right: 1px solid #a8a5a5;
+            border-bottom: 1px solid #a8a5a5;
             /* Add a vertical line between cells */
         }
-        .header_area {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        background-color: #fff; /* Set the background color of the sticky header */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow for better visibility */
-    }
 
-    .main_menu {
-        padding: 0;
-    }
+        .header_area {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: #fff;
+            /* Set the background color of the sticky header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Add a shadow for better visibility */
+        }
+
+        .main_menu {
+            padding: 0;
+        }
+
+
+        div.dataTables_filter,
+        div.dataTables_length {
+            padding: 10px;
+        }
     </style>
 
 </head>
@@ -176,12 +185,16 @@
                                     <% for (let i=0; i < userOrders.length; i++) { %>
                                         <tr>
                                             <td>
-                                            <% for( let j = 0; j < userOrders[i].products.length; j++ ) { %>
-                                                <%- userOrders[i].products[j].productId.productName %>
-                                                <br>
-                                            <% } %>
+                                                <% for( let j=0; j < userOrders[i].products.length; j++ ) { %>
+                                                    <%- userOrders[i].products[j].productId.productName %>
+                                                        <br>
+                                                        <% } %>
                                             </td>
-                                            <td><%- userOrders[i].date.toDateString() %></td>
+                                            <td><%- userOrders[i].date.toLocaleString('en-US', { month: 'short' ,
+                                                    weekday: 'short' , day: '2-digit' , hour: 'numeric' ,
+                                                    minute: '2-digit' , hour12: true }) %></td>
+
+                                            </td>
                                             <td><%- userOrders[i].orderStatus %></td>
                                             <td> <%- userOrders[i].totalAmount %></td>
                                             <td><a href="/order-details/?orderId=<%- userOrders[i]._id %>"
@@ -295,9 +308,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-           new DataTable('#listOrders',{
-            order: [[3, 'desc']]
-           })
+            new DataTable('#listOrders', {
+                columnDefs: [
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+            })
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"

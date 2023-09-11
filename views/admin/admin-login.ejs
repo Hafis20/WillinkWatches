@@ -73,11 +73,11 @@
                     <h4 class="card-title mb-4">ADMIN LOGIN</h4>
                     <form method="post" id="adminLoginForm">
                         <div class="mb-3">
-                            <input class="form-control" placeholder="Email" id="email" name="email" type="text">
+                            <input class="form-control" value="admin@gmail.com" placeholder="Email" id="email" name="email" type="text">
                             <p id="emailError" style="color: red;"></p>
                         </div> <!-- form-group// -->
                         <div class="mb-3">
-                            <input class="form-control" placeholder="Password" id="password" name="password" type="password">
+                            <input class="form-control" value="Hafis@123" placeholder="Password" id="password" name="password" type="password">
                             <p id="passwordError" style="color: red;"></p>
                         </div> <!-- form-group// -->
                         <div class="mb-3">
@@ -123,7 +123,7 @@
 				}).showToast();
 				setTimeout(() => {
 					location.href = '/admin/dashboard'
-				},2000);
+				},1500);
 			} else {
 				Toastify({
 					text:result.message,

@@ -41,15 +41,15 @@
                         <span class="text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item has-submenu ">
+                <li class="menu-item has-submenu active">
                     <a class="menu-link" href="page-products-list.html"> <i
                             class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
+                        <span class="text">List</span>
                     </a>
                     <div class="submenu">
-                        <a href="page-products-list.html">Product List</a>
-                        <a href="page-products-grid.html">Category List</a>
-                        <a href="page-products-grid-2.html">Users List</a>
+                        <a href="/admin/list-products">Product List</a>
+                        <a href="/admin/list-categories" class="active">Category List</a>
+                        <a href="/admin/list-users">Users List</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -70,15 +70,6 @@
                         <a href="page-sellers-cards.html">Sellers cards</a>
                         <a href="page-sellers-list.html">Sellers list</a>
                         <a href="page-seller-detail.html">Seller profile</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu active">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/add-products">Add Products</a>
-                        <a href="/admin/add-categories" class="active">Add Categories</a>
                     </div>
                 </li>
                 <li class="menu-item has-submenu">
@@ -211,10 +202,7 @@
         <section class="content-main">
             <div class="content-header">
                 <div>
-                    <h2 class="content-title card-title">Add Categories </h2>
-                </div>
-                <div>
-                    <input type="text" placeholder="Search Categories" class="form-control bg-white">
+                    <h2 class="content-title card-title">Add New Category </h2>
                 </div>
             </div>
             <div class="card">
@@ -239,6 +227,7 @@
                                     <button type="submit" class="btn btn-primary">Add category</button>
                                 </div>
                             </form>
+                            <a href="/admin/list-categories" class="btn btn-dark mt-3">Go Back</a>
                         </div>
 
                     </div> <!-- .row // -->

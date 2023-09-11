@@ -394,7 +394,7 @@
             if (!isNaN(currentValue)) {
                 inputField.value = currentValue + 1;
                 updateQuantity(inputField);
-                changeQuantity(productId, value);
+                changeQuantity(productId, value); // Changing the quantity in db
                 updateCart(); // Update the cart total when the quantity changes
             }
         }
@@ -473,7 +473,7 @@
             }
         })
     </script>
-
+<!-- Removing product -->
     <script>
         // Removing the product from cart
         const removeBtn = document.querySelectorAll('.removeProduct');

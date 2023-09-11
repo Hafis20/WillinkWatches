@@ -21,7 +21,13 @@
     <!-- Sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        div.dataTables_filter,
+        div.dataTables_length {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,86 +60,17 @@
                         <a href="/admin/list-users">Users List</a>
                     </div>
                 </li>
-                <li class="menu-item has-submenu ">
-                    <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/list-orders"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-orders-1.html" class="active">Order list 1</a>
-                        <a href="page-orders-2.html">Order list 2</a>
-                        <a href="page-orders-detail.html">Order detail</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
-                        <span class="text">Sellers</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-sellers-cards.html">Sellers cards</a>
-                        <a href="page-sellers-list.html">Sellers list</a>
-                        <a href="page-seller-detail.html">Seller profile</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-add_box"></i>
-                        <span class="text">Add product</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-form-product-1.html">Add product 1</a>
-                        <a href="page-form-product-2.html">Add product 2</a>
-                        <a href="page-form-product-3.html">Add product 3</a>
-                        <a href="page-form-product-4.html">Add product 4</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-transactions-1.html"> <i
-                            class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Transactions</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-transactions-1.html">Transaction 1</a>
-                        <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Account</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-account-login.html">User login</a>
-                        <a href="page-account-register.html">User registration</a>
-                        <a href="page-error-404.html">Error 404</a>
-                    </div>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                        <span class="text">Reviews</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Brands</span> </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                        <span class="text">Statistics</span>
                     </a>
                 </li>
             </ul>
             <hr>
             <ul class="menu-aside">
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                        <span class="text">Settings</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="page-settings-1.html">Setting sample 1</a>
-                        <a href="page-settings-2.html">Setting sample 2</a>
-                    </div>
-                </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text"> Starter page </span>
+                    <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-exit_to_app"></i>
+                        <span class="text"> Logout</span>
                     </a>
                 </li>
             </ul>
@@ -143,73 +80,8 @@
     </aside>
     <main class="main-wrap">
         <header class="main-header navbar">
-            <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                        <button class="btn btn-light bg" type="button"> <i
-                                class="material-icons md-search"></i></button>
-                    </div>
-                    <datalist id="search_terms">
-                        <option value="Products">
-                        <option value="New orders">
-                        <option value="Apple iphone">
-                        <option value="Ahmed Hassan">
-                    </datalist>
-                </form>
-            </div>
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
-                        class="material-icons md-apps"></i> </button>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon" href="#">
-                            <i class="material-icons md-notifications animation-shake"></i>
-                            <span class="badge rounded-pill">3</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="requestfullscreen nav-link btn-icon"><i
-                                class="material-icons md-cast"></i></a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
-                            aria-expanded="false"><i class="material-icons md-public"></i></a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
-                            <a class="dropdown-item text-brand" href="#"><img src="/assets/imgs/theme/flag-us.png"
-                                    alt="English">English</a>
-                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-fr.png"
-                                    alt="Français">Français</a>
-                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-jp.png"
-                                    alt="Français">日本語</a>
-                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-cn.png"
-                                    alt="Français">中国人</a>
-                        </div>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
-                            aria-expanded="false"> <img class="img-xs rounded-circle"
-                                src="/assets/imgs/people/avatar2.jpg" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
-                                Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
-                                Settings</a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help
-                                center</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#"><i
-                                    class="material-icons md-exit_to_app"></i>Logout</a>
-                        </div>
-                    </li>
-                </ul>
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
             </div>
         </header>
         <section class="content-main">
@@ -219,15 +91,15 @@
                     <p>You can 'Edit' 'List/UnList' 'Delete' the Category</p>
                 </div>
                 <div>
-                    <input type="text" placeholder="Search order ID" class="form-control bg-white">
+                    <a href="/admin/add-category" class="btn btn-primary btn-sm rounded">Add New Category</a>
                 </div>
             </div>
             <div class="card mb-4">
                 <!-- card-body start// -->
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+                        <table id="listCategoryTable" class="table table-hover">
+                            <thead class=" table-dark text-center">
                                 <tr>
                                     <th>SI:</th>
                                     <th scope="col">Category Name</th>
@@ -242,25 +114,27 @@
                                             <td><%- i+1 %></td>
                                             <td><b><%- categories[i].categoryName %></b></td>
                                             <td class="">
-                                                <a href="/admin/edit-categories?id=<%- categories[i]._id %>" 
+                                                <a href="/admin/edit-categories?id=<%- categories[i]._id %>"
                                                     class="btn btn-md-edit rounded font-sm">Edit</a>
                                             </td>
                                             <td class="">
-                                                <% if (categories[i].is_listed === true) { %>
+                                                <% if (categories[i].is_listed===true) { %>
                                                     <a href="/admin/is-unlist-categories?id=<%- categories[i]._id %>"
                                                         class="btn btn-md-delete rounded font-sm  unlist-btn">Unlist</a>
-                                                <% }else{ %>
-                                                    <a href="/admin/is-list-categories?id=<%- categories[i]._id %>"
-                                                        class="btn btn-md-list rounded font-sm list-btn">List</a>
-                                                <% } %>
+                                                    <% }else{ %>
+                                                        <a href="/admin/is-list-categories?id=<%- categories[i]._id %>"
+                                                            class="btn btn-md-list rounded font-sm list-btn">List</a>
+                                                        <% } %>
                                             </td>
                                         </tr>
-                                    <% } %>
-                                <% }else{ %>
-                                    <tr>
-                                        <td colspan="6"><h1>Category not found</h1></td>
-                                    </tr>
-                                    <% } %>
+                                        <% } %>
+                                            <% }else{ %>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <h1>Category not found</h1>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
                             </tbody>
                         </table>
                     </div> <!-- table-responsive //end -->
@@ -286,7 +160,7 @@
     </main>
     <script>
         document.addEventListener('click', async (event) => {
-            if(event.target.matches('.unlist-btn')){
+            if (event.target.matches('.unlist-btn')) {
                 event.preventDefault()
 
                 const result = await Swal.fire({
@@ -300,7 +174,7 @@
                     cancelButtonText: 'Cancel'
                 })
 
-                if(result.isConfirmed){
+                if (result.isConfirmed) {
                     location.href = event.target.href;
                 }
             }
@@ -316,7 +190,7 @@
                     cancelButtonColor: '#990f0f',
                     confirmButtonText: 'Yes, Proceed',
                     cancelButtonText: 'Cancel'
-                    
+
                 });
                 if (confirmed.isConfirmed) {
                     location.href = event.target.href;
@@ -324,7 +198,15 @@
             }
         })
     </script>
-    <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        new DataTable('#listCategoryTable', {
+            columnDefs: [
+                { "className": "dt-center", "targets": "_all" }
+            ],
+        });
+    </script>
     <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/vendors/select2.min.js"></script>
     <script src="/assets/js/vendors/perfect-scrollbar.js"></script>

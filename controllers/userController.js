@@ -126,9 +126,11 @@ const verifyUser = async(req,res)=>{
 //Rendering the home page
 const loadHome = async(req,res)=>{
    try {
-      const productData = await Product.find({is_listed:true}).sort({date:-1}).limit(4);
+      const productData = await Product.find({is_listed:true}).populate('category').sort({date:-1}).limit(4);
       if(productData){
-         res.render('home',{products : productData});
+         const availableProducts = productData.filter(products=>products.category.is_listed === true);
+         console.log(availableProducts)
+         res.render('home',{products : availableProducts});
       }
    } catch (error) {
       console.log(error.message)
@@ -153,9 +155,12 @@ const loadSingleProduct = async(req,res)=>{
 
 const loadAllProducts = async(req,res)=>{
    try {
-      const productData = await Product.find({is_listed:true});
+      const productData = await Product.find({is_listed:true}).populate('category');
+
+      const availableProducts = productData.filter((product)=>product.category.is_listed === true);
+      console.log(availableProducts);
       const categories = await Category.find();
-      res.render('all-products',{products:productData,categories});
+      res.render('all-products',{products:availableProducts,categories});
    } catch (error) {
       console.log(error.message);
    }
@@ -166,10 +171,16 @@ const loadAllProducts = async(req,res)=>{
 const filterProducts = async(req,res)=>{
    try {
       const id = req.query.id;
+      // Taking the whole category for passing to next page
       const categories = await Category.find();
-      const category = await Category.findById(id); // Passing the category of products
-      const products = await Product.find({category:category.categoryName, is_listed:true});
-      res.render('all-products',{products:products,categories});
+      // Finding which category we want 
+      const category = await Category.findById(id); 
+
+      const products = await Product.find({category:category._id, is_listed:true}).populate('category');
+
+      // Taking the avalable products in the shop after checking listed or unlisted
+      const availableProducts = products.filter((products)=>products.category.is_listed === true);
+      res.render('all-products',{products:availableProducts,categories});
    } catch (error) {
       console.log(error.message);
    }
