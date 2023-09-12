@@ -1,6 +1,7 @@
 const Order = require('../models/ordersModel');
 const Cart = require('../models/cartModel')
 const Address = require('../models/addressModel');
+const RazorPayHelper = require('../helpers/razorpayHelper');
 
 // Add order
 const placeOrder = async(req,res)=>{
@@ -53,16 +54,52 @@ const placeOrder = async(req,res)=>{
          address:address,
       })
       const placedOrder = await orderDetails.save()
-      console.log(placedOrder._id);
-
+      
+      if(placedOrder.paymentMethod === 'COD'){
+         res.json({status:'COD',placedOrderId:placedOrder._id})
+      }else if(placedOrder.paymentMethod === 'RAZORPAY'){
+         const orderId = placedOrder._id;
+         const totalAmount = placedOrder.totalAmount;
+         // Calling razorpay 
+         RazorPayHelper.generateRazorPay(orderId,totalAmount).then((response)=>{
+            res.json({status:'RAZORPAY',response})
+         })
+      }
       if(cart){
          cart.products = [];
          await cart.save();
       }
-      res.json({status:'success',placedOrderId:placedOrder._id});
+
    } catch (error) {
       console.log(error.message);
    }
+}
+
+const verifyOnlinePayment = async(req,res)=>{
+   const data = req.body
+   console.log(data)
+   // console.log('Our orderId : ',req.body.order.receipt);
+   let receiptId = data.order.receipt;
+   
+   RazorPayHelper.verifyOnlinePayment(data).then(()=>{
+      console.log('Resolved')
+      let paymentSuccess = true;
+
+      RazorPayHelper.updatePaymentStatus(receiptId,paymentSuccess).then(()=>{
+         res.json({status:'paymentSuccess',placedOrderId:receiptId});
+      })
+   }).catch((err)=>{
+      console.log('Rejected')
+      if(err){
+         console.log(err.message);
+
+         let paymentSuccess = false;
+         RazorPayHelper.updatePaymentStatus(receiptId,paymentSuccess).then(()=>{
+            res.json({status:'paymentFailed',placedOrderId:receiptId})
+         })
+      }
+   })
+   
 }
 
 // List orders in user-side
@@ -106,6 +143,7 @@ const cancelOrder = async(req,res)=>{
       console.log(error.message)
    }
 }
+
 
 // ==============================Admin Order management=================
 
@@ -153,6 +191,7 @@ const changeStatus = async(req,res)=>{
 
 module.exports = {
    placeOrder,
+   verifyOnlinePayment,
    listOrders,
    orderDetails,
    cancelOrder,

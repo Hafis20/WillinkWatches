@@ -60,7 +60,7 @@ const ordersModel = new mongoose.Schema({
    },
    orderStatus:{
       type:String,
-      default:'Placed',
+      default:'Pending',
    }
 })
 

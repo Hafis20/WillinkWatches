@@ -170,6 +170,17 @@ const loadConfirmation = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+const loadOrderFailed = async(req,res)=>{
+   try {
+      const orderId = req.query.orderId;
+
+      const orderDetails = await Order.findById(orderId);
+      res.render('order-failed',{orderDetails});
+   } catch (error) {
+      console.log(error.message)
+   }
+}
 module.exports = {
    loadCart,
    addToCart,
@@ -177,4 +188,5 @@ module.exports = {
    removeFromCart,
    loadCheckOut,
    loadConfirmation,
+   loadOrderFailed,
 }

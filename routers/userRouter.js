@@ -108,10 +108,12 @@ userRouter.post('/update-quantity',auth.ftisLogin,cartController.updateQuantity)
 // Load the checkout page
 userRouter.get('/checkout',auth.isLogin,cartController.loadCheckOut);
 
+
 // Show the confirmation page
 userRouter.get('/confirmation',auth.isLogin,cartController.loadConfirmation);
 
-
+// Show if the user payment failed
+userRouter.get('/order-failed',auth.isLogin,cartController.loadOrderFailed);
 // ---------------------------------------WHISHLIST---------------------------------
 // Load the whishlist page of the user
 userRouter.get('/whishlist',auth.isLogin,whishlistController.loadWhishlist);
@@ -125,6 +127,9 @@ userRouter.get('/remove-from-whishlist',auth.ftisLogin,whishlistController.remov
 //-----------------------------------------ORDER MANAGEMENT---------------------------
 // Placing the order
 userRouter.post('/place-order',auth.ftisLogin,ordersController.placeOrder);
+
+// If the user choose online payment we verify the order is success or failure
+userRouter.post('/verify-payment',auth.isLogin,ordersController.verifyOnlinePayment);
 
 // Showing the list of orders into user
 userRouter.get('/list-orders',auth.isLogin,ordersController.listOrders);

@@ -61,7 +61,6 @@ const loadVerfiyOTP = async(req,res)=>{
    }
 }
 
-
 // After the user enter the otp we check the otp is correct or not
 
 const verifyotp = async(req,res)=>{

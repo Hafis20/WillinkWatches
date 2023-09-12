@@ -129,7 +129,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
                             <li class="nav-item submenu dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -299,12 +299,19 @@
                                             &#x20B9; <%- grandTotal %></span></a></li>
                             </ul>
                             <div class="payment_item">
-                                <div class="radion_btn">
+                                <div class="payment_radio">
                                     <input type="radio" id="COD" name="payment-method" checked>
                                     <label for="f-option5">Cash on Delivery</label>
                                     <div class="check"></div>
                                 </div>
                                 <p>If you take the cash on delivery, you only pay after it reached in your destination
+                                </p>
+                                <div class="payment_radio">
+                                    <input type="radio" id="RAZORPAY" name="payment-method">
+                                    <label for="f-option5">Razorpay</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p> More easy to manage
                                 </p>
                             </div>
                             <a class="primary-btn" id="placeOrder" data-addressCount="<%- address.length %>"
@@ -405,7 +412,6 @@
         </div>
     </footer>
     <!-- End footer Area -->
-
     <script>
         document.getElementById('addAddressForm').addEventListener('submit', async (event) => {
             event.preventDefault()
@@ -443,6 +449,16 @@
                     setTimeout(() => {
                         location.href = '/checkout'
                     }, 2000);
+                } else if (result.status === 'sessionError') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    setTimeout(() => {
+                        location.href = '/login'
+                    }, 1500);
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -455,6 +471,12 @@
         })
 
     </script>
+
+
+    <!-- Online Payment -->
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <script>
         document.getElementById('placeOrder').addEventListener('click', async (event) => {
             event.preventDefault();
@@ -502,7 +524,7 @@
 
                 const result = await response.json()
 
-                if (result.status === 'success') {
+                if (result.status === 'COD') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Order Placed',
@@ -512,18 +534,12 @@
                     setTimeout(() => {
                         location.href = `/confirmation/?orderId=${result.placedOrderId}`
                     }, 1500);
-                } else if (result.status === 'LoginError') {
-                    Swal.fire({
-                        icon: 'info',
-                        title: result.message,
-                        showConfirmButton: false,
-                        timer: 1000
-                    })
-                    setTimeout(() => {
-                        location.href = '/login'
-                    }, 1500);
-                }
-                else if (result.status === 'BlockError') {
+
+                } else if (result.status === 'RAZORPAY') {
+
+                    razorpayPayment(result.response);
+
+                } else if (result.status === 'sessionError') {
                     Swal.fire({
                         icon: 'info',
                         title: result.message,
@@ -542,9 +558,88 @@
                     })
                 }
             }
-
-
         })
+
+        function razorpayPayment(order) {
+
+            var options = {
+                "key": "rzp_test_JZgdglON5nofNC", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Willink Watches", //your business name
+                "description": "Test Transaction",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+
+                    verifyPayment(response, order)
+
+                },
+                "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                    "name": "Gaurav Kumar", //your customer's name
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+
+            };
+            console.log(options);
+            var razorpay = new Razorpay(options);
+            razorpay.open();
+        }
+
+        async function verifyPayment(payment, order) {
+            const response = await fetch('/verify-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ payment, order }),
+            })
+
+            const result = await response.json();
+
+            if (result.status === 'paymentSuccess') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Payment Successfull',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(() => {
+                    location.href = `/confirmation/?orderId=${result.placedOrderId}`
+                }, 1500);
+            }else if(result.status ==='paymentFailed'){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Payment Failed',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(() => {
+                    location.href = `/order-failed/?orderId=${result.placedOrderId}`
+                }, 1500);
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Some thing went wrong',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+
+        // function verifyPayment(payment,order){
+        //     $.ajax({
+        //         url:'/verify-payment',
+        //         data:{
+        //             payment,
+        //             order
+        //         },
+        //         method:'POST'
+        //     })
+        // }
     </script>
 
     <script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
