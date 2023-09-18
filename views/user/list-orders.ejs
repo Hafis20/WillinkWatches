@@ -196,7 +196,7 @@
 
                                             </td>
                                             <td><%- userOrders[i].orderStatus %></td>
-                                            <td> <%- userOrders[i].totalAmount %></td>
+                                            <td> <%- userOrders[i].actualTotalAmount %></td>
                                             <td><a href="/order-details/?orderId=<%- userOrders[i]._id %>"
                                                     class="btn btn-primary" type="button">Details</a></td>
                                         </tr>
@@ -309,9 +309,14 @@
     <script>
         $(document).ready(function () {
             new DataTable('#listOrders', {
-                columnDefs: [
-                    { "className": "dt-center", "targets": "_all" }
-                ],
+                "order":[[1,'desc']],
+                "coloumnDefs":[
+                    {
+                        "targets":1,
+                        "type":'date'
+                    }
+                ]
+                
             })
         });
     </script>

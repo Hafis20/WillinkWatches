@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="/user-assets/css/bootstrap.css">
     <link rel="stylesheet" href="/user-assets/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Style for the card */
@@ -104,6 +106,40 @@
             color: #000000;
             /* Label text color */
             margin-bottom: 10px;
+        }
+
+        .custom-div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #aeaeae;
+            border-radius: 5px;
+        }
+
+        .btn-custom-success {
+            background-color: #28a745;
+            /* Your custom approved color */
+            border-color: #28a745;
+            color: #000000;
+            /* Text color */
+        }
+
+        .btn-custom-success:hover {
+            background-color: #218838;
+            /* Hover color */
+            border-color: #218838;
+        }
+
+        .dummy-data {
+            color: #333;
+            /* Set the color you want */
+            font-size: 16px;
+            /* Set the font size you want */
+            /* Add any other styles you want for the dummy data */
+        }
+
+        .bg-light-green {
+            background-color: #e0f3e0;
+            /* You can adjust the color code to your desired shade of light green */
         }
     </style>
 </head>
@@ -199,51 +235,125 @@
     <!-- End Banner Area -->
 
     <!--================Checkout Area =================-->
+    <!-- modal -->
+    <div class="modal fade" id="addCouponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <% if (coupons.length) { %>
+                    <% for( let i=0; i < coupons.length; i++ ) { %>
+                        <div class="modal-body">
+                            <div class="card bg-light-green">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="couponCode<%- i %>" class="form-label"><%-
+                                                coupons[i].couponDiscription %></label>
+                                        <div class="coupon-code" id="couponCode<%- i %>"><%- coupons[i].couponCode %>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary copy-button "
+                                            data-clipboard-target="#couponCode<%- i %>">Copy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <% } %>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                                <!-- You can add a "Save" button here if needed -->
+                            </div>
+                            <% }else{ %>
+                                <div class="modal-body">
+                                    <div class="card bg-light-green">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+
+                                                <div class="text-center">
+                                                    <h2>No Coupons Found</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    <!-- You can add a "Save" button here if needed -->
+                                </div>
+                                <% } %>
+
+
+            </div>
+        </div>
+    </div>
     <section class="checkout_area section_gap">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <% if (address.length> 0) { %>
-                        <% for( let i=0; i < address.length; i++ ) { %>
-                            <div class="card">
-                                <div class="card-body ">
-                                    <div>
-                                        <% if(address[i].isDefault===true){ %>
-                                            <input class="radio_btn" type="radio" id="<%- address[i]._id %>"
-                                                name="address-option" value="<%- address[i]._id %>" checked>
-                                            <% }else{ %>
-                                                <input class="radio_btn" type="radio" id="<%- address[i]._id %>"
-                                                    name="address-option" value="<%- address[i]._id %>">
-                                                <% } %>
-                                                    <label for="f-option5-1">Address <%- i+1 %></label>
-                                                    <div class="check"></div>
+                        <div class="row">
+                            <% for (let i=0; i < address.length; i++) { %>
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div>
+                                                <% if(address[i].isDefault===true) { %>
+                                                    <input class="radio_btn" type="radio" id="<%- address[i]._id %>"
+                                                        name="address-option" value="<%- address[i]._id %>" checked>
+                                                    <% } else { %>
+                                                        <input class="radio_btn" type="radio" id="<%- address[i]._id %>"
+                                                            name="address-option" value="<%- address[i]._id %>">
+                                                        <% } %>
+                                                            <label for="f-option5-1">Address <%- i+1 %></label>
+                                                            <div class="check"></div>
+                                            </div>
+                                            <p class="card-text">Name : <%- address[i].name %></p>
+                                            <p class="card-text">Mobile Number : <%- address[i].mobile %></p>
+                                            <p class="card-text">Address : <%- address[i].homeAddress %></p>
+                                            <p class="card-text">City : <%- address[i].city %></p>
+                                            <p class="card-text">Street : <%- address[i].street %></p>
+                                            <p class="card-text">Postal Code : <%- address[i].postalCode %></p>
+                                        </div>
                                     </div>
-                                    <p class="card-text">Name : <%- address[i].name %></p>
-                                    <p class="card-text">Mobile Number : <%- address[i].mobile %></p>
-                                    <p class="card-text">Address : <%- address[i].homeAddress %></p>
-                                    <p class="card-text">City : <%- address[i].city %></p>
-                                    <p class="card-text">Street : <%- address[i].street %></p>
-                                    <p class="card-text">Postal Code : <%- address[i].postalCode %></p>
+                                </div>
+                                <% } %>
+                        </div>
+                        <% } else { %>
+                            <div class="row justify-content-center mb-5">
+                                <div class="card col-md-6 text-center bg-danger text-white">
+                                    <div class="card-body">
+                                        <h1 style="color: #ffffff;"><i class="bi bi-eye-slash"></i> Address Not Found
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
                             <% } %>
-                                <% }else{ %>
-                                    <div class="row justify-content-center mb-5">
-                                        <div class="card col-md-6 text-center bg-danger text-white">
-                                            <div class="card-body">
-                                                <h1 style="color: #ffffff;"><i class="bi bi-eye-slash"></i> Address Not
-                                                    Found </h1>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <% } %>
                 </div>
+
             </div>
             <div class="billing_details">
                 <div class="row">
                     <div class="col-lg-8">
+                        <!-- Coupon div  -->
+                        <div class="col-md-12 mb-3 custom-div shadow">
+                            <label for="couponCode" class="form-label">Coupon Code</label>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="couponCode"
+                                        placeholder="Enter your coupon code" aria-label="Coupon Code"
+                                        aria-describedby="applyCouponBtn">
+                                     <input type="text" id="couponId" hidden>
+                                </div>
+                                <button class="btn btn-primary" type="button" id="applyCouponBtn">Apply</button>
+                            </div>
+                            <p id="couponCodeError" style="color: #ff0000;"></p>
+
+                            <div class="text-center mt-2">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#addCouponModal">Add Coupon</button>
+                            </div>
+                        </div>
+
                         <h3>Add Address</h3>
                         <form class="row addAddress_form" id="addAddressForm" action="" method="post"
                             novalidate="novalidate">
@@ -294,8 +404,16 @@
                                             <% } %>
 
                             </ul>
+
                             <ul class="list list_2">
-                                <li><a href="#">Grand Total <span id="cartTotal" data-cartTotal="<%- grandTotal %>">
+                                <li><a href="#">Total <span id="total">
+                                            &#x20B9;<%- grandTotal %> </span></a></li>
+                                <li><a class="fw-bold" href="#">Discount <span id="discount">
+                                            &#x20B9;0 </span></a></li>
+                            </ul>
+                            <ul class="list list_2">
+                                <li><a href="#" class="text-success">Grand Total <span class="text-success"
+                                            id="cartTotal" data-cartTotal="<%- grandTotal %>">
                                             &#x20B9; <%- grandTotal %></span></a></li>
                             </ul>
                             <div class="payment_item">
@@ -305,6 +423,13 @@
                                     <div class="check"></div>
                                 </div>
                                 <p>If you take the cash on delivery, you only pay after it reached in your destination
+                                </p>
+                                <div class="payment_radio">
+                                    <input type="radio" id="WALLET" name="payment-method">
+                                    <label for="f-option5">Wallet</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p> You wallet amount is : &#x20B9; <span class="text-success"><%- userWallet.walletAmount %></span>
                                 </p>
                                 <div class="payment_radio">
                                     <input type="radio" id="RAZORPAY" name="payment-method">
@@ -411,7 +536,84 @@
             </div>
         </div>
     </footer>
-    <!-- End footer Area -->
+
+
+    <!-- Applying Coupon -->
+    <script>
+        document.getElementById('applyCouponBtn').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            const isValid = validateCouponFeild();
+
+            if (isValid) {
+                const couponCode = document.getElementById('couponCode').value;
+                const totalAmount = '<%- grandTotal %>'
+                console.log(totalAmount)
+                // console.log(couponCode);
+
+                const response = await fetch(`/apply-coupon/?couponCode=${couponCode}&totalAmount=${totalAmount}`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    Swal.fire({
+                        title: 'Coupon Applied',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+
+                    document.getElementById('discount').innerHTML = '&#x20B9;' + result.discountValue
+                    document.getElementById('cartTotal').innerHTML = '&#x20B9;' + result.actualValue
+                    document.getElementById('couponId').value = result.couponId;
+                } else {
+                    Swal.fire({
+                        title: 'Coupon Already Used',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }
+
+
+        })
+
+        function validateCouponFeild() {
+            let isValid = true;
+            const couponFeild = document.getElementById('couponCode').value;
+            if (couponFeild.trim() === '') {
+                document.getElementById('couponCodeError').textContent = 'Please Apply Coupon Code'
+                document.getElementById('couponCode').style.borderColor = 'red'
+                setTimeout(() => {
+                    document.getElementById('couponCodeError').textContent = ''
+                    document.getElementById('couponCode').style.borderColor = ''
+                }, 3000)
+                isValid = false;
+            }
+            return isValid;
+        }
+    </script>
+
+
+    <!-- Copy Button Script -->
+    <script>
+        document.querySelectorAll('.copy-button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var target = document.querySelector(this.dataset.clipboardTarget);
+                var range = document.createRange();
+                var selection = window.getSelection();
+
+                range.selectNode(target);
+                selection.removeAllRanges();
+                selection.addRange(range);
+
+                document.execCommand('copy');
+                selection.removeAllRanges();
+
+
+            });
+        });
+    </script>
+
+    <!-- Address form  -->
     <script>
         document.getElementById('addAddressForm').addEventListener('submit', async (event) => {
             event.preventDefault()
@@ -477,6 +679,7 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
+    <!-- Full Razorpay Payment code -->
     <script>
         document.getElementById('placeOrder').addEventListener('click', async (event) => {
             event.preventDefault();
@@ -489,7 +692,13 @@
                     break;
                 }
             }
-            const total = parseInt(document.getElementById('cartTotal').getAttribute('data-cartTotal'));
+            const total = Number('<%- grandTotal %> ')
+            const actualAmount = parseFloat(document.getElementById('cartTotal').innerHTML.replace(/[^\d.]/g, ''))
+            const walletAmount = Number("<%- userWallet.walletAmount %>")
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
+            // console.log(payment)
+            // console.log(total)
+            
             if (!selectedRadioButtonId) {
                 Swal.fire({
                     icon: 'error',
@@ -500,18 +709,23 @@
                     icon: 'error',
                     title: 'No Items'
                 })
+            }else if(paymentMethod === 'WALLET' && walletAmount < actualAmount){
+                Swal.fire({
+                    icon:'error',
+                    title:'Insufficient Balance in wallet'
+                })
             } else {
-                // console.log(selectedRadioButtonId)
-                // Taking paymentMethod
-                const paymentMethod = document.querySelector('input[name="payment-method"]:checked').id;
-                // console.log(paymentMethod)
-                const total = parseInt(document.getElementById('cartTotal').getAttribute('data-cartTotal'));
-                // console.log(total)
 
+                const couponDiscount = parseFloat(document.getElementById('discount').innerHTML.replace(/[^\d.]/g, ''));
+                const couponId = document.getElementById('couponId').value;
+                
                 const data = {
                     totalAmount: total,
                     paymentMethod: paymentMethod,
+                    couponDiscount: couponDiscount,
+                    actualAmount: actualAmount,
                     addressId: selectedRadioButtonId,
+                    couponId:couponId 
                 }
 
                 const response = await fetch('/place-order', {
@@ -535,7 +749,19 @@
                         location.href = `/confirmation/?orderId=${result.placedOrderId}`
                     }, 1500);
 
-                } else if (result.status === 'RAZORPAY') {
+                } else if(result.status === 'WALLET'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Placed',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(() => {
+                        location.href = `/confirmation/?orderId=${result.placedOrderId}`
+                    }, 1500);
+                }
+                // ===RAZORPAY===
+                 else if (result.status === 'RAZORPAY') {
 
                     razorpayPayment(result.response);
 
@@ -552,7 +778,7 @@
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Something went wrong',
+                        title: result.message,
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -564,7 +790,7 @@
 
             var options = {
                 "key": "rzp_test_JZgdglON5nofNC", // Enter the Key ID generated from the Dashboard
-                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "amount": order.actualTotalAmout, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
                 "name": "Willink Watches", //your business name
                 "description": "Test Transaction",
@@ -610,7 +836,7 @@
                 setTimeout(() => {
                     location.href = `/confirmation/?orderId=${result.placedOrderId}`
                 }, 1500);
-            }else if(result.status ==='paymentFailed'){
+            } else if (result.status === 'paymentFailed') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Payment Failed',
@@ -620,7 +846,7 @@
                 setTimeout(() => {
                     location.href = `/order-failed/?orderId=${result.placedOrderId}`
                 }, 1500);
-            }else{
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Some thing went wrong',
@@ -630,16 +856,7 @@
             }
         }
 
-        // function verifyPayment(payment,order){
-        //     $.ajax({
-        //         url:'/verify-payment',
-        //         data:{
-        //             payment,
-        //             order
-        //         },
-        //         method:'POST'
-        //     })
-        // }
+        
     </script>
 
     <script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>

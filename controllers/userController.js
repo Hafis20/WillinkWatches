@@ -1,11 +1,12 @@
+const mongoose = require('mongoose');
 const User = require('../models/userModel'); // Require for User Schemama
 const pass = require('../helpers/securePass'); // Require for password hashing
 const otpGenerate = require('../helpers/otpGenerate');
 const Product = require('../models/productModel');
+const Order = require('../models/ordersModel');
 const Category = require('../models/categoryModel');
 const Address = require('../models/addressModel');
-const Whishlist = require('../models/whishlistModel');
-
+const Wallet = require('../models/walletModel');
 // Load the registration  for user when they call "/register or /"
 
 const loadRegister = async(req,res)=>{
@@ -130,6 +131,7 @@ const loadHome = async(req,res)=>{
       if(productData){
          const availableProducts = productData.filter(products=>products.category.is_listed === true);
          // console.log(availableProducts)
+
          res.render('home',{products : availableProducts});
       }
    } catch (error) {
@@ -142,7 +144,8 @@ const loadHome = async(req,res)=>{
 const loadSingleProduct = async(req,res)=>{
    try {
       const id = req.query.id;
-      const productData = await Product.findById(id);
+      const productData = await Product.findById(id).populate('category');
+      console.log(productData)
       if(productData){
          res.render('single-product',{product:productData});
       }
@@ -418,6 +421,23 @@ const changePassword = async(req,res)=>{
    }
 }
 
+//------------------------------------Wallet management-----------------
+const loadWallet = async(req,res)=>{
+   try {
+      const user_id = req.session.user._id;
+      // Taking the wallet details from db
+      let userWallet = await Wallet.findOne({userId:user_id});
+      if(!userWallet){
+         userWallet = new Wallet({userId:user_id});
+         await userWallet.save();
+      }
+
+      res.render('view-wallet',{userWallet});
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
 // User logout 
 const logoutUser = async (req,res)=>{
    try {
@@ -447,6 +467,8 @@ module.exports = {
    // --profile--
    EditProfile,
    changePassword,
+   //---Wallet---
+   loadWallet,
    //==Otp====
    loadVerfiyOTP,
    verifyotp,

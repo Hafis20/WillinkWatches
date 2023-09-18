@@ -10,7 +10,7 @@ var instance = new Razorpay({
 const generateRazorPay = async(orderId,total)=>{
    return new Promise((resolve,reject)=>{
       var options = {
-         amount: total * 100,
+         amount: total *100,
          currency:"INR",
          receipt:orderId,
       };

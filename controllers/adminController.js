@@ -1,4 +1,6 @@
 const User = require('../models/userModel'); 
+const Order = require('../models/ordersModel');
+const Product = require('../models/productModel');
 const pass = require('../helpers/securePass');
 
 
@@ -43,7 +45,29 @@ const verifyAdmin = async(req,res)=>{
 // Rendering the admin Dashboard
 const loadDashboard = async(req,res)=>{
    try {
-   res.render('adminDashboard');
+
+      const orders = await Order.find();
+      // console.log(orders)
+      // Finding how many orders we have
+      const ordersCount = orders.length;
+      
+      // Finding the total revenue
+      const deliveredOrders = orders.filter(order=>order.orderStatus === 'Delivered');
+      const totalRevenue = deliveredOrders.reduce((acc,order)=>{
+         return acc+=order.actualTotalAmount;
+      },0);
+
+
+      // Sending the product Details
+      const products = await Product.find().populate('category')
+      const productsCount = products.length;
+      const category = new Set(products.map(product=>product.category.categoryName));
+      const categoryCount = Array.from(category).length;
+      // console.log('All products :' ,products.length);
+      // console.log('All Categories :' ,categoryCount);
+
+
+      res.render('adminDashboard',{ordersCount,totalRevenue,productsCount,categoryCount});
    } catch (error) {
       console.log(error.message);
    }

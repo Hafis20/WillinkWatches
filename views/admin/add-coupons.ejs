@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:21 GMT -->
+
+<head>
+   <meta charset="utf-8">
+   <title>Evara Dashboard</title>
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta property="og:title" content="">
+   <meta property="og:type" content="">
+   <meta property="og:url" content="">
+   <meta property="og:image" content="">
+   <!-- Favicon -->
+   <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+   <!-- Template CSS -->
+   <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+   <div class="screen-overlay"></div>
+   <aside class="navbar-aside" id="offcanvas_aside">
+      <div class="aside-top">
+         <a href="index.html" class="brand-wrap">
+            <img src="/assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+         </a>
+         <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+            </button>
+         </div>
+      </div>
+      <nav>
+         <ul class="menu-aside">
+            <li class="menu-item">
+               <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                  <span class="text">Dashboard</span>
+               </a>
+            </li>
+            <li class="menu-item has-submenu active">
+               <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
+                  <span class="text">List</span>
+               </a>
+               <div class="submenu">
+                  <a href="/admin/list-products">Product List</a>
+                  <a href="/admin/list-categories" class="active">Category List</a>
+                  <a href="/admin/list-users">Users List</a>
+               </div>
+            </li>
+            <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                  <span class="text">Orders</span>
+               </a>
+               <div class="submenu">
+                  <a href="page-orders-1.html">Order list 1</a>
+                  <a href="page-orders-2.html">Order list 2</a>
+                  <a href="page-orders-detail.html">Order detail</a>
+               </div>
+            </li>
+            <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
+                  <span class="text">Sellers</span>
+               </a>
+               <div class="submenu">
+                  <a href="page-sellers-cards.html">Sellers cards</a>
+                  <a href="page-sellers-list.html">Sellers list</a>
+                  <a href="page-seller-detail.html">Seller profile</a>
+               </div>
+            </li>
+            <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-transactions-1.html"> <i
+                     class="icon material-icons md-monetization_on"></i>
+                  <span class="text">Transactions</span>
+               </a>
+               <div class="submenu">
+                  <a href="page-transactions-1.html">Transaction 1</a>
+                  <a href="page-transactions-2.html">Transaction 2</a>
+               </div>
+            </li>
+            <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                  <span class="text">Account</span>
+               </a>
+               <div class="submenu">
+                  <a href="page-account-login.html">User login</a>
+                  <a href="page-account-register.html">User registration</a>
+                  <a href="page-error-404.html">Error 404</a>
+               </div>
+            </li>
+            <li class="menu-item">
+               <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                  <span class="text">Reviews</span>
+               </a>
+            </li>
+            <li class="menu-item">
+               <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
+                  <span class="text">Brands</span> </a>
+            </li>
+            <li class="menu-item">
+               <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                  <span class="text">Statistics</span>
+               </a>
+            </li>
+         </ul>
+         <hr>
+         <ul class="menu-aside">
+            <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                  <span class="text">Settings</span>
+               </a>
+               <div class="submenu">
+                  <a href="page-settings-1.html">Setting sample 1</a>
+                  <a href="page-settings-2.html">Setting sample 2</a>
+               </div>
+            </li>
+            <li class="menu-item">
+               <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
+                  <span class="text"> Starter page </span>
+               </a>
+            </li>
+         </ul>
+         <br>
+         <br>
+      </nav>
+   </aside>
+   <main class="main-wrap">
+      <header class="main-header navbar">
+         <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                  class="material-icons md-apps"></i> </button>
+         </div>
+      </header>
+      <section class="content-main">
+         <div class="content-header">
+            <div>
+               <h2 class="content-title card-title">Add New Coupon </h2>
+            </div>
+         </div>
+         <div class="card">
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-md-12">
+                     <!--Catergory adding form-->
+                     <form method="post" action="" id="couponForm">
+                        <div class="row">
+                           <div class="mb-4 col-md-6">
+                              <label for="couponCode" class="form-label">Category Code</label>
+                              <input id="couponCode" name="couponCode" type="text" placeholder="Type here"
+                                 class="form-control" />
+                              <p id="couponCodeError" style="color : red"></p>
+                           </div>
+                           <div class="mb-4 col-md-6">
+                              <label for="couponDiscount" class="form-label">Discount Percentage</label>
+                              <input id="couponDiscount" name="couponDiscount" type="text" placeholder="Type here" class="form-control" />
+                              <p id="couponDiscountError" style="color : red"></p>
+                           </div>
+                        </div>
+                        <div class="mb-4">
+                           <label for="couponMinAmount" class="form-label">Minimum Order Amount</label>
+                           <input id="couponMinAmount" name="couponMinAmount" type="text" placeholder="Type here"
+                              class="form-control" />
+                           <p id="couponMinAmountError" style="color : red"></p>
+                        </div>
+                        <div class="mb-4">
+                           <label for="couponMaxDiscountAmount" class="form-label">Maximum Discount Amount</label>
+                           <input id="couponMaxDiscountAmount" name="couponMaxDiscountAmount" type="text" placeholder="Type here"
+                              class="form-control" />
+                           <p id="couponMaxDiscountAmountError" style="color : red"></p>
+                        </div>
+                        <div class="row"> 
+                           <div class="mb-4 col-md-6">
+                              <label for="couponCreated" class="form-label">Starting Date</label>
+                              <input id="couponCreated" name="couponCreated" value="" type="date" placeholder="Type here" class="form-control" />
+                              <p id="couponCreatedError" style="color : red"></p>
+                           </div>
+                           <div class="mb-4 col-md-6">
+                              <label for="couponExpiration" class="form-label">Expiration Date</label>
+                              <input id="couponExpiration" name="couponExpiration" type="date" placeholder="Type here" class="form-control" />
+                              <p id="couponExpirationError" style="color : red"></p>
+                           </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                           <label class="form-label">Description</label>
+                           <textarea id="couponDescription" name="couponDescription" placeholder="Type here"
+                              class="form-control"></textarea>
+                           <p id="couponDescriptionError" style="color : red"></p>
+                        </div>
+                        
+                        <div class="d-grid">
+                           <button type="submit" class="btn btn-primary">Add Coupon</button>
+                        </div>
+                     </form>
+                     <a href="/admin/list-coupons" class="btn btn-dark mt-3">Go Back</a>
+                  </div>
+
+               </div> <!-- .row // -->
+            </div> <!-- card body .// -->
+         </div> <!-- card .// -->
+      </section> <!-- content-main end// -->
+      <footer class="main-footer font-xs">
+         <div class="row pb-30 pt-15">
+            <div class="col-sm-6">
+               <script>
+                  document.write(new Date().getFullYear())
+               </script> ©, Evara - HTML Ecommerce Template .
+            </div>
+            <div class="col-sm-6">
+               <div class="text-sm-end">
+                  All rights reserved
+               </div>
+            </div>
+         </div>
+      </footer>
+
+
+
+   </main>
+   <script>
+      document.getElementById('couponCreated').valueAsDate = new Date();
+   </script>
+   <script>
+      document.getElementById('couponForm').addEventListener('submit', async (event) => {
+         event.preventDefault();
+
+         const isValid = couponValidate();
+         console.log(isValid);
+         if (isValid) {
+            const formData = {
+               couponCode: event.currentTarget.couponCode.value,
+               couponDiscount: event.currentTarget.couponDiscount.value,
+               couponMinAmount: event.currentTarget.couponMinAmount.value,
+               couponMaxDiscountAmount : event.currentTarget.couponMaxDiscountAmount.value,
+               couponCreated:event.currentTarget.couponCreated.value,
+               couponExpiration: event.currentTarget.couponExpiration.value,
+               couponDiscription: event.currentTarget.couponDescription.value,
+            }
+
+            const response = await fetch('./add-coupon', {
+               method: 'post',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(formData),
+            })
+            const result = await response.json()
+
+            if (result.status === 'success') {
+               Swal.fire({
+							icon: 'success',
+							title: result.message,
+							showConfirmButton: false,
+							timer: 1000
+						})
+                  setTimeout(()=>{
+                     location.href = '/admin/list-coupons'
+                  },1500)
+            } else {
+               Swal.fire({
+							icon: 'error',
+							title: result.message,
+							showConfirmButton: false,
+							timer: 1000
+						})
+            }
+         }
+      })
+   </script>
+   <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+   <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+   <script src="/assets/js/vendors/select2.min.js"></script>
+   <script src="/assets/js/vendors/perfect-scrollbar.js"></script>
+   <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+   <!-- Main Script -->
+   <script src="/assets/js/main.js" type="text/javascript"></script>
+   <script src="/js/addCouponValidate.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-categories.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:21 GMT -->
+
+</html>

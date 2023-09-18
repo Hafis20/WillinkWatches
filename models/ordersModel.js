@@ -10,9 +10,17 @@ const ordersModel = new mongoose.Schema({
       default:Date.now,
       required:true,
    },
+   couponDiscount:{
+      type:Number,
+      default:0
+   },
    totalAmount:{
       type:Number,
       required:true,
+   },
+   actualTotalAmount:{
+      type:Number,
+      required:true
    },
    paymentMethod:{
       type:String,
@@ -21,6 +29,10 @@ const ordersModel = new mongoose.Schema({
       productId:{
          type:mongoose.Types.ObjectId,
          ref:'Product'
+      },
+      productName:{
+         type:String,
+         required:true,
       },
       quantity:{
          type:Number,
@@ -61,6 +73,16 @@ const ordersModel = new mongoose.Schema({
    orderStatus:{
       type:String,
       default:'Pending',
+   },
+   returnOrderStatus:{
+      status:{
+         type:String,
+         default:'Not requested'
+      },
+      reason:{
+         type:String,
+         default:'No reason'
+      }
    }
 })
 

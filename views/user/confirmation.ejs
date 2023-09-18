@@ -28,10 +28,10 @@
 	<link rel="stylesheet" href="/user-assets/css/nouislider.min.css">
 	<link rel="stylesheet" href="/user-assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/user-assets/css/main.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-	</head>
+</head>
 
 <body>
 
@@ -43,9 +43,9 @@
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="/home">
 						<h1 style="font-weight: bold;">Willink Watches</h1>
-				  </a>
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -53,29 +53,20 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-									<li class="nav-item active"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-								</ul>
-							</li>
+							<li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="/show-all-products">Shop</a></li>
+							
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
@@ -110,18 +101,18 @@
 	<section class="">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				
+
 			</div>
 		</div>
 	</section>
 	<section>
 		<div class="container">
-			 <h1 class="text-center">
-				  <i class="fas fa-check-circle text-success"></i> Order Placed
-			 </h1>
+			<h1 class="text-center">
+				<i class="fas fa-check-circle text-success"></i> Order Placed
+			</h1>
 		</div>
-  </section>
-  
+	</section>
+
 	<!-- End Banner Area -->
 
 	<!--================Order Details Area =================-->
@@ -134,7 +125,7 @@
 						<ul class="list">
 							<li><a href="#"><span>Order number</span>: <%- orderDetails._id %></a></li>
 							<li><a href="#"><span>Date</span> : <%- orderDetails.date.toDateString() %></a></li>
-							<li><a href="#"><span>Total</span> : &#x20B9;  <%- orderDetails.totalAmount %></a></li>
+							<li><a href="#"><span>Total</span> : &#x20B9; <%- orderDetails.actualTotalAmount %></a></li>
 							<li><a href="#"><span>Payment method</span> : <%- orderDetails.paymentMethod %></a></li>
 							<li><a href="#"><span>Status</span> : <%- orderDetails.orderStatus %></a></li>
 						</ul>
@@ -166,7 +157,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% for( let i = 0; i < orderDetails.products.length; i++ ) { %>
+							<% for( let i=0; i < orderDetails.products.length; i++ ) { %>
 								<tr>
 									<td>
 										<p><%- orderDetails.products[i].productId.productName %></p>
@@ -178,29 +169,53 @@
 										<p>&#x20B9; <%- orderDetails.products[i].total %></p>
 									</td>
 								</tr>
-							<% } %>
-							<tr>
-								<td>
-									<h4>Total</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p style="font-weight: bold;"> &#x20B9; <%- orderDetails.totalAmount %></p>
-								</td>
-							</tr>
+								<% } %>
+								<tr>
+									<td>
+										<h4>Total</h4>
+									</td>
+									<td>
+										<h5></h5>
+									</td>
+									<td>
+										<p> &#x20B9; <%- orderDetails.totalAmount %></p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h4>Discount</h4>
+									</td>
+									<td>
+										<h5></h5>
+									</td>
+									<td>
+										<p > &#x20B9; <%- orderDetails.couponDiscount %></p>
+									</td>
+								</tr>
+									<tr>
+										<td>
+											<h4>Total</h4>
+										</td>
+										<td>
+											<h5></h5>
+										</td>
+										<td>
+											<p style="font-weight: bold; color: rgb(24, 90, 24);"> &#x20B9; <%- orderDetails.actualTotalAmount %></p>
+										</td>
+									</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<div class="container mt-5">
 				<div class="row mt-2 justify-content-center">
-					<a href="/list-orders" class="btn btn-secondary col-md-6">Order Details</a>
+					<a href="/list-orders" class="btn btn-secondary col-md-12">Order Details</a>
+					<a id="goToInvoice" href="/invoice/?orderId=<%- orderDetails._id %>" 
+						class="btn btn-danger col-md-12 mt-3 bg-danger text-light">Download Invoice</a>
 				</div>
 			</div>
 		</div>
-		
+
 	</section>
 	<!--================End Order Details Area =================-->
 
@@ -212,7 +227,8 @@
 					<div class="single-footer-widget">
 						<h6>About Us</h6>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+							labore dolore
 							magna aliqua.
 						</p>
 					</div>
@@ -223,16 +239,19 @@
 						<p>Stay update with our latest</p>
 						<div class="" id="mc_embed_signup">
 
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
+							<form target="_blank" novalidate="true"
+								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+								method="get" class="form-inline">
 
 								<div class="d-flex flex-row">
 
-									<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-									 required="" type="email">
+									<input class="form-control" name="EMAIL" placeholder="Enter Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required=""
+										type="email">
 
 
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
+											aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
 									</div>
@@ -275,10 +294,14 @@
 				</div>
 			</div>
 			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
+				<p class="footer-text m-0">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+					with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+						target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -288,8 +311,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
 	<script src="/user-assets/js/vendor/bootstrap.min.js"></script>
 	<script src="/user-assets/js/jquery.ajaxchimp.min.js"></script>
 	<script src="/user-assets/js/jquery.nice-select.min.js"></script>

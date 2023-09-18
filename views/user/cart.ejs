@@ -313,14 +313,16 @@
     <!-- Incrimenting the Quantity -->
     <script>
         // Function to calculate and update the cart total
-        async function changeQuantity(productId, value) {
-            console.log(productId)
-            console.log(value)
+        async function changeQuantity(productId, value, currentValue) {
+            console.log(productId);
+            console.log(value);
+            console.log(currentValue);
 
 
             const data = {
                 proId: productId,
-                count: value
+                count: value,
+                currentValue: currentValue
             };
 
             const response = await fetch('/update-quantity', {
@@ -333,9 +335,16 @@
 
             const result = await response.json();
 
-            if (result.status === 'success') {
-                console.log('hello');
+            if (result.status === 'error') {
+                Swal.fire({
+                    title: result.message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    timer: 1500
+                })
+                return { status: 'error' }
             }
+            return { status: 'success' }
         }
 
 
@@ -367,25 +376,31 @@
 
 
         // Function to increase the quantity of a product
-        function increaseQuantity(inputField, productId, value) {
+        async function increaseQuantity(inputField, productId, value) {
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue)) {
-                inputField.value = currentValue + 1;
-                updateQuantity(inputField);
-                changeQuantity(productId, value); // Changing the quantity in db
-                updateCart(); // Update the cart total when the quantity changes
+                const response = await changeQuantity(productId, value, currentValue + 1 ); // Changing the quantity in db
+                if (response && response.status === 'success') {
+                    inputField.value = currentValue + 1;
+                    updateQuantity(inputField);
+                    updateCart(); // Update the cart total when the quantity changes
+                }
+                // console.log(currentValue)
             }
         }
 
         // Function to decrease the quantity of a product
-        function decreaseQuantity(inputField, productId, value) {
+        async function decreaseQuantity(inputField, productId, value) {
             console.log(productId)
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue) && currentValue > 1) {
-                inputField.value = currentValue - 1;
-                updateQuantity(inputField);
-                changeQuantity(productId, value);
-                updateCart(); // Update the cart total when the quantity changes
+                const response = await changeQuantity(productId, value, currentValue - 1);
+                if (response && response.status === 'success') {
+                    inputField.value = currentValue - 1;
+                    updateQuantity(inputField);
+                    updateCart(); // Update the cart total when the quantity changes
+                }
+                // console.log(currentValue)
             }
         }
 
@@ -487,7 +502,7 @@
                             setTimeout(() => {
                                 location.href = location.href
                             }, 1500)
-                        } 
+                        }
                         else if (result.status === 'sessionError') {
                             Swal.fire({
                                 icon: 'info',

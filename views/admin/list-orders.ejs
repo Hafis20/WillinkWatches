@@ -55,6 +55,7 @@
                         <a href="/admin/list-products">Product List</a>
                         <a href="/admin/list-users">Users List</a>
                         <a href="/admin/list-categories">Category List</a>
+                        <a href="/admin/list-coupons">Coupons List</a>
                     </div>
                 </li>
                 <li class="menu-item active">
@@ -102,6 +103,7 @@
                                             <th>Price (&#x20B9;)</th>
                                             <th>Status</th>
                                             <th>Date</th>
+                                            <th> Return Req </th>
                                             <th> Action </th>
                                         </tr>
                                     </thead>
@@ -111,7 +113,7 @@
                                                 <tr>
                                                     <td><%- orders[i]._id %></td>
                                                     <td><b><%- orders[i].address.name %></b></td>
-                                                    <td> <%- orders[i].totalAmount %></td>
+                                                    <td> <%- orders[i].actualTotalAmount %></td>
                                                     <td>
                                                         <% if (orders[i].orderStatus==='Delivered' ) { %>
                                                             <span class="badge rounded-pill alert-success"><%-
@@ -122,21 +124,37 @@
                                                                 <% } else if (orders[i].orderStatus==='Failed' ) { %>
                                                                     <span class="badge rounded-pill alert-danger"><%-
                                                                             orders[i].orderStatus %></span>
-                                                                    <% } else if (orders[i].orderStatus==='Cancelled' )
-                                                                        { %>
+                                                                    <% } else if (orders[i].orderStatus==='Returned' ) {
+                                                                        %>
                                                                         <span
-                                                                            class="badge rounded-pill alert-danger"><%-
+                                                                            class="badge rounded-pill alert-info"><%-
                                                                                 orders[i].orderStatus %></span>
-                                                                        <% } else if (orders[i].orderStatus==='Pending'
-                                                                            ) {%>
+                                                                        <% } else if
+                                                                            (orders[i].orderStatus==='Cancelled' ) { %>
                                                                             <span
-                                                                                class="badge rounded-pill alert-secondary"><%-
+                                                                                class="badge rounded-pill alert-danger"><%-
                                                                                     orders[i].orderStatus %></span>
-                                                                            <% } %>
+                                                                            <% } else if
+                                                                                (orders[i].orderStatus==='Pending' ) {%>
+                                                                                <span
+                                                                                    class="badge rounded-pill alert-secondary"><%-
+                                                                                        orders[i].orderStatus %></span>
+                                                                                <% } %>
                                                     </td>
                                                     <td><%- orders[i].date.toLocaleString('en-US', { month: 'short' ,
                                                             weekday: 'short' , day: '2-digit' , hour: 'numeric' ,
                                                             minute: 'numeric' }) %></td>
+                                                    <td>
+                                                        <% if(orders[i].orderStatus==='Delivered' ) {%>
+                                                            <% if(orders[i].returnOrderStatus.status==='requested' ){%>
+                                                                <p style="color: rgb(154, 29, 29);"> Requested</p>
+                                                            <% }else{ %>
+                                                                <p style="color: green;"> Not requested</p>
+                                                            <% } %>
+                                                        <% }else if(orders[i].orderStatus === 'Returned'){ %>
+                                                            <p style="color: rgb(28, 145, 5);"> Approved</p>
+                                                        <%} %>
+                                                    </td>
                                                     <td>
                                                         <a href="/admin/order-details/?orderId=<%- orders[i]._id %>"
                                                             class="btn btn-md rounded font-sm">Details</a>
@@ -175,7 +193,13 @@
     <script>
         $(document).ready(function () {
             $('#example').DataTable({
-
+                "order": [[4, 'desc']],
+                "coloumnDefs": [
+                    {
+                        "targets": 4,
+                        "type": 'date'
+                    }
+                ]
             });
         });
     </script>

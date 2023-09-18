@@ -33,6 +33,9 @@ const whishlistController = require('../controllers/whishlistController');
 
 const ordersController = require('../controllers/ordersController');
 
+// Coupon Controller
+
+const couponController = require('../controllers/couponController');
 // ========================================================================================
 
 // ----Authentication---
@@ -131,6 +134,9 @@ userRouter.post('/place-order',auth.ftisLogin,ordersController.placeOrder);
 // If the user choose online payment we verify the order is success or failure
 userRouter.post('/verify-payment',auth.isLogin,ordersController.verifyOnlinePayment);
 
+// After Confirmation invoice router
+userRouter.get('/invoice',auth.isLogin,ordersController.invoice);
+
 // Showing the list of orders into user
 userRouter.get('/list-orders',auth.isLogin,ordersController.listOrders);
 
@@ -140,6 +146,9 @@ userRouter.get('/order-details',auth.isLogin,ordersController.orderDetails);
 // Cancelling the order
 userRouter.get('/cancel-order',auth.isLogin,ordersController.cancelOrder);
 
+// Return the order
+userRouter.post('/return-order',auth.ftisLogin,ordersController.returnOrder);
+
 // ----------------------------------ADDRESS MANAGEMENT--------------------
 
 userRouter.post('/add-address',auth.isLogin,userController.addingAddress);
@@ -148,6 +157,12 @@ userRouter.get('/edit-address',auth.isLogin,userController.loadEditAddress);
 userRouter.post('/edit-address',auth.isLogin,userController.editAddress);
 userRouter.get('/delete-address',auth.isLogin,userController.deleteAddress);
 
+
+// -----------------------------------COUPON MANAGEMENT---------------------
+userRouter.get('/apply-coupon',auth.ftisLogin,couponController.applyCoupons);
+
+// --------------------------------------WALLET---------------------------
+userRouter.get('/view-wallet',auth.isLogin,userController.loadWallet);
 // -------------------------------------USER PROFILE ------------------
 userRouter.get('/user-profile',auth.isLogin,userController.userProfile);
 userRouter.post('/edit-profile',auth.ftisLogin,userController.EditProfile);

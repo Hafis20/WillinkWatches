@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.css" />
 	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="/user-assets/css/main.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -50,56 +52,14 @@
 					</button>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-									<li class="nav-item active"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-						</ul>
+						
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
-							<li class="nav-item">
-								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-							</li>
+							<li class="nav-item"><a href="/cart" class="cart"><span class="bi bi-cart"></span></a></li>
+							
 						</ul>
 					</div>
 				</div>
 			</nav>
-		</div>
-		<div class="search_input" id="search_input_box">
-			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-				</form>
-			</div>
 		</div>
 	</header>
 	<!-- End Header Area -->
@@ -128,7 +88,7 @@
 					<div class="s_Product_carousel">
 						<% for( let i = 0; i < product.images.length; i++ ) { %>
 							<div class="single-prd-item">
-								<img class="img-fluid" style="height: 360px; width: 360px; object-fit: contain;" src="/assets/imgs/products/<%- product.images[i] %>" alt="">
+								<img class="img-fluid" style="height: 360px; width: 360px; object-fit: contain;" src="/assets/imgs/products/<%- product.images[i] %>" alt="">  
 							</div>
 						<% } %>
 					</div>
@@ -138,7 +98,7 @@
 						<h3><%- product.productName %></h3>
 						<h2>&#x20B9;<%- product.salePrice %></h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> <%- product.category %></a></li>
+							<li><a class="active" href="#"><span>Category</span> <%- product.category.categoryName %></a></li>
 							<li><a href="#"><span>Availibility</span> : <%- product.stock %></a></li>
 						</ul>
 						<p><%- product.description %></p>

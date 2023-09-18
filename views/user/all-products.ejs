@@ -387,7 +387,7 @@
 				if (result.status === 'success') {
 					Swal.fire({
 						icon: 'success',
-						title: 'Added to Cart',
+						title: result.message,
 						showConfirmButton: false,
 						timer: 1500
 					})
@@ -405,7 +405,7 @@
 				else {
 					Swal.fire({
 						icon: 'error',
-						title: 'Something went wrong',
+						title: result.message,
 						showConfirmButton: false,
 						timer: 1500
 					})

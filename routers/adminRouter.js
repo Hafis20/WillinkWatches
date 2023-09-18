@@ -26,6 +26,7 @@ adminRouter.use(express.static('public'))
 adminRouter.set('view engine','ejs');
 adminRouter.set('views','./views/admin')
 
+
 // Multer
 const upload = require('../helpers/multer');
 // ====================================MODULE REQUIRE=========================
@@ -34,6 +35,7 @@ const adminController = require('../controllers/adminController');
 const productController = require('../controllers/productController');
 const categoryController = require('../controllers/categoryController');
 const ordersController = require('../controllers/ordersController');
+const couponController = require('../controllers/couponController');
 
 
 // -------------------------------------ADMIN--------------------------------
@@ -111,6 +113,21 @@ adminRouter.get('/list-orders',auth.isLogin,ordersController.loadOrdersPage);
 adminRouter.get('/order-details',auth.isLogin,ordersController.adminOrderDetails);
 adminRouter.post('/change-status',auth.isLogin,ordersController.changeStatus);
 
+
+// -------------------------------------------COUPONS-----------------------------
+// To load the list of coupons
+adminRouter.get('/list-coupons',auth.isLogin,couponController.listCoupons);
+
+// Load Add the coupons page
+adminRouter.get('/add-coupon',auth.isLogin,couponController.loadAddCoupons);
+
+// Add coupons
+adminRouter.post('/add-coupon',auth.isLogin,couponController.addCoupons);
+
+
+
+
+// --------------------------------------------------------------------------------
 //Logout
 adminRouter.get('/logout',auth.isLogin,adminController.logoutAdmin)
 
