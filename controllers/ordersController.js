@@ -43,7 +43,6 @@ const placeOrder = async(req,res)=>{
       productData.forEach(async(product)=>{
          const products ={
             productId:product.productId._id,
-            productName:product.productId.productName,
             quantity:product.quantity,
             salePrice:product.productId.salePrice,
             total:product.total
@@ -149,6 +148,7 @@ const placeOrder = async(req,res)=>{
 
 // Verify online payment
 const verifyOnlinePayment = async(req,res)=>{
+   const user_id = req.session.user._id;
    const data = req.body
    console.log(data)
    // console.log('Our orderId : ',req.body.order.receipt);
@@ -156,11 +156,28 @@ const verifyOnlinePayment = async(req,res)=>{
    
    RazorPayHelper.verifyOnlinePayment(data).then(()=>{
       console.log('Resolved')
-      let paymentSuccess = true;
 
-      RazorPayHelper.updatePaymentStatus(receiptId,paymentSuccess).then(()=>{
-         res.json({status:'paymentSuccess',placedOrderId:receiptId});
-      })
+      // If it is from wallet then only it works
+
+      if(data.from === 'wallet'){
+         const amount = (data.order.amount)/100;
+         Wallet.findOneAndUpdate({userId:user_id},{$inc:{walletAmount:amount},$push:{transactionHistory:amount}},{new:true})
+         .then((updatedWallet)=>{
+            console.log('Wallet Updated :',updatedWallet)
+            res.json({status:'rechargeSuccess',message:'Wallet Updated'});
+         })
+         .catch(()=>{
+            console.log('Wallet Not updated');
+            res.json({status:'error',message:'Wallet Not Updated'});
+         })
+      }else{
+         let paymentSuccess = true;
+
+         RazorPayHelper.updatePaymentStatus(receiptId,paymentSuccess).then(()=>{
+            res.json({status:'paymentSuccess',placedOrderId:receiptId});
+         })
+      }
+      
    }).catch((err)=>{
       console.log('Rejected')
       if(err){
@@ -207,7 +224,7 @@ const cancelOrder = async(req,res)=>{
             orderStatus:'Cancelled'
          }},
          {new:true}
-         );
+         ).populate('products.productId');
       const userWallet = await Wallet.findOne({userId:req.session.user._id});
       if(!userWallet){
          userWallet = new Wallet({userId:req.session.user._id});
@@ -218,9 +235,15 @@ const cancelOrder = async(req,res)=>{
          userWallet.transactionHistory.push(amount);
          await userWallet.save();
 
+         // Re setting the products stock
+         orderDetails.products.forEach((products)=>{
+            // console.log(products.productId.stock)
+            products.productId.stock += products.quantity;
+            // console.log(products.productId.stock)
+         })
+         await orderDetails.save();
          // console.log(userWallet);
          res.json({status:'success',message:'Order Cancelled'});
-      // console.log(orderDetails);
    } catch (error) {
       res.json({status:'error',message:'Something went wrong'});
       console.log(error.message)
@@ -368,7 +391,7 @@ const changeStatus = async(req,res)=>{
       const {orderId, orderStatus} = req.body;
       // console.log(orderId)
       // console.log(orderStatus)
-      const orderData = await Order.findById(orderId);
+      const orderData = await Order.findById(orderId).populate('products.productId');
 
       if(orderData){
          if(orderStatus === 'Returned'){
@@ -383,6 +406,13 @@ const changeStatus = async(req,res)=>{
                userWallet.transactionHistory.push(amount);
                await userWallet.save();
             }
+
+            orderData.products.forEach((products)=>{
+               // console.log(products.productId.stock)
+               products.productId.stock += products.quantity;
+               // console.log(products.productId.stock)
+            })
+            await orderData.save();
 
          }else{
             orderData.orderStatus = orderStatus;

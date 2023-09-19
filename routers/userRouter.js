@@ -162,7 +162,11 @@ userRouter.get('/delete-address',auth.isLogin,userController.deleteAddress);
 userRouter.get('/apply-coupon',auth.ftisLogin,couponController.applyCoupons);
 
 // --------------------------------------WALLET---------------------------
+// To load the wallet page
 userRouter.get('/view-wallet',auth.isLogin,userController.loadWallet);
+
+// To recharge the wallet amount
+userRouter.post('/recharge-wallet',auth.ftisLogin,userController.rechargeWallet);
 // -------------------------------------USER PROFILE ------------------
 userRouter.get('/user-profile',auth.isLogin,userController.userProfile);
 userRouter.post('/edit-profile',auth.ftisLogin,userController.EditProfile);

@@ -30,10 +30,6 @@ const ordersModel = new mongoose.Schema({
          type:mongoose.Types.ObjectId,
          ref:'Product'
       },
-      productName:{
-         type:String,
-         required:true,
-      },
       quantity:{
          type:Number,
       },
@@ -42,7 +38,7 @@ const ordersModel = new mongoose.Schema({
       },
       total:{
          type:Number,
-      }
+      },
    }],
    address:{
       name:{

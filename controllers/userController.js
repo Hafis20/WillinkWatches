@@ -7,6 +7,7 @@ const Order = require('../models/ordersModel');
 const Category = require('../models/categoryModel');
 const Address = require('../models/addressModel');
 const Wallet = require('../models/walletModel');
+const RazorPayHelper = require('../helpers/razorpayHelper');
 // Load the registration  for user when they call "/register or /"
 
 const loadRegister = async(req,res)=>{
@@ -422,6 +423,8 @@ const changePassword = async(req,res)=>{
 }
 
 //------------------------------------Wallet management-----------------
+
+// Load the wallet page
 const loadWallet = async(req,res)=>{
    try {
       const user_id = req.session.user._id;
@@ -437,6 +440,23 @@ const loadWallet = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+// Recharge the wallet
+const rechargeWallet  = async(req,res)=>{
+   try{
+      let {amount} = (req.body);
+      amount = Number(amount);
+      const orderId = ""+Date.now();
+
+      RazorPayHelper.generateRazorPay(orderId,amount).then((response)=>{
+         res.json({status:'RAZORPAY',response})
+      })
+      
+   }catch(error){
+      console.log(error.message);
+   }
+}
+
 
 // User logout 
 const logoutUser = async (req,res)=>{
@@ -469,6 +489,7 @@ module.exports = {
    changePassword,
    //---Wallet---
    loadWallet,
+   rechargeWallet,
    //==Otp====
    loadVerfiyOTP,
    verifyotp,

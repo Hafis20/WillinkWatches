@@ -137,7 +137,7 @@ const removeFromCart = async(req,res)=>{
       const user_id = req.session.user._id;
       const productId = req.query.productId;
 
-      const products = await Cart.findOneAndUpdate({userId:user_id},
+      const cartInfo = await Cart.findOneAndUpdate({userId:user_id},
          {$pull:{
             products:{productId:productId},
          }},
