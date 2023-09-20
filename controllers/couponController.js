@@ -58,6 +58,25 @@ module.exports = {
       }
    },
 
+   // Inactivate coupon
+
+   changeCouponStatus:async(req,res)=>{
+      try {
+         const couponId = req.query.couponId;
+         const updateCouponStatus = await Coupon.findById(couponId);
+         
+         if(updateCouponStatus.isActive === true){
+            updateCouponStatus.isActive = false;
+         }else{
+            updateCouponStatus.isActive = true;
+         }
+         await updateCouponStatus.save();
+         res.json({status:'success',message:'Status Updated'});
+      } catch (error) {
+         console.log(error.message);    
+      }
+   },
+
    // ==========================USER SIDE========================
 
    applyCoupons:async(req,res)=>{

@@ -178,7 +178,7 @@ const filterProducts = async(req,res)=>{
       // Taking the whole category for passing to next page
       const categories = await Category.find();
       // Finding which category we want 
-      const category = await Category.findById(id); 
+      const category = await Category.findById(id);
 
       const products = await Product.find({category:category._id, is_listed:true}).populate('category');
 

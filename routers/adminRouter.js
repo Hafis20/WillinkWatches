@@ -48,6 +48,20 @@ adminRouter.post('/',auth.isLogout,adminController.verifyAdmin)
 
 // Load the dashboard
 adminRouter.get('/dashboard',auth.isLogin,adminController.loadDashboard);
+
+// ====Sales Report===
+// Loading the sales report page
+adminRouter.get('/sales-report',auth.isLogin,adminController.loadSalesReport);
+
+// Filtering the sales report
+adminRouter.get('/filter-sales',auth.isLogin,adminController.filterSales);
+
+// Filter the sales report using the dates
+adminRouter.post('/datewise-filter-sales',auth.isLogin,adminController.dateWiseSales);
+
+// Taking the pdf
+adminRouter.post('/generate-pdf',auth.isLogin,adminController.generateSalesPdf);
+
 // --------------------------------------USERS--------------------------------
 
 //Load users list
@@ -124,6 +138,8 @@ adminRouter.get('/add-coupon',auth.isLogin,couponController.loadAddCoupons);
 // Add coupons
 adminRouter.post('/add-coupon',auth.isLogin,couponController.addCoupons);
 
+// Inactivate the coupon
+adminRouter.get('/change-coupon-status',auth.isLogin,couponController.changeCouponStatus);
 
 
 

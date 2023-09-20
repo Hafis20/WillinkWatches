@@ -3,9 +3,10 @@
 
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:35 GMT -->
+
 <head>
     <meta charset="utf-8">
-    <title>Evara Dashboard</title>
+    <title>Willink Dashboard</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +25,11 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="index.html" class="brand-wrap">
-                <img src="/assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard">
+                <img src="/assets/imgs/theme/logo.svg" class="logo" alt="Willink Dashboard">
             </a>
             <div>
-                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+                </button>
             </div>
         </div>
         <nav>
@@ -38,7 +40,8 @@
                     </a>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-shopping_bag"></i>
+                    <a class="menu-link" href="page-products-list.html"> <i
+                            class="icon material-icons md-shopping_bag"></i>
                         <span class="text">Lists</span>
                     </a>
                     <div class="submenu">
@@ -51,6 +54,11 @@
                 <li class="menu-item">
                     <a class="menu-link" href="/admin/list-orders"> <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-description"></i>
+                        <span class="text">Sales Report</span>
                     </a>
                 </li>
             </ul>
@@ -69,7 +77,8 @@
     <main class="main-wrap">
         <header class="main-header navbar">
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                        class="material-icons md-apps"></i> </button>
             </div>
         </header>
         <section class="content-main">
@@ -78,15 +87,14 @@
                     <h2 class="content-title card-title">Dashboard </h2>
                     <p>Whole data about your business here</p>
                 </div>
-                <div>
-                    <a href="#" class="btn btn-primary"><i class="text-muted material-icons md-post_add"></i>Create report</a>
-                </div>
+
             </div>
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card card-body mb-4">
                         <article class="icontext">
-                            <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
+                            <span class="icon icon-sm rounded-circle bg-primary-light"><i
+                                    class="text-primary material-icons md-monetization_on"></i></span>
                             <div class="text">
                                 <h6 class="mb-1 card-title">Revenue</h6>
                                 <span>&#x20B9; <%- totalRevenue %></span>
@@ -100,7 +108,8 @@
                 <div class="col-lg-4">
                     <div class="card card-body mb-4">
                         <article class="icontext">
-                            <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-local_shipping"></i></span>
+                            <span class="icon icon-sm rounded-circle bg-success-light"><i
+                                    class="text-success material-icons md-local_shipping"></i></span>
                             <div class="text">
                                 <h6 class="mb-1 card-title">Orders</h6> <span><%- ordersCount %></span>
                                 <span class="text-sm">
@@ -113,7 +122,8 @@
                 <div class="col-lg-4">
                     <div class="card card-body mb-4">
                         <article class="icontext">
-                            <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-qr_code"></i></span>
+                            <span class="icon icon-sm rounded-circle bg-warning-light"><i
+                                    class="text-warning material-icons md-qr_code"></i></span>
                             <div class="text">
                                 <h6 class="mb-1 card-title">Products</h6> <span><%- productsCount %></span>
                                 <span class="text-sm">
@@ -125,32 +135,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-8 col-lg-12">
+                <div class="col-xl-7 col-lg-12">
                     <div class="card mb-4">
                         <article class="card-body">
-                            <h5 class="card-title">Sale statistics</h5>
-                            <canvas id="myChart" height="120px"></canvas>
+                            <canvas id="mChart" height="200px"></canvas>
                         </article>
                     </div>
-                    
+
                 </div>
-                <div class="col-xl-4 col-lg-12">
+                <div class="col-xl-5 col-lg-12">
                     <div class="card mb-4">
                         <article class="card-body">
-                            <h5 class="card-title">Revenue Base on Area</h5>
-                            <canvas id="myChart2" height="217"></canvas>
+                            <input type="text" hidden value="<%= JSON.stringify(Object.keys(cCount)) %>" id="keys">
+                            <input type="text" hidden value="<%=JSON.stringify( Object.values(cCount))%>" id="values">
+                            <canvas id="cChart" height="230px"></canvas>
                         </article>
                     </div>
                 </div>
             </div>
-            
+
         </section> <!-- content-main end// -->
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
                 <div class="col-sm-6">
                     <script>
-                    document.write(new Date().getFullYear())
-                    </script> ©, Evara - HTML Ecommerce Template .
+                        document.write(new Date().getFullYear())
+                    </script> ©, Willink - HTML Ecommerce Template .
                 </div>
                 <div class="col-sm-6">
                     <div class="text-sm-end">
@@ -160,6 +170,98 @@
             </div>
         </footer>
     </main>
+
+
+    <!-- Pi Chart of the Whole orders -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // References of order data
+            const mCtx = document.getElementById('mChart');
+            const delivered = parseInt('<%- ordCount.Delivered %>');
+            const placed = parseInt('<%- ordCount.Placed %>');
+            const returned = parseInt('<%- ordCount.Returned %>');
+            const cancelled = parseInt('<%- ordCount.Cancelled %>');
+            const pending = parseInt('<%- ordCount.Pending %>');
+
+            // Checking if the canvas is existing or not 
+            if (mCtx) {
+                new Chart(mCtx, {
+                    type: 'pie', // Change to 'pie' for pie chart
+                    data: {
+                        labels: ['Delivered', 'Placed', 'Returned', 'Cancelled', 'Pending'],
+                        datasets: [{
+                            label: 'Orders',
+                            data: [delivered, placed, returned, cancelled, pending],
+                            borderWidth: 1,
+                            backgroundColor: [
+                                'rgba(3, 252, 61, 0.8)',  // Red
+                                'rgba(75, 192, 192, 0.8)', // Teal
+                                'rgba(255, 206, 86, 0.8)',  // Yellow
+                                'rgba(255, 99, 132, 1)',  // Blue
+                                'rgba(153, 102, 255, 0.8)'  // Purple
+                            ],
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Sale Statistics',
+                                font: {
+                                    size: 30 // Change the font size here
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        });
+
+    </script>
+
+    <!-- Category Wise Bar chart -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cCtx = document.getElementById('cChart')
+            const keys = JSON.parse(document.getElementById('keys').value);
+            console.log(keys)
+            const values = JSON.parse(document.getElementById('values').value);
+            if (cCtx) {
+                new Chart(cCtx, {
+                    type: 'bar',
+                    data: {
+                        labels:keys,
+                        datasets: [{
+                            label: 'Number of Products',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192,1)',
+                            borderWidth: 1,
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Products',
+                                },
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                    },
+                });
+            }
+
+        });
+
+    </script>
+
     <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/vendors/select2.min.js"></script>
@@ -173,4 +275,5 @@
 
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:57 GMT -->
+
 </html>

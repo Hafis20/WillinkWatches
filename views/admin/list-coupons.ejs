@@ -57,6 +57,11 @@
                   <span class="text">Orders</span>
                </a>
             </li>
+            <li class="menu-item ">
+               <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-description"></i>
+                   <span class="text">Sales Report</span>
+               </a>
+           </li>
          </ul>
          <hr>
          <ul class="menu-aside">
@@ -89,17 +94,10 @@
             <header class="card-header">
                <div class="row gx-3">
                   <div class="col-lg-4 col-md-6 me-auto">
-                     <input type="text" placeholder="Search..." class="form-control">
                   </div>
                   <div class="col-lg-2 col-md-3 col-6">
-                     <select class="form-select">
-                        <option>Status</option>
-                        <option>Active</option>
-                        <option>In Active</option>
-                        <option>Show all</option>
-                     </select>
+                     
                   </div>
-                  
                </div>
             </header> <!-- card-header end// -->
             <div class="card-body">
@@ -111,6 +109,7 @@
                            <th>Status</th>
                            <th>Created</th>
                            <th>Expiration</th>
+                           <th>Discount</th>
                            <th class="text-center"> Action </th>
                         </tr>
                      </thead>
@@ -137,9 +136,14 @@
                                                 Date(coupons[i].validFor)).toLocaleDateString('en-GB').split('/').join('.')
                                                 %>
                                           </td>
+                                          <td><%- coupons[i].discountPercentage %> &#37;</td>
+
                                           <td class="text-center">
-                                             <a href="#" class="btn btn-sm btn-brand rounded font-sm mt-15">View
-                                                details</a>
+
+                                             <a href="" data-couponId="<%- coupons[i]._id %>"
+                                                class="btn btn-sm btn-brand rounded font-sm mt-15 changeStatus-btn">Change
+                                                Status</a>
+
                                           </td>
                               </tr>
                               <% } %>
@@ -167,6 +171,34 @@
          </div>
       </footer>
    </main>
+
+   <!-- Activate and Inactivate the Coupon  -->
+   <script>
+      const changeStatus = document.querySelectorAll('.changeStatus-btn');
+      changeStatus.forEach((btn) => {
+         btn.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const couponId = btn.getAttribute('data-couponId')
+
+            if (couponId) {
+               const response = await fetch(`/admin/change-coupon-status/?couponId=${couponId}`);
+               const result = await response.json();
+
+               if (result.status === 'success') {
+                  Swal.fire({
+                     title: result.message,
+                     icon: 'success',
+                     timer: 1000,
+                  })
+                  setTimeout(() => {
+                     location.href = location.href;
+                  }, 1500);
+               }
+            }
+
+         })
+      })
+   </script>
    <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
    <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
    <script src="/assets/js/vendors/select2.min.js"></script>

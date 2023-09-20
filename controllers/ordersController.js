@@ -225,16 +225,19 @@ const cancelOrder = async(req,res)=>{
          }},
          {new:true}
          ).populate('products.productId');
-      const userWallet = await Wallet.findOne({userId:req.session.user._id});
-      if(!userWallet){
-         userWallet = new Wallet({userId:req.session.user._id});
-         await userWallet.save();
-      }
-         const amount = (1*orderDetails.actualTotalAmount)
-         userWallet.walletAmount += orderDetails.actualTotalAmount;
-         userWallet.transactionHistory.push(amount);
-         await userWallet.save();
 
+         if(orderDetails.paymentMethod !== 'COD'){
+            const userWallet = await Wallet.findOne({userId:req.session.user._id});
+            if(!userWallet){
+               userWallet = new Wallet({userId:req.session.user._id});
+               await userWallet.save();
+            }
+               const amount = (1*orderDetails.actualTotalAmount)
+               userWallet.walletAmount += orderDetails.actualTotalAmount;
+               userWallet.transactionHistory.push(amount);
+               await userWallet.save();
+      
+         }
          // Re setting the products stock
          orderDetails.products.forEach((products)=>{
             // console.log(products.productId.stock)
