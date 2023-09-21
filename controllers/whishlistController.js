@@ -3,7 +3,11 @@ const Whishlist = require('../models/whishlistModel');
 const loadWhishlist = async(req,res)=>{
    try {
       const user_id = req.session.user._id;
-      const userWhishlist = await Whishlist.findOne({userId:user_id}).populate('products.productId');
+      let userWhishlist = await Whishlist.findOne({userId:user_id}).populate('products.productId');
+      if(!userWhishlist){
+         userWhishlist = new Whishlist({userId:user_id,products:[]})
+         await userWhishlist.save()
+      }
       // console.log(userWhishlist.products)
 
       res.render('whishlist',{userWhishlist:userWhishlist.products});

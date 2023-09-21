@@ -75,6 +75,18 @@ userRouter.get("/register",auth.isLogout,userController.loadRegister);
 // Register post
 userRouter.post("/register",userController.insertUser);
 
+// Forget password load
+userRouter.get('/forgot-password',auth.isLogout,userController.loadForgetPass);
+
+// Getting the email id
+userRouter.post('/forgot-password',userController.forgetPassEmail);
+
+// Verify the otp 
+userRouter.post('/verify-forgot-otp',auth.isLogout,userController.verifyForgotOtp);
+
+// Setting new Password
+userRouter.post('/set-new-password',userController.setNewPassword);
+
 // ---------------------------------------OTP-----------------------
 
 // otp verification

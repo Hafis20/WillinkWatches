@@ -8,6 +8,8 @@ const Category = require('../models/categoryModel');
 const Address = require('../models/addressModel');
 const Wallet = require('../models/walletModel');
 const RazorPayHelper = require('../helpers/razorpayHelper');
+const nodemailer = require('nodemailer');
+
 // Load the registration  for user when they call "/register or /"
 
 const loadRegister = async(req,res)=>{
@@ -124,6 +126,112 @@ const verifyUser = async(req,res)=>{
       res.json({status : "error", message: error.message})
    }
 }
+
+
+// ===================Forget Password ===========
+// Loading the forget password page
+const loadForgetPass = async(req,res)=>{
+   try {
+      res.render('forget-email')
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+// Getting the email and make otp
+const forgetPassEmail = async(req,res)=>{
+   try {
+      const {email} = req.body;
+      
+      // Node mailer set up
+
+      const userId = await User.findOne({email:email},{_id:1});
+      if(userId){
+         req.session.forgotUserId = userId
+         function generateOtp(){
+            return Math.floor(100000 + Math.random() * 900000).toString();
+         }
+   
+         const otp = generateOtp();
+   
+   
+         let transporter = nodemailer.createTransport({
+            service:'gmail',
+            auth: {
+               user: process.env.EMAIL,
+               pass: process.env.PASS
+            }
+         });
+   
+         const mailOptions = {
+            from: 'youremail@gmail.com',
+            to: email,
+            subject: 'OTP for Verification',
+            text: `Your OTP is: ${otp}`
+         };
+   
+         transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+            return console.log(error);
+            }
+            if(info.response){
+               req.session.otp = otp;
+               res.render('forgot-otp-verification');
+            }
+         });
+   
+      }else{
+         res.render('forget-email',{message:'Incorrect Email Please Sign Up'})
+      }
+      
+      
+   } catch (error) {
+      res.json({status:'error',message:'Something wrong'});
+      console.log(error.message);
+   }
+}
+
+// Verify forgetPassOtp 
+const verifyForgotOtp = async(req,res)=>{
+   try {
+      const userOtp = req.body.otp;
+      // console.log(userOtp)
+      const originalOtp = req.session.otp
+
+      if(userOtp === originalOtp){
+         req.session.otp = null;
+         res.render('set-new-password');
+      }else{
+        res.render('forgot-otp-verification',{message:'Incorrect OTP'});
+      }
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
+const setNewPassword = async(req,res)=>{
+   try {
+      const newPassword = req.body.newPass;
+      const userId = req.session.forgotUserId;
+
+      const hashedPass = await pass.securePassword(newPassword);
+      
+      const user = await User.findByIdAndUpdate(userId,
+         {$set:{
+            password:hashedPass
+         }},
+         {new:true});
+
+      if(user){
+         res.json({status:'success',message:'Password Changed'});
+         // console.log('Getting from setNew Pass :',user);
+      }
+   } catch (error) {
+      res.json({status:'error',message:'Server side issue'});
+      console.log(error.message);
+   }
+}
+//======================Forgot password operation end=================
 
 //Rendering the home page
 const loadHome = async(req,res)=>{
@@ -473,6 +581,11 @@ module.exports = {
    loadHome,
    loadSingleProduct,
    insertUser,
+   //--Forget pass--
+   loadForgetPass,
+   forgetPassEmail,
+   verifyForgotOtp,
+   setNewPassword,
    // --Products--
    loadAllProducts,
    filterProducts,

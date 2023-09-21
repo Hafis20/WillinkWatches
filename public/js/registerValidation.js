@@ -106,7 +106,7 @@ function validateForm() {
 
 // Email validation helper function
 function validateEmail(email) {
-   const emailPattern = /^[^\s@]+@gmail.com/;
+   const emailPattern = /^[^\s@]+@gmail.com$/;
    return emailPattern.test(email);
 }
 
