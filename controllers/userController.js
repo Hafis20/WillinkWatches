@@ -9,6 +9,7 @@ const Address = require('../models/addressModel');
 const Wallet = require('../models/walletModel');
 const RazorPayHelper = require('../helpers/razorpayHelper');
 const nodemailer = require('nodemailer');
+const Banner = require('../models/bannerModel');
 
 // Load the registration  for user when they call "/register or /"
 
@@ -237,11 +238,13 @@ const setNewPassword = async(req,res)=>{
 const loadHome = async(req,res)=>{
    try {
       const productData = await Product.find({is_listed:true}).populate('category').sort({date:-1}).limit(4);
+      const banners = await Banner.find({isListed:true});
+      // console.log(banners);
       if(productData){
          const availableProducts = productData.filter(products=>products.category.is_listed === true);
          // console.log(availableProducts)
 
-         res.render('home',{products : availableProducts});
+         res.render('home',{products : availableProducts,banners});
       }
    } catch (error) {
       console.log(error.message)

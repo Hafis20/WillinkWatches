@@ -36,6 +36,7 @@ const productController = require('../controllers/productController');
 const categoryController = require('../controllers/categoryController');
 const ordersController = require('../controllers/ordersController');
 const couponController = require('../controllers/couponController');
+const bannerController = require('../controllers/bannerController');
 
 
 // -------------------------------------ADMIN--------------------------------
@@ -120,7 +121,7 @@ adminRouter.post('/edit-categories',auth.isLogin,categoryController.editCategori
 adminRouter.get('/is-unlist-categories',auth.isLogin,categoryController.unListCategories);
 adminRouter.get('/is-list-categories',auth.isLogin,categoryController.listCategories);
 
-//--------------------------------------------------------------------------
+
 
 //----------------------------------------------ORDERS-----------------------------
 adminRouter.get('/list-orders',auth.isLogin,ordersController.loadOrdersPage);
@@ -141,9 +142,19 @@ adminRouter.post('/add-coupon',auth.isLogin,couponController.addCoupons);
 // Inactivate the coupon
 adminRouter.get('/change-coupon-status',auth.isLogin,couponController.changeCouponStatus);
 
+// -------------------------------------------BANNERS------------------------
+// Getting the list of banners
+adminRouter.get('/list-banners',auth.isLogin,bannerController.listBanners);
 
+// Load Add the banner page
+adminRouter.get('/add-banner',auth.isLogin,bannerController.LoadaddBanner);
 
-// --------------------------------------------------------------------------------
+// Add Banner
+adminRouter.post('/add-banner',upload.single('images'),bannerController.addBanner);
+
+// Unlist the banner
+adminRouter.get('/change-banner-status',auth.isLogin,bannerController.changeBannerStatus)
+
 //Logout
 adminRouter.get('/logout',auth.isLogin,adminController.logoutAdmin)
 
