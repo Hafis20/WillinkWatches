@@ -103,7 +103,7 @@ const updateQuantity = async (req, res) => {
 
       const product = await Product.findById(productId);
       if(product.stock  < currentValue){
-         res.json({status:'error',message:'Out of Stock'});
+         res.json({status:'error',message:'Stock Exceeded'});
       }else{
          const cart = await Cart.findOneAndUpdate(
             { 

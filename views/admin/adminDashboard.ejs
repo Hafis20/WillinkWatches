@@ -15,7 +15,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+   <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/willink-watches-logo (2).png">
     <!-- Template CSS -->
     <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
@@ -24,8 +24,8 @@
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
-            <a href="index.html" class="brand-wrap">
-                <img src="/assets/imgs/theme/logo.svg" class="logo" alt="Willink Dashboard">
+            <a href="/admin/dashboard" class="brand-wrap">
+                <img src="/assets/imgs/theme/willink-watches-logo (2).png" class="logo" alt="Willink Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
@@ -66,8 +66,8 @@
             <hr>
             <ul class="menu-aside">
                 <li class="menu-item">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-exit_to_app"></i>
-                        <span class="text"> Logout </span>
+                    <a class="menu-link" href="/admin/logout"> <i class="icon material-icons md-exit_to_app"></i>
+                        <span class="text" id="logout-btn"> Logout </span>
                     </a>
                 </li>
             </ul>
@@ -262,6 +262,8 @@
         });
 
     </script>
+
+    <!-- Admin Logout -->
 
     <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>

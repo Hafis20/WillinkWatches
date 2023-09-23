@@ -83,8 +83,11 @@ const verifyotp = async(req,res)=>{
             password:spassword,
             mobile:userData.mobile,
          })
-         await user.save(); // if the otp is correct we save the data into data base
-         res.json({status:'success',message:'OTP Verified Please Login'});
+         const userInfo = await user.save(); // if the otp is correct we save the data into data base
+         if(userInfo){
+            req.session.user = user;
+            res.json({status:'success',message:'OTP Verified Please Login'});
+         }
       }else{
          res.json({status:'error',message:'Please verify your otp'});
       }
@@ -210,6 +213,7 @@ const verifyForgotOtp = async(req,res)=>{
    }
 }
 
+// Setting the new password
 const setNewPassword = async(req,res)=>{
    try {
       const newPassword = req.body.newPass;
@@ -232,6 +236,8 @@ const setNewPassword = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+
 //======================Forgot password operation end=================
 
 //Rendering the home page
@@ -313,6 +319,26 @@ const searchProducts = async(req,res)=>{
       console.log(error.message);
    }
 }
+
+// Sorting price wise
+const priceWiseSort = async(req,res)=>{
+   try {
+      // For next page categories
+      const categories = await Category.find();
+      let productData;
+      if(req.query.from === '1'){ // It means that low to high
+          productData = await Product.find({is_listed:true}).populate('category').sort({salePrice:1});
+      }else{  // It means high to low
+          productData = await Product.find({is_listed:true}).populate('category').sort({salePrice:-1});
+      }
+      
+      const availableProducts = productData.filter((product)=>product.category.is_listed === true);
+      res.render('all-products',{products:availableProducts,categories})
+   } catch (error) {
+      console.log(error.message);
+   }
+}
+
 
 // User Profile
 const userProfile = async(req,res)=>{
@@ -593,6 +619,7 @@ module.exports = {
    loadAllProducts,
    filterProducts,
    searchProducts,
+   priceWiseSort,
    userProfile,
    //-- Address --
    addingAddress,

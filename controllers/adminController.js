@@ -438,7 +438,7 @@ const unBlockUser = async(req,res)=>{
 const logoutAdmin = async(req,res)=>{
    try {
       req.session.admin = null;
-      res.redirect('/admin/login');
+      res.redirect('/admin/');
    } catch (error) {
       console.log(error.message);
    }

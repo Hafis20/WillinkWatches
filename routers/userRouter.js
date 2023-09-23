@@ -10,11 +10,13 @@ userRouter.use(session({
    saveUninitialized:false,
 }))
 
+// Loading middle ware 
+
+
 // nocache middleware
 
 const nocache = require('nocache');
 userRouter.use(nocache());
-
 // ===============================Controller importing ==============================
 
 // User Controller 
@@ -103,6 +105,9 @@ userRouter.get('/filter-products',userController.filterProducts);
 
 // Search products 
 userRouter.post('/show-all-products',userController.searchProducts);
+
+// Low to high sorting
+userRouter.get('/price-wise-sort',userController.priceWiseSort);
 
 
 // -------------------------------------CART------------------------

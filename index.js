@@ -13,8 +13,11 @@ const app = express();
 const PORT = process.env.PORT || 5000
 
 // Morgan
-// const logger = require('morgan');
-// app.use(logger('dev'))
+const logger = require('morgan');
+app.use(logger('dev'))
+
+app.set("view engine", "ejs");
+app.set("views", "./views/user");
 
 // User router
 const userRouter = require('./routers/userRouter');
@@ -24,5 +27,8 @@ app.use('/',userRouter);
 const adminRouter = require('./routers/adminRouter');
 app.use('/admin',adminRouter);
 
+app.use('*',(req,res)=>{
+   res.render('404-error')
+})
 
 app.listen(PORT,()=>console.log(`Server running at port ${PORT}`));
