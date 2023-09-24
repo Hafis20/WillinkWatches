@@ -29,9 +29,12 @@
 	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.css" />
 	<link rel="stylesheet" href="/user-assets/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="/user-assets/css/main.css">
+	<link rel="stylesheet" href="/user-assets/css/magiczoom.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.all.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.min.css" rel="stylesheet">
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.all.min.js"></script>
+	<script src="/user-assets/js/magiczoom.js"></script>
 
 </head>
 
@@ -68,11 +71,6 @@
 							<li class="nav-item"><a href="/whishlist" class="profile-icon nav-link"><span
 										style="font-size: 20px; width: 30px; height: 30px; color: black;"
 										class="bi bi-heart"></span></a></li>
-							<li class="nav-item">
-								<a class="search"><span
-										style="font-size: 20px; width: 30px; height: 30px; color: black; margin-right: 45px;"
-										class="bi bi-search" id="search"></span></a>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -104,8 +102,8 @@
 				<div class="col-lg-4">
 					<div class="s_Product_carousel">
 						<% for( let i = 0; i < product.images.length; i++ ) { %>
-							<div class="single-prd-item">
-								<img class="img-fluid"  style="height: 360px; width: 360px; object-fit: contain;" src="/assets/imgs/products/<%- product.images[i] %>" alt="">  
+							<div class="single-prd-item d-flex">
+								<a href="/assets/imgs/products/<%- product.images[i] %>" class="MagicZoom"  data-options="zoomMode: magnifier"><img class="img-fluid"  style="height: 390px; width: 410px; object-fit: contain;" src="/assets/imgs/products/<%- product.images[i] %>" alt=""> </a> 
 							</div>
 						<% } %>
 					</div>
@@ -126,7 +124,7 @@
 						
 						<div class="card_area d-flex align-items-center justify-content-center">
 							<a class="primary-btn" href="" id="addToCart">Add to Cart</a>
-							<a class="icon_btn" href="#"><i class="bi bi-heart"></i></a>
+							<a class="icon_btn addtoWishlist" data-productId="<%- product._id %>"  href="#"><i class="bi bi-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -252,6 +250,50 @@
 
 	</script>
 
+<!-- Add to WISHLIST -->
+
+<script>
+	const addtoWhishlistBtn = document.querySelectorAll('.addtoWishlist')
+
+	addtoWhishlistBtn.forEach((btn) => {
+		btn.addEventListener('click', async (event) => {
+			event.preventDefault();
+
+			const productId = event.currentTarget.getAttribute('data-productId')
+
+			if (productId) {
+				const response = await fetch(`/add-to-whishlist/?productId=${productId}`);
+				const result = await response.json()
+				if (result.status === 'success') {
+					Swal.fire({
+						icon: 'success',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1000
+					})
+
+				} else if (result.status === 'sessionError') {
+					Swal.fire({
+						icon: 'info',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1000
+					})
+					setTimeout(() => {
+						location.href = '/login'
+					}, 1500);
+				} else {
+					Swal.fire({
+						icon: 'info',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1000
+					})
+				}
+			}
+		})
+	})
+</script>
 	<script src="/user-assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
