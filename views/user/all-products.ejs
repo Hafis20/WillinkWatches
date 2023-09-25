@@ -71,14 +71,16 @@
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light main_box" style="border-radius: 25px; background-color: #f1f0f0;">
+			<nav class="navbar navbar-expand-lg navbar-light main_box"
+				style="border-radius: 25px; background-color: #f1f0f0;">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="/home">
 						<div class="" style="height: 80px;">
-							<img src="/assets/imgs/theme/willink-watches-logo (2).png" style="height: 80px; width: 100%; object-fit: cover;" alt="">
+							<img src="/assets/imgs/theme/willink-watches-logo (2).png"
+								style="height: 80px; width: 100%; object-fit: cover;" alt="">
 						</div>
-                </a>
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -89,11 +91,11 @@
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
 							<li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
-								class="bi bi-house"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
+										class="bi bi-house"></span></a></li>
 							<li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: rgb(219, 160, 8);"
-								class="bi bi-shop"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: rgb(219, 160, 8);"
+										class="bi bi-shop"></span></a></li>
 							<li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
 										style="font-size: 22px; width: 30px; height: 30px; color: black;"
 										class="bi bi-person"></span></a></li>
@@ -151,8 +153,10 @@
 						<i class="fas fa-filter"></i> PRICE
 					</a>
 					<ul class="dropdown-menu">
-						<li class="nav-item"><a class="nav-link filter-options " href="/price-wise-sort/?from=1">LOW TO HIGH</a>
-						<li class="nav-item"><a class="nav-link filter-options " href="/price-wise-sort/?from=2">HIGH TO LOW</a>
+						<li class="nav-item"><a class="nav-link filter-options " href="/price-wise-sort/?from=1">LOW TO
+								HIGH</a>
+						<li class="nav-item"><a class="nav-link filter-options " href="/price-wise-sort/?from=2">HIGH TO
+								LOW</a>
 						</li>
 					</ul>
 				</li>
@@ -175,7 +179,7 @@
 					</ul>
 				</li>
 			</ul>
-			
+
 		</div>
 		<div class="row">
 			<div class="col-xl-12 col-lg-12 col-md-7 col-12">
@@ -186,47 +190,49 @@
 						<% if (products.length>0) { %>
 							<% for( let i=0; i < products.length; i++ ) { %>
 								<div class="col-lg-3 col-md-6 d-flex justify-content-center">
-									<div class="card single-product text-center shadow ">
-										<img class="img-fluid" style="height: 300px; width: 300px; object-fit: contain;"
-											src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
-										<div class="product-details">
-											<h6><%- products[i].productName %></h6>
-											<div class="price">
-												<h6> &#x20B9;<%- products[i].salePrice %></h6>
-												<h6 class="l-through"> &#x20B9;<%- products[i].regularPrice %></h6>
-											</div>
-											<% if (products[i].stock === 0) { %>
-												<div class="outof-stock">
-													<p class="text-danger" style="margin-bottom: 0px;">Out of Stock</p>
+									<a href="/single-product/?id=<%- products[i]._id %>">
+										<div class="card single-product text-center shadow ">
+											<img class="img-fluid" style="height: 300px; width: 300px; object-fit: contain;"
+												src="/assets/imgs/products/<%- products[i].images[0] %>" alt="">
+											<div class="product-details">
+												<h6><%- products[i].productName %></h6>
+												<div class="price">
+													<h6> &#x20B9;<%- products[i].salePrice %></h6>
+													<h6 class="l-through"> &#x20B9;<%- products[i].regularPrice %></h6>
 												</div>
-												<div class="prd-bottom" style="margin-top: 0px;">
-													<a type="button" href="" data-productId="<%-products[i]._id  %>"
-														class="social-info addtoWhishlist">
-														<span class="bi bi-heart"></span>
-													</a>
-													<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
-														<span class="lnr lnr-move"></span>
-													</a>
-												</div>
-											<% }else{ %>
-												<div class="prd-bottom">
+												<% if (products[i].stock===0) { %>
+													<div class="outof-stock">
+														<p class="text-danger" style="margin-bottom: 0px;">Out of Stock</p>
+													</div>
+													<div class="prd-bottom" style="margin-top: 0px;">
 														<a type="button" href="" data-productId="<%-products[i]._id  %>"
-															class="social-info addToCart">
-															<span class="bi bi-cart"></span>
+															class="social-info addtoWhishlist">
+															<span class="bi bi-heart"></span>
 														</a>
-													<a type="button" href="" data-productId="<%-products[i]._id  %>"
-														class="social-info addtoWhishlist">
-														<span class="bi bi-heart"></span>
-													</a>
-													<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
-														<span class="lnr lnr-move"></span>
-													</a>
-												</div>
-											<% } %>
-											
-											
+														<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
+															<span class="lnr lnr-move"></span>
+														</a>
+													</div>
+													<% }else{ %>
+														<div class="prd-bottom">
+															<a type="button" href="" data-productId="<%-products[i]._id  %>"
+																class="social-info addToCart">
+																<span class="bi bi-cart"></span>
+															</a>
+															<a type="button" href="" data-productId="<%-products[i]._id  %>"
+																class="social-info addtoWhishlist">
+																<span class="bi bi-heart"></span>
+															</a>
+															<a href="/single-product/?id=<%- products[i]._id %>" class="social-info">
+																<span class="lnr lnr-move"></span>
+															</a>
+														</div>
+														<% } %>
+
+
+											</div>
 										</div>
-									</div>
+									</a>
 								</div>
 								<% } %>
 
@@ -248,7 +254,7 @@
 	<!-- Start related-product Area -->
 
 	<!-- start footer Area -->
-	
+
 	<!-- End footer Area -->
 
 	<!-- Modal Quick Product View -->
@@ -331,8 +337,8 @@
 						<h6>About Us</h6>
 						<p>
 							Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you with
-							exquisite timepieces that blend craftsmanship, style, and precision. 
-							
+							exquisite timepieces that blend craftsmanship, style, and precision.
+
 						</p>
 					</div>
 				</div>
@@ -342,7 +348,7 @@
 						<p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
 						<div class="" id="mc_embed_signup">
 							<p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span></p>
-							<p style="margin-top: 0px; cursor: pointer;"> <span >Phone : +91 987654321</span></p>
+							<p style="margin-top: 0px; cursor: pointer;"> <span>Phone : +91 987654321</span></p>
 
 						</div>
 					</div>
