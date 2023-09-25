@@ -1,7 +1,4 @@
 .env
 node_modules/
-public/assets/imgs
-public/user-assets/img
-public/admin-login/images
 
 
