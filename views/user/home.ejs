@@ -86,14 +86,16 @@
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light main_box" style="border-radius: 25px; background-color: #ffffff;">
+			<nav class="navbar navbar-expand-lg navbar-light main_box"
+				style="border-radius: 25px; background-color: #ffffff;">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="/home">
 						<div class="" style="height: 80px;">
-							<img src="/assets/imgs/theme/willink-watches-logo (2).png" style="height: 80px; width: 100%; object-fit: cover;" alt="">
+							<img src="/assets/imgs/theme/willink-watches-logo (2).png"
+								style="height: 80px; width: 100%; object-fit: cover;" alt="">
 						</div>
-                </a>
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -103,8 +105,12 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="/show-all-products">Shop</a></li>
+							<li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
+								style="font-size: 22px; width: 30px; height: 30px; color: rgb(219, 134, 7);"
+								class="bi bi-house"></span></a></li>
+							<li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
+								style="font-size: 22px; width: 30px; height: 30px; color: black;"
+								class="bi bi-shop"></span></a></li>
 							<li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
 										style="font-size: 22px; width: 30px; height: 30px; color: black;"
 										class="bi bi-person"></span></a></li>
@@ -129,19 +135,17 @@
 				<div class="col-lg-12">
 					<div>
 						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
+						<div class="row align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">
-									<h2>Discover Our Exquisite Watch Collection</h2>
+									<h2 style="color:#000000">Discover Our Exquisite Watch Collection</h2>
 									<p>Experience a world of sophistication and precision with our handpicked selection of
 										timepieces. Crafted to perfection, each watch seamlessly combines artistry with
 										functionality. Elevate your style with a timepiece that speaks to your unique taste and
 										personality.</p>
 								</div>
 							</div>
-							<div class="col-lg-7">
-
-							</div>
+							
 						</div>
 						<!-- single-slide -->
 					</div>
@@ -206,31 +210,33 @@
 			</section>
 			<div class="col-md-12">
 				<div id="imageCarousel" class="carousel slide" data-ride="carousel">
-					 <div class="carousel-inner">
-						  <% if (banners.length) { %>
-								<% for (let i = 0; i < banners.length; i++) { %>
-									 <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-										  <img src="/assets/imgs/products/<%= banners[i].image %>"
-												style="height: 500px; object-fit: cover;" class="d-block w-100"
-												alt="Featured Image <%= i + 1 %>">
-										  <div class="carousel-caption d-flex d-md-block">
-												<h5 style="color: #ffff;"><%= banners[i].title %></h5>
-										  </div>
-									 </div>
+					<div class="carousel-inner">
+						<% if (banners.length) { %>
+							<% for (let i=0; i < banners.length; i++) { %>
+								<div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+									<img src="/assets/imgs/products/<%= banners[i].image %>"
+										style="height: 500px; object-fit: cover;" class="d-block w-100"
+										alt="Featured Image <%= i + 1 %>">
+									<div class="carousel-caption d-flex d-md-block">
+										<h5 style="color: #ffff;">
+											<%= banners[i].title %>
+										</h5>
+									</div>
+								</div>
 								<% } %>
-						  <% } %>
-					 </div>
-					 <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-						  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						  <span class="sr-only">Previous</span>
-					 </a>
-					 <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-						  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						  <span class="sr-only">Next</span>
-					 </a>
+									<% } %>
+					</div>
+					<a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
-		  </div>
-		  
+			</div>
+
 
 
 		</div>
@@ -246,60 +252,40 @@
 
 
 	<!-- start footer Area -->
-	<footer class="footer-area p-5">
+	<footer class="footer-area pt-5 pb-5" style="background-color: black;  border-radius: 20px 20px 0 0;">
 		<div class="container">
 			<div class="row  d-flex justify-content-between">
 				<div class="col-lg-3  col-md-6 col-sm-6">
 					<div class="single-footer-widget">
 						<h6>About Us</h6>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore dolore
-							magna aliqua.
+							Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you with
+							exquisite timepieces that blend craftsmanship, style, and precision. 
+							
 						</p>
 					</div>
 				</div>
 				<div class="col-lg-4  col-md-6 col-sm-6">
 					<div class="single-footer-widget">
-						<h6>Newsletter</h6>
-						<p>Stay update with our latest</p>
+						<h6>Contact Us</h6>
+						<p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
 						<div class="" id="mc_embed_signup">
+							<p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span></p>
+							<p style="margin-top: 0px; cursor: pointer;"> <span >Phone : +91 987654321</span></p>
 
-							<form target="_blank" novalidate="true"
-								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-								method="get" class="form-inline">
-
-								<div class="d-flex flex-row">
-
-									<input class="form-control" name="EMAIL" placeholder="Enter Email"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required=""
-										type="email">
-
-
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
-											aria-hidden="true"></i></button>
-									<div style="position: absolute; left: -5000px;">
-										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-									</div>
-
-									<!-- <div class="col-lg-4 col-md-4">
-												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  -->
-								</div>
-								<div class="info"></div>
-							</form>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-2 col-md-6 col-sm-6">
+				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
 						<h6>Follow Us</h6>
-						<p>Let us be social</p>
+						<p>Stay updated with our latest arrivals, promotions, and news by following us on social media.</p>
 						<div class="footer-social d-flex align-items-center">
-							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
 							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+							<a href="#"><i class="fa fa-github"></i></a>
 						</div>
 					</div>
 				</div>
