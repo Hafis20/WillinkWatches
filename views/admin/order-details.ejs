@@ -102,7 +102,7 @@
                                     <% }else if(orderDetails.orderStatus === 'Placed'){ %>
                                         <option value="Delivered">Delivered</a></option>
                                     <% }else if(orderDetails.orderStatus === 'Pending'){ %>
-                                        <option value="Placed">Placed</a></option>
+                                        <option value="Cancelled">Cancel</a></option>
                                     <% } %>
                                 </select>
                                 <a class="btn btn-primary" onclick="saveStatus('<%-orderDetails._id%>')" href="#">Save</a>

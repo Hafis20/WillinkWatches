@@ -66,11 +66,12 @@ const editCategories = async(req,res)=>{
          const category = await Category.find();
          // Taking the categories other than edit
          const existingCategory =  category.filter((category) => category._id.toString() !== id);
+
          // In other categories exist the name which user provided
-         const categoryExist = existingCategory.find((category)=>category.categoryName === categoryName.toUpperCase());
-         
+         const categoryExist = existingCategory.filter((category)=>category.categoryName === categoryName.toUpperCase());
+         console.log('Existing : ',categoryExist);
          // if provided or not
-         if(categoryExist){
+          if(categoryExist.length > 0){
             res.json({status:'error',message:'Category Already Exists'});
          }else{
             const updateCategory = await Category.findByIdAndUpdate(id,
