@@ -127,6 +127,11 @@
                               </div>
                               <p>Product Name : <%- userWhishlist[i].productId.productName %></p>
                               <p>Price : &#x20B9; <%- userWhishlist[i].productId.salePrice %> </p>
+                              <% if (userWhishlist[i].productId.stock === 0) { %>
+                               <p class="text-danger">Out of Stock</p>
+                              <% }else{ %>
+                                 <p class="text-success">In Stock</p>
+                              <% } %>
                            </div>
                            <div class="d-flex justify-content-end">
                               <a href="" data-productId="<%- userWhishlist[i].productId._id %>"

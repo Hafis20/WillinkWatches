@@ -5,6 +5,7 @@ const Address = require('../models/addressModel');
 const Order = require('../models/ordersModel');
 const Coupon = require('../models/couponModel');
 const Wallet = require('../models/walletModel');
+const CartCountHelper = require('../helpers/cartItemsCount');
 
 // Load Cart page
 
@@ -21,8 +22,11 @@ const loadCart = async(req,res)=>{
          },0);
          // console.log(cart.total)
          const userProducts = cart.products;
-         const cartTotal = cart.total
-         res.render('cart',{products:userProducts,cartTotal});
+         const cartTotal = cart.total;
+
+         const cartItemsCount = await CartCountHelper.findCartItemsCountFromCart(cart);
+
+         res.render('cart',{products:userProducts,cartTotal,cartItemsCount});
 
    } catch (error) {
       console.log(error.message);
@@ -78,7 +82,10 @@ const addToCart = async(req,res)=>{
          
          await cart.save();
          // console.log(cart);
-   
+         if(req.session && req.session.user && req.session.user._id){
+            const cartItemsCount = await CartCountHelper.findCartItemsCountFromCart(cart);
+            return res.json({status:'success',cartTotal:cart.total,message:'Added to Cart',cartItemsCount});
+         }
          return res.json({status:'success',cartTotal:cart.total,message:'Added to Cart'});
          
       }
@@ -90,12 +97,12 @@ const addToCart = async(req,res)=>{
 
 const updateQuantity = async (req, res) => {
    try {
+      // const findCart = await Cart.findOne({userId:userId});
       const userId = new mongoose.Types.ObjectId(req.session.user._id);
       const productId =new mongoose.Types.ObjectId(req.body.proId) ;
       const count = req.body.count;
       const currentValue = req.body.currentValue;
-      console.log(currentValue)
-      // const findCart = await Cart.findOne({userId:userId});
+      // console.log(currentValue)
       // console.log('User ID:', userId);
       // console.log('Product ID:', productId);
       // console.log('Count:', count); 
@@ -120,9 +127,12 @@ const updateQuantity = async (req, res) => {
          const updateProduct = cart.products.find(product=>product.productId._id.equals(productId))
          updateProduct.total = updateProduct.productId.salePrice * updateProduct.quantity;
          await cart.save()
+
+         // Finding the cart total items count
+         const cartItemsCount = await CartCountHelper.findCartItemsCountFromCart(cart);
+         console.log(cartItemsCount)
    
-   
-         res.json({ status: 'success',message:'Quantity Updated'});
+         res.json({ status: 'success',message:'Quantity Updated',cartItemsCount});
       }
       
    } catch (error) {
@@ -185,8 +195,8 @@ const loadCheckOut = async(req,res)=>{
 
       const address =userAddress.address;
 
-      
-      res.render('checkout',{address,cartDetails,grandTotal,coupons:availableCoupons,userWallet});
+      const cartItemsCount = await CartCountHelper.findCartItemsCountFromCart(cart)
+      res.render('checkout',{address,cartDetails,grandTotal,coupons:availableCoupons,userWallet,cartItemsCount});
    } catch (error) {
       console.log(error.message)
    }

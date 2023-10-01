@@ -5,7 +5,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-	<link rel="shortcut icon" href="/assets/imgs/theme/willink-watches-logo (2).png">
+    <link rel="shortcut icon" href="/assets/imgs/theme/willink-watches-logo (2).png">
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -37,14 +37,16 @@
     <!-- Start Header Area -->
     <header class="header_area sticky-header">
         <div class="main_menu">
-            <nav class="navbar navbar-expand-lg navbar-light main_box" style="border-radius: 25px; background-color: #f1f0f0;">
+            <nav class="navbar navbar-expand-lg navbar-light main_box"
+                style="border-radius: 25px; background-color: #f1f0f0;">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand logo_h" href="/home">
-						<div class="" style="height: 80px;">
-							<img src="/assets/imgs/theme/willink-watches-logo (2).png" style="height: 80px; width: 100%; object-fit: cover;" alt="">
-						</div>
-                </a>
+                        <div class="" style="height: 80px;">
+                            <img src="/assets/imgs/theme/willink-watches-logo (2).png"
+                                style="height: 80px; width: 100%; object-fit: cover;" alt="">
+                        </div>
+                    </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -55,22 +57,26 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
-							<li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
-								class="bi bi-house"></span></a></li>
-							<li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: black;"
-								class="bi bi-shop"></span></a></li>
-							<li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
-										style="font-size: 22px; width: 30px; height: 30px; color: black;"
-										class="bi bi-person"></span></a></li>
-							<li class="nav-item"><a href="/cart" class="profile-icon nav-link"><span
-										style="font-size: 20px; width: 30px; height: 30px; color: rgb(219, 139, 0);"
-										class="bi bi-cart"></span></a></li>
-							<li class="nav-item"><a href="/whishlist" class="profile-icon nav-link"><span
-										style="font-size: 20px; width: 30px; height: 30px; color: black; margin-right: 48px;"
-										class="bi bi-heart"></span></a></li>
-						</ul>
+                            <li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
+                                        style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
+                                        class="bi bi-house"></span></a></li>
+                            <li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
+                                        style="font-size: 22px; width: 30px; height: 30px; color: black;"
+                                        class="bi bi-shop"></span></a></li>
+                            <li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
+                                        style="font-size: 22px; width: 30px; height: 30px; color: black;"
+                                        class="bi bi-person"></span></a></li>
+                            <li class="nav-item">
+                                <a href="/cart" class="profile-icon nav-link">
+                                    <span style="font-size: 20px; width: 30px; height: 30px; color: rgb(219, 139, 0);"
+                                        class="bi bi-cart"></span>
+                                        <span id="cartItemsCount" class="badge badge-danger position-absolute top-0 start-50 translate-middle"><%- cartItemsCount %></span>
+                                </a>
+                            </li>
+                            <li class="nav-item"><a href="/whishlist" class="profile-icon nav-link"><span
+                                        style="font-size: 20px; width: 30px; height: 30px; color: black; margin-right: 48px;"
+                                        class="bi bi-heart"></span></a></li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -145,7 +151,7 @@
                                                 <input type="text" name="qty" id="sst" maxlength="12"
                                                     data-product-id="<%= products[i].productId._id %>"
                                                     value="<%- products[i].quantity %>" title="Quantity:"
-                                                    class="input-text qty">
+                                                    class="input-text qty" readonly>
 
                                                 <!-- Buttons to increase and decrease quantity -->
                                                 <button class="increase items-count" type="button"
@@ -228,53 +234,56 @@
 
     <!-- start footer Area -->
     <footer class="footer-area pt-5 pb-5" style="background-color: black;  border-radius: 20px 20px 0 0;">
-		<div class="container">
-			<div class="row  d-flex justify-content-between">
-				<div class="col-lg-3  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>About Us</h6>
-						<p>
-							Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you with
-							exquisite timepieces that blend craftsmanship, style, and precision. 
-							
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>Contact Us</h6>
-						<p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
-						<div class="" id="mc_embed_signup">
-							<p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span></p>
-							<p style="margin-top: 0px; cursor: pointer;"> <span >Phone : +91 987654321</span></p>
+        <div class="container">
+            <div class="row  d-flex justify-content-between">
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>About Us</h6>
+                        <p>
+                            Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you
+                            with
+                            exquisite timepieces that blend craftsmanship, style, and precision.
 
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>Follow Us</h6>
-						<p>Stay updated with our latest arrivals, promotions, and news by following us on social media.</p>
-						<div class="footer-social d-flex align-items-center">
-							<a href="#"><i class="fa fa-instagram"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-linkedin"></i></a>
-							<a href="#"><i class="fa fa-github"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					Copyright &copy;
-					<script>document.write(new Date().getFullYear());</script> Willink Watches | All rights reserved
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				</p>
-			</div>
-		</div>
-	</footer>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Contact Us</h6>
+                        <p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
+                        <div class="" id="mc_embed_signup">
+                            <p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span>
+                            </p>
+                            <p style="margin-top: 0px; cursor: pointer;"> <span>Phone : +91 987654321</span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Follow Us</h6>
+                        <p>Stay updated with our latest arrivals, promotions, and news by following us on social media.
+                        </p>
+                        <div class="footer-social d-flex align-items-center">
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+                <p class="footer-text m-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> Willink Watches | All rights reserved
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </footer>
     <!-- End footer Area -->
 
 
@@ -282,9 +291,9 @@
     <script>
         // Function to calculate and update the cart total
         async function changeQuantity(productId, value, currentValue) {
-            console.log(productId);
-            console.log(value);
-            console.log(currentValue);
+            // console.log(productId);
+            // console.log(value);
+            // console.log(currentValue);
 
 
             const data = {
@@ -312,6 +321,7 @@
                 })
                 return { status: 'error' }
             }
+            document.getElementById('cartItemsCount').textContent = result.cartItemsCount;
             return { status: 'success' }
         }
 
@@ -347,7 +357,7 @@
         async function increaseQuantity(inputField, productId, value) {
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue)) {
-                const response = await changeQuantity(productId, value, currentValue + 1 ); // Changing the quantity in db
+                const response = await changeQuantity(productId, value, currentValue + 1); // Changing the quantity in db
                 if (response && response.status === 'success') {
                     inputField.value = currentValue + 1;
                     updateQuantity(inputField);
@@ -359,7 +369,7 @@
 
         // Function to decrease the quantity of a product
         async function decreaseQuantity(inputField, productId, value) {
-            console.log(productId)
+            // console.log(productId)
             const currentValue = parseInt(inputField.value);
             if (!isNaN(currentValue) && currentValue > 1) {
                 const response = await changeQuantity(productId, value, currentValue - 1);

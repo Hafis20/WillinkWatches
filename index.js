@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 
 // Morgan
 const logger = require('morgan');
-app.use(logger('dev'))
+// app.use(logger('dev'))
 
 app.set("view engine", "ejs");
 app.set("views", "./views/user");

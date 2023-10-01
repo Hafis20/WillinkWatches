@@ -8,6 +8,7 @@ const Category = require('../models/categoryModel');
 const Address = require('../models/addressModel');
 const Wallet = require('../models/walletModel');
 const RazorPayHelper = require('../helpers/razorpayHelper');
+const CartCountHelper = require('../helpers/cartItemsCount');
 const nodemailer = require('nodemailer');
 const Banner = require('../models/bannerModel');
 
@@ -250,7 +251,15 @@ const loadHome = async(req,res)=>{
          const availableProducts = productData.filter(products=>products.category.is_listed === true);
          // console.log(availableProducts)
 
-         res.render('home',{products : availableProducts,banners});
+         if(req.session && req.session.user && req.session.user._id){
+            const cartItemsCount = await CartCountHelper.findCartItemsCount(req.session.user._id);
+            // console.log(cartItemsCount)
+            // If exists I pass cartItemsCount also
+            res.render('home',{products : availableProducts,banners,cartItemsCount});
+         }else{
+            res.render('home',{products : availableProducts,banners});
+
+         }
       }
    } catch (error) {
       console.log(error.message)
@@ -281,7 +290,16 @@ const loadAllProducts = async(req,res)=>{
       const availableProducts = productData.filter((product)=>product.category.is_listed === true);
       // console.log(availableProducts);
       const categories = await Category.find();
-      res.render('all-products',{products:availableProducts,categories});
+
+      // Finding the user is logined or not
+      if(req.session && req.session.user && req.session.user._id){
+         const cartItemsCount = await CartCountHelper.findCartItemsCount(req.session.user._id);
+         // console.log(cartItemsCount)
+         // If exists I pass cartItemsCount also
+         res.render('all-products',{products:availableProducts,categories,cartItemsCount});
+      }else{
+         res.render('all-products',{products:availableProducts,categories});
+      }
    } catch (error) {
       console.log(error.message);
    }
@@ -346,7 +364,8 @@ const userProfile = async(req,res)=>{
       const user_id = req.session.user._id;
       // console.log(user_id);
       const userData = await User.findById(user_id);
-      res.render('user-profile',{userData});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('user-profile',{userData,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }
@@ -410,7 +429,8 @@ const loadManageAddress = async(req,res)=>{
          await userAddress.save();
       }
       // console.log(userAddress)
-      res.render('manage-address',{address:userAddress.address});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('manage-address',{address:userAddress.address,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }
@@ -429,8 +449,8 @@ const loadEditAddress = async(req,res)=>{
          return address._id.toString() === addressId;
       })
       // console.log(userAddress);
-      
-      res.render('edit-address',{userAddress});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('edit-address',{userAddress,cartItemsCount});
    }catch(error){
       console.log(error.message);
    }
@@ -571,8 +591,8 @@ const loadWallet = async(req,res)=>{
          userWallet = new Wallet({userId:user_id});
          await userWallet.save();
       }
-
-      res.render('view-wallet',{userWallet});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('view-wallet',{userWallet,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }

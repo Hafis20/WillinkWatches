@@ -5,9 +5,10 @@ const Coupon = require('../models/couponModel');
 const userUsedCoupons = require('../models/usedCouponModel');
 const Wallet = require('../models/walletModel');
 const RazorPayHelper = require('../helpers/razorpayHelper');
+const CartCountHelper = require('../helpers/cartItemsCount');
 const easyinvoice = require('easyinvoice');
 const fs = require('fs');
-const {Readable} = require('stream')
+const {Readable} = require('stream');
 
 // Add order
 const placeOrder = async(req,res)=>{
@@ -197,7 +198,8 @@ const listOrders = async(req,res)=>{
    try {
       const user_id = req.session.user._id;
       const userOrders = await Order.find({userId:user_id}).populate('products.productId');
-      res.render('list-orders',{userOrders});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('list-orders',{userOrders,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }
@@ -206,10 +208,13 @@ const listOrders = async(req,res)=>{
 // When user click into the details 
 const orderDetails = async(req,res)=>{
    try {
+      const user_id = req.session.user._id;
       const orderId = req.query.orderId;
       const orderDetails = await Order.findById(orderId).populate('products.productId').sort({date:1})
       // console.log(orderDetails)
-      res.render('order-details',{orderDetails});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+
+      res.render('order-details',{orderDetails,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }
