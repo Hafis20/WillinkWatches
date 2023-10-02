@@ -156,6 +156,7 @@
 							<tr>
 								<th scope="col">Product</th>
 								<th scope="col">Quantity</th>
+								<th scope="col">Status</th>
 								<th scope="col">Total</th>
 							</tr>
 						</thead>
@@ -169,6 +170,16 @@
 										<h5>x <%- orderDetails.products[i].quantity %></h5>
 									</td>
 									<td>
+										<h5><% if (orderDetails.products[i].productStatus === 'Returned') { %>
+											<span class="badge badge-pill badge-danger"><%-
+												orderDetails.products[i].productStatus %></span>
+											<% }else{ %>
+												<span class="badge badge-pill badge-success"><%-
+													orderDetails.products[i].productStatus %></span>
+											<% } %>
+										</h5>
+									</td>
+									<td>
 										<p>&#x20B9; <%- orderDetails.products[i].total %></p>
 									</td>
 								</tr>
@@ -176,6 +187,9 @@
 									<tr>
 										<td>
 											<h4>Total</h4>
+										</td>
+										<td>
+											<h5></h5>
 										</td>
 										<td>
 											<h5></h5>
@@ -192,12 +206,18 @@
 											<h5></h5>
 										</td>
 										<td>
+											<h5></h5>
+										</td>
+										<td>
 											<p> &#x20B9; <%- orderDetails.couponDiscount %></p>
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<h4>Grand Total</h4>
+										</td>
+										<td>
+											<h5></h5>
 										</td>
 										<td>
 											<h5></h5>
@@ -224,6 +244,25 @@
 
 						<!-- Modal Body -->
 						<div class="modal-body">
+							<!-- Checkbox Section -->
+							<div class="form-group">
+								<label>Select the items</label><br>
+								<% for( let i=0; i < orderDetails.products.length; i++ ) { %>
+									<% if (orderDetails.products[i].productStatus==='Returned' ) { %>
+
+										<% }else{ %>
+											<div class="form-check">
+												<input class="form-check-input returnItems" type="checkbox" id="checkbox<%- i %>"
+													value="<%- orderDetails.products[i].productId._id %>">
+												<label class="form-check-label" for="checkbox<%- i %>"><%-
+														orderDetails.products[i].productId.productName %></label>
+											</div>
+											<% } %>
+
+												<% } %>
+													<p id="returnItemError" style="color: #bd1010;"></p>
+							</div>
+
 							<!-- Description Box -->
 							<div class="form-group">
 								<label for="returnReason">Reason:</label>
@@ -253,7 +292,7 @@
 									data-target="#returnModal">Return Items</a>
 								<% } %>
 									<% }else if (orderDetails.orderStatus==='Returned' ) {%>
-										<h1 style="color: #10bd10;">Item Returned</h1>
+										<h1 style="color: #10bd10;">Order Returned</h1>
 
 										<% }else if (orderDetails.orderStatus==='Cancelled' ) {%>
 											<h1 style="color: #bd1010;">Item Cancelled</h1>
@@ -372,7 +411,18 @@
 	<script>
 		document.getElementById('reasonSubmit').addEventListener('click', async (event) => {
 			event.preventDefault();
-			const isValid = validateReason();
+
+			var checkboxes = document.querySelectorAll('.returnItems');
+			var selectedItems = [];
+
+			checkboxes.forEach((checkbox) => {
+				if (checkbox.checked) {
+					selectedItems.push(checkbox.value);
+				}
+			});
+			console.log(selectedItems);
+
+			const isValid = validateReason(selectedItems);
 
 			if (isValid) {
 				const reason = document.getElementById('returnReason').value;
@@ -380,7 +430,8 @@
 
 				const data = {
 					reason: reason,
-					orderId: orderId
+					orderId: orderId,
+					selectedItems: selectedItems
 				}
 
 				const response = await fetch('/return-order', {
@@ -423,8 +474,9 @@
 
 			// console.log(returnReason)
 		})
-		function validateReason() {
+		function validateReason(selectedItems) {
 			const returnReason = document.getElementById('returnReason').value;
+
 			let isValid = true;
 
 			if (returnReason.trim() === '' || returnReason.length < 10) {
@@ -435,6 +487,15 @@
 			} else {
 				document.getElementById('returnReason').style.borderColor = ''; // Reset border color
 				document.getElementById('returnError').textContent = ''; // Reset error message
+			}
+
+			// Checking the feild is checked or not
+
+			if (selectedItems.length === 0) {
+				document.getElementById('returnItemError').textContent = 'Please select at least one item.';
+				isValid = false;
+			} else {
+				document.getElementById('returnItemError').textContent = '';
 			}
 
 			return isValid;

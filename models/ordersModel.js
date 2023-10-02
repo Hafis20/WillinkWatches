@@ -45,6 +45,10 @@ const ordersModel = new mongoose.Schema({
       total:{
          type:Number,
       },
+      productStatus:{
+         type:String,
+         default:'Pending'
+      }
    }],
    address:{
       name:{

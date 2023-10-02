@@ -204,12 +204,14 @@ const loadCheckOut = async(req,res)=>{
 
 const loadConfirmation = async(req,res)=>{
    try {
+      const user_id = req.session.user._id;
       const orderId = req.query.orderId
       
       const orderDetails = await Order.findById(orderId).populate('products.productId')
 
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
       // console.log(orderDetails.products)
-      res.render('confirmation',{orderDetails});
+      res.render('confirmation',{orderDetails,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }

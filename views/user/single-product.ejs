@@ -133,7 +133,7 @@
 							<% if (product.stock===0) { %>
 								<li class="text-danger">Out of Stock</li>
 								<% }else{ %>
-									<li class="text-success">In Stock</li>
+									<li class="text-success">In Stock (<%- product.stock %>)</li>
 									<% } %>
 						</ul>
 						<p><%- product.description %></p>

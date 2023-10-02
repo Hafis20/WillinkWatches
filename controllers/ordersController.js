@@ -46,7 +46,8 @@ const placeOrder = async(req,res)=>{
             productId:product.productId._id,
             quantity:product.quantity,
             salePrice:product.productId.salePrice,
-            total:product.total
+            total:product.total,
+            productStatus:'Placed'
          }
          orderedProducts.push(products);
       })
@@ -260,18 +261,32 @@ const cancelOrder = async(req,res)=>{
 // Return Order
 const returnOrder = async(req,res)=>{
    try {
-      const {reason,orderId} = req.body
+      const {reason,orderId,selectedItems} = req.body
       // console.log(reason);
       // console.log(orderId)
+      // console.log(selectedItems);
 
-      const order = await Order.findByIdAndUpdate(orderId,
-         {$set:{
-            'returnOrderStatus.status':'requested',
-            'returnOrderStatus.reason': reason
-         }},
-         {new:true});
-         res.json({status:'success',message:'Request Send'});
-      // console.log(order);
+      const order = await Order.findById(orderId);
+      // console.log(order)
+
+      for(let i = 0;i<selectedItems.length;i++){
+         // selected the particular Id
+         const productId = selectedItems[i];
+
+         const productIndex = order.products.findIndex((product)=>product.productId.toString() === productId);
+
+         if(productIndex !== -1){
+            order.products[productIndex].productStatus = 'Return Requested'
+         }
+      }
+
+      order.returnOrderStatus.status = 'requested';
+      order.returnOrderStatus.reason = reason;
+
+      await order.save();
+      
+      res.json({status:'success',message:'Request Send'});
+
    } catch (error) {
       res.json({status:'error',message:'Something went wrong'});
       console.log(error.message);
@@ -402,29 +417,62 @@ const changeStatus = async(req,res)=>{
 
       if(orderData){
          if(orderStatus === 'Returned'){
-            orderData.orderStatus = orderStatus;
+            // Checking if whole product is returned the whole order will returned;
+            const status = orderData.products.filter(product => {
+               return (product.productStatus !== 'Return Requested' && product.productStatus !== 'Returned');
+           });
+           if(status.length === 0){
+               orderData.orderStatus = orderStatus;
+           }
             orderData.returnOrderStatus.status = 'Approved'
 
+            const returnAmount = orderData.products.reduce((acc,product)=>{
+               if( product.productStatus === 'Return Requested'){
+                  return acc += product.total;
+               }
+               return acc;
+            },0);
+            // console.log(returnAmount);
+
+            // Return the particular element stock
+            // Return the particular element stock
+            orderData.products.forEach(async (product) => {
+               if (product.productStatus === 'Return Requested') {
+                  product.productId.stock += product.quantity;
+
+                  // Save the product after updating its stock
+                  await product.productId.save();
+               }
+            });
+
+         //   console.log('Order : ', orderData.products);
+
+            // Returning the particular items
+            orderData.products.map((product)=>{
+               if( product.productStatus === 'Return Requested'){
+                  product.productStatus = 'Returned';
+               }
+            })
+            // console.log(orderData);
             // Returning the amount into the wallet of user 
             const userWallet = await Wallet.findOne({userId:orderData.userId});
             if(userWallet){
-               const amount = (1*orderData.actualTotalAmount);
+               const amount = (1*returnAmount);
                userWallet.walletAmount += amount;
                userWallet.transactionHistory.push(amount);
                await userWallet.save();
             }
-
-            orderData.products.forEach((products)=>{
-               // console.log(products.productId.stock)
-               products.productId.stock += products.quantity;
-               // console.log(products.productId.stock)
-            })
-            await orderData.save();
-
+                      
+         }else if (orderStatus === 'Delivered'){
+            orderData.products.map((product)=>{
+               return product.productStatus = 'Delivered';
+            });
+            orderData.orderStatus = orderStatus;
          }else{
             orderData.orderStatus = orderStatus;
          }
          await orderData.save();
+         console.log(orderData);
       }
          // console.log(orderData);
       res.json({status:'success',message:'Status Updated'});

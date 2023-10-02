@@ -6,8 +6,12 @@ const Cart = require('../models/cartModel');
 const findCartItemsCount = async(userId)=>{
    try{
       const user_id = userId;
-      const userCart = await Cart.findOne({userId:user_id});
-      console.log(userCart);
+      let userCart = await Cart.findOne({userId:user_id});
+      // console.log(userCart);
+      if(!userCart){
+         userCart = new Cart({userId:user_id,products:[]});
+         await userCart.save();
+      }
 
       const count = userCart.products.reduce((acc,product)=>{
          return acc += product.quantity;

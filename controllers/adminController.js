@@ -87,12 +87,20 @@ const loadDashboard = async(req,res)=>{
       const ordCount = await oCount();
       // console.log(ordCount);
       
+      
       // Finding the total revenue
-      const deliveredOrders = orders.filter(order=>order.orderStatus === 'Delivered');
-      const totalRevenue = deliveredOrders.reduce((acc,order)=>{
-         return acc+=order.actualTotalAmount;
-      },0);
 
+      const totalRevenue = orders.reduce((acc, order) => {
+         return acc += order.products.reduce((acc, product) => {
+             if (product.productStatus !== 'Returned') {
+                 return acc += product.total;
+             }
+             return acc;
+         }, 0);
+     }, 0);
+     
+
+      console.log(totalRevenue);
 
       // Sending the product Details
       const products = await Product.find().populate('category')

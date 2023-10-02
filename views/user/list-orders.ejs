@@ -182,9 +182,9 @@
                                             </td>
                                             <td><%- userOrders[i].date.toLocaleString('en-US', { month: 'short' ,
                                                     weekday: 'short' , day: '2-digit' , hour: 'numeric' ,
-                                                    minute: '2-digit' , hour12: true }) %></td>
-
+                                                    minute: '2-digit' , hour12: true }) %>
                                             </td>
+
                                             <td><%- userOrders[i].orderStatus %></td>
                                             <td> <%- userOrders[i].actualTotalAmount %></td>
                                             <td><a href="/order-details/?orderId=<%- userOrders[i]._id %>"

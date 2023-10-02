@@ -56,7 +56,7 @@
                         <a href="/admin/list-users">Users List</a>
                         <a href="/admin/list-categories">Category List</a>
                         <a href="/admin/list-coupons">Coupons List</a>
-                        <a href="/admin/list-banners" >Banner List</a>
+                        <a href="/admin/list-banners">Banner List</a>
                     </div>
                 </li>
                 <li class="menu-item active">
@@ -132,8 +132,7 @@
                                                                             orders[i].orderStatus %></span>
                                                                     <% } else if (orders[i].orderStatus==='Returned' ) {
                                                                         %>
-                                                                        <span
-                                                                            class="badge rounded-pill alert-info"><%-
+                                                                        <span class="badge rounded-pill alert-info"><%-
                                                                                 orders[i].orderStatus %></span>
                                                                         <% } else if
                                                                             (orders[i].orderStatus==='Cancelled' ) { %>
@@ -147,17 +146,22 @@
                                                                                         orders[i].orderStatus %></span>
                                                                                 <% } %>
                                                     </td>
-                                                    <td><%- orders[i].date.toDateString('en-US') %></td>
+                                                    <td><%- orders[i].date.toLocaleString('en-US', { month: 'short'
+                                                            , weekday: 'short' , day: '2-digit' , hour: 'numeric' ,
+                                                            minute: '2-digit' , hour12: true }) %>
+                                                    </td>
                                                     <td>
                                                         <% if(orders[i].orderStatus==='Delivered' ) {%>
                                                             <% if(orders[i].returnOrderStatus.status==='requested' ){%>
                                                                 <p style="color: rgb(154, 29, 29);"> Requested</p>
-                                                            <% }else{ %>
-                                                                <p style="color: green;"> Not requested</p>
-                                                            <% } %>
-                                                        <% }else if(orders[i].orderStatus === 'Returned'){ %>
-                                                            <p style="color: rgb(28, 145, 5);"> Approved</p>
-                                                        <%} %>
+                                                                <% }else{ %>
+                                                                    <p style="color: green;"> Not requested</p>
+                                                                    <% } %>
+                                                                        <% }else if(orders[i].orderStatus==='Returned'
+                                                                            ){ %>
+                                                                            <p style="color: rgb(28, 145, 5);"> Approved
+                                                                            </p>
+                                                                            <%} %>
                                                     </td>
                                                     <td>
                                                         <a href="/admin/order-details/?orderId=<%- orders[i]._id %>"
