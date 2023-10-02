@@ -213,8 +213,9 @@
                 categoryName:event.currentTarget.name.value,
                 discription:event.currentTarget.discription.value
             }
+            // console.log(formData)
 
-            const response = await fetch('./add-categories',{
+            const response = await fetch('./add-category',{
                 method:'post',
                 headers:{
                     'Content-Type':'application/json'

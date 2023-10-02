@@ -60,29 +60,45 @@ const loadEditCategories = async(req,res)=>{
 // Update Edited Catagory
 const editCategories = async(req,res)=>{
    try {
-      const {categoryName,discription,id} = req.body
-     // This category name already existing or not
-      // Taking the whole category list
-         const category = await Category.find();
-         // Taking the categories other than edit
-         const existingCategory =  category.filter((category) => category._id.toString() !== id);
+      const categoryName = req.body.categoryName;
+      const discription = req.body.discription;
+      const id = req.body.id;
+      // Only this category is existed or not
+      const allCategory = await Category.find();
+      const category = await Category.findById(id);
 
-         // In other categories exist the name which user provided
-         const categoryExist = existingCategory.filter((category)=>category.categoryName === categoryName.toUpperCase());
-         console.log('Existing : ',categoryExist);
-         // if provided or not
-          if(categoryExist.length > 0){
-            res.json({status:'error',message:'Category Already Exists'});
-         }else{
-            const updateCategory = await Category.findByIdAndUpdate(id,
-               {$set:{
-                  categoryName:categoryName.toUpperCase(),
-                  discription:discription
-               }})
-               if(updateCategory){
-                  res.json({status:'success',message:'Update successfull'})
+         if(category){
+            if(category.categoryName === categoryName.toUpperCase() && category.discription === discription){
+               res.json({status:'success',message:'Update successfull'})   
+               
+            }else if(category.categoryName === categoryName.toUpperCase()){
+               const updateCategory = await Category.findByIdAndUpdate(id,
+                  {$set:{
+                     discription:discription
+                  }},{new:true});
+                  if(updateCategory){
+                     res.json({status:'success',message:'Update successfull'})
+                  }
+            }else{
+               // Finding the existing category
+               const existingCategoryName = allCategory.filter((category)=>category.categoryName === categoryName.toUpperCase());
+               
+               if(existingCategoryName.length > 0){
+                  res.json({status:'error',message:'Category Already Exists'});
+               }else{
+                  const updateCategory = await Category.findByIdAndUpdate(id,
+                     {$set:{
+                        categoryName:categoryName.toUpperCase(),
+                        discription:discription
+                     }})
+                     if(updateCategory){
+                        res.json({status:'success',message:'Update successfull'})
+                     }
                }
+            }
          }
+         
+         
    } catch (error) {
       console.log(error.message)
       res.json({status:'error',message:'Feild is required'})
