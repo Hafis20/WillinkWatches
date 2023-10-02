@@ -45,45 +45,48 @@
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light main_box" style="border-radius: 25px; background-color: #f1f0f0;">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="/home">
+			<nav class="navbar navbar-expand-lg navbar-light main_box"
+				style="border-radius: 25px; background-color: #f1f0f0;">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" href="/home">
 						<div class="" style="height: 80px;">
-							<img src="/assets/imgs/theme/willink-watches-logo (2).png" style="height: 80px; width: 100%; object-fit: cover;" alt="">
+							<img src="/assets/imgs/theme/willink-watches-logo (2).png"
+								style="height: 80px; width: 100%; object-fit: cover;" alt="">
 						</div>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
 							<li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
-								class="bi bi-house"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
+										class="bi bi-house"></span></a></li>
 							<li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: black;"
-								class="bi bi-shop"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: black;"
+										class="bi bi-shop"></span></a></li>
 							<li class="nav-item"><a href="/user-profile" class="profile-icon nav-link"><span
 										style="font-size: 22px; width: 30px; height: 30px; color:  rgb(219, 134, 7);"
 										class="bi bi-person"></span></a></li>
 							<li class="nav-item"><a href="/cart" class="profile-icon nav-link"><span
 										style="font-size: 20px; width: 30px; height: 30px; color: black;"
 										class="bi bi-cart"></span>
-										<span id="cartItemsCount" class="badge badge-danger position-absolute top-0 start-50 translate-middle"><%- cartItemsCount %></span>
-									</a></li>
+									<span id="cartItemsCount"
+										class="badge badge-danger position-absolute top-0 start-50 translate-middle"><%-
+											cartItemsCount %></span>
+								</a></li>
 							<li class="nav-item"><a href="/whishlist" class="profile-icon nav-link"><span
 										style="font-size: 20px; width: 30px; height: 30px; color: black; margin-right: 48px;"
 										class="bi bi-heart"></span></a></li>
 						</ul>
-                </div>
-            </div>
-        </nav>
+					</div>
+				</div>
+			</nav>
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
@@ -123,7 +126,7 @@
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
-							<li><a href="#"><span>Order number</span>: <%- orderDetails._id %></a></li>
+							<li><a href="#"><span>Order number</span>: <%- orderDetails.ord %></a></li>
 							<li><a href="#"><span>Date</span> : <%- orderDetails.date.toDateString() %></a></li>
 							<li><a href="#"><span>Total</span> : &#x20B9; <%- orderDetails.actualTotalAmount %></a></li>
 							<li><a href="#"><span>Payment method</span> : <%- orderDetails.paymentMethod %></a></li>
@@ -239,7 +242,7 @@
 			</div>
 			<!-- End modal structure -->
 
-<!-- Buttons of requested -->
+			<!-- Buttons of requested -->
 			<div class="container mt-5">
 				<div class="row justify-content-center">
 					<% if (orderDetails.orderStatus==='Delivered' ) { %>
@@ -254,11 +257,11 @@
 
 										<% }else if (orderDetails.orderStatus==='Cancelled' ) {%>
 											<h1 style="color: #bd1010;">Item Cancelled</h1>
-	
+
 											<% }else{ %>
-											<a href="" id="cancelButton" data-orderId="<%- orderDetails._id %>"
-												class="btn btn-warning  col-md-5 mx-md-auto mx-0">Cancel Order</a>
-											<% } %>
+												<a href="" id="cancelButton" data-orderId="<%- orderDetails._id %>"
+													class="btn btn-warning  col-md-5 mx-md-auto mx-0">Cancel Order</a>
+												<% } %>
 				</div>
 				<div class="row mt-2 justify-content-center">
 					<a href="/list-orders" class="btn btn-secondary col-md-6">Go back</a>
@@ -278,8 +281,8 @@
 						<h6>About Us</h6>
 						<p>
 							Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you with
-							exquisite timepieces that blend craftsmanship, style, and precision. 
-							
+							exquisite timepieces that blend craftsmanship, style, and precision.
+
 						</p>
 					</div>
 				</div>
@@ -289,7 +292,7 @@
 						<p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
 						<div class="" id="mc_embed_signup">
 							<p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span></p>
-							<p style="margin-top: 0px; cursor: pointer;"> <span >Phone : +91 987654321</span></p>
+							<p style="margin-top: 0px; cursor: pointer;"> <span>Phone : +91 987654321</span></p>
 
 						</div>
 					</div>
@@ -326,27 +329,40 @@
 		document.getElementById('cancelButton').addEventListener('click', async (event) => {
 			event.preventDefault()
 
-			const orderId = event.target.getAttribute('data-orderId')
+			const confirmation = await Swal.fire({
+				title: 'Are you sure?',
+				text: 'You will not be able to undo this action!',
+				icon: 'warning',
+				showCancelButton: true,
+				cancelButtonColor: '#3085d6',
+				confirmButtonColor: '#990f0f',
+				confirmButtonText: 'Yes, cancel it!',
+				cancelButtonText: 'No, keep it'
+			})
 
-			const response = await fetch(`/cancel-order/?orderId=${orderId}`)
-			const result = await response.json();
-			if (result.status === 'success') {
-				Swal.fire({
-					icon: 'success',
-					title: result.message,
-					showConfirmButton: false,
-					timer: 1000
-				})
-				setTimeout(() => {
-					location.href = location.href
-				}, 1500)
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: result.message,
-					showConfirmButton: false,
-					timer: 1500
-				})
+			if (confirmation.isConfirmed) {
+				const orderId = event.target.getAttribute('data-orderId')
+
+				const response = await fetch(`/cancel-order/?orderId=${orderId}`)
+				const result = await response.json();
+				if (result.status === 'success') {
+					Swal.fire({
+						icon: 'success',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1000
+					})
+					setTimeout(() => {
+						location.href = location.href
+					}, 1500)
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: result.message,
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
 			}
 
 		})

@@ -1,4 +1,5 @@
 const Whishlist = require('../models/whishlistModel');
+const CartCountHelper = require('../helpers/cartItemsCount');
 
 const loadWhishlist = async(req,res)=>{
    try {
@@ -9,8 +10,8 @@ const loadWhishlist = async(req,res)=>{
          await userWhishlist.save()
       }
       // console.log(userWhishlist.products)
-
-      res.render('whishlist',{userWhishlist:userWhishlist.products});
+      const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
+      res.render('whishlist',{userWhishlist:userWhishlist.products,cartItemsCount});
    } catch (error) {
       console.log(error.message);
    }

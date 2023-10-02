@@ -213,7 +213,6 @@ const orderDetails = async(req,res)=>{
       const orderDetails = await Order.findById(orderId).populate('products.productId').sort({date:1})
       // console.log(orderDetails)
       const cartItemsCount = await CartCountHelper.findCartItemsCount(user_id);
-
       res.render('order-details',{orderDetails,cartItemsCount});
    } catch (error) {
       console.log(error.message);

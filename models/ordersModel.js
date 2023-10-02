@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const ordersModel = new mongoose.Schema({
+   ord:{
+      type:String,
+      default:function(){
+         return Math.floor(100000 + Math.random() * 900000).toString();
+      }
+   },
    userId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'user',

@@ -266,6 +266,7 @@ const loadHome = async(req,res)=>{
    }
 }
 
+// =============================Product showing page===========================
 
 // Load Single Product
 const loadSingleProduct = async(req,res)=>{
@@ -274,7 +275,14 @@ const loadSingleProduct = async(req,res)=>{
       const productData = await Product.findById(id).populate('category');
       console.log(productData)
       if(productData){
-         res.render('single-product',{product:productData});
+         if(req.session && req.session.user && req.session.user._id){
+            // Finding the total amount in the cart
+            const cartItemsCount = await CartCountHelper.findCartItemsCount(req.session.user._id);
+            res.render('single-product',{product:productData,cartItemsCount});
+
+         }else{
+            res.render('single-product',{product:productData});
+         }
       }
    } catch (error) {
       console.log(error.message)

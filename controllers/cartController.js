@@ -38,7 +38,7 @@ const loadCart = async(req,res)=>{
 const addToCart = async(req,res)=>{
    try {
       const proId = req.query.productId;
-      console.log(proId)
+      // console.log(proId)
       let cart = await Cart.findOne({userId:req.session.user._id}); // Find the user
       // console.log(cart);
 
