@@ -468,6 +468,7 @@ const changeStatus = async(req,res)=>{
                return product.productStatus = 'Delivered';
             });
             orderData.orderStatus = orderStatus;
+            orderData.deliveredDate = Date.now();
          }else{
             orderData.orderStatus = orderStatus;
          }

@@ -81,15 +81,6 @@
                 </div>
             </nav>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container">
-                <form class="d-flex justify-content-between">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
-                    <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-                </form>
-            </div>
-        </div>
     </header>
     <!-- End Header Area -->
 
@@ -197,9 +188,18 @@
 
                                         </tr>
                                         <% }else{ %>
-                                            <h1 class="d-flex justify-content-end">No Products Found</h1>
-                                            <% } %>
+                                        <tr>
 
+                                            <div class="col-md-12 d-flex justify-content-center">
+                                                <div style="height: 250px; width: 300px;" class="text-center mb-5">
+                                                   <img src="/user-assets/img/elements/empty-cart.png"
+                                                      style="object-fit: cover; height: 100%; width: 100%;" alt="">
+                                                    <p style="color: grey; font-size: 20px;">You haven't added anything yet.</p>
+                                                </div>
+                                             </div>
+                                        </tr>
+
+                                            <% } %>
 
                                                 <tr class="out_button_area">
                                                     <td>

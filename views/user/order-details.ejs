@@ -170,13 +170,14 @@
 										<h5>x <%- orderDetails.products[i].quantity %></h5>
 									</td>
 									<td>
-										<h5><% if (orderDetails.products[i].productStatus === 'Returned') { %>
-											<span class="badge badge-pill badge-danger"><%-
-												orderDetails.products[i].productStatus %></span>
-											<% }else{ %>
-												<span class="badge badge-pill badge-success"><%-
-													orderDetails.products[i].productStatus %></span>
-											<% } %>
+										<h5>
+											<% if (orderDetails.products[i].productStatus==='Returned' ) { %>
+												<span class="badge badge-pill badge-danger"><%-
+														orderDetails.products[i].productStatus %></span>
+												<% }else{ %>
+													<span class="badge badge-pill badge-success"><%-
+															orderDetails.products[i].productStatus %></span>
+													<% } %>
 										</h5>
 									</td>
 									<td>
@@ -288,19 +289,28 @@
 						<% if (orderDetails.returnOrderStatus.status==='requested' ) { %>
 							<h1 style="color: #10bd30;">Item return requested</h1>
 							<% }else{ %>
-								<a href="" class="btn btn-info  col-md-5 mx-md-auto mx-0 mb-2 mb-md-0" data-toggle="modal"
-									data-target="#returnModal">Return Items</a>
-								<% } %>
-									<% }else if (orderDetails.orderStatus==='Returned' ) {%>
-										<h1 style="color: #10bd10;">Order Returned</h1>
+								<% if (orderDetails.deliveredDate) { 
+									var deliveredDate=new Date(orderDetails.deliveredDate);
+									 var sevenDaysAgo=new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+									  if (deliveredDate < sevenDaysAgo) { %>
+										<h1 style="color: #bd1010;">Return Option Expired</h1>
+									<% } else { %>
+										<a href="" class="btn btn-info  col-md-5 mx-md-auto mx-0 mb-2 mb-md-0"
+													data-toggle="modal" data-target="#returnModal">Return Items</a>
+										<% } } %>
+														<% } %>
+															<% }else if (orderDetails.orderStatus==='Returned' ) {%>
+																<h1 style="color: #10bd10;">Order Returned</h1>
 
-										<% }else if (orderDetails.orderStatus==='Cancelled' ) {%>
-											<h1 style="color: #bd1010;">Item Cancelled</h1>
+																<% }else if (orderDetails.orderStatus==='Cancelled' ) {%>
+																	<h1 style="color: #bd1010;">Item Cancelled</h1>
 
-											<% }else{ %>
-												<a href="" id="cancelButton" data-orderId="<%- orderDetails._id %>"
-													class="btn btn-warning  col-md-5 mx-md-auto mx-0">Cancel Order</a>
-												<% } %>
+																	<% }else{ %>
+																		<a href="" id="cancelButton"
+																			data-orderId="<%- orderDetails._id %>"
+																			class="btn btn-warning  col-md-5 mx-md-auto mx-0">Cancel
+																			Order</a>
+																		<% } %>
 				</div>
 				<div class="row mt-2 justify-content-center">
 					<a href="/list-orders" class="btn btn-secondary col-md-6">Go back</a>
