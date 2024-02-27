@@ -31,8 +31,26 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<!-- Option 1: Include in HTML -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
+	<style>
+		.demo-container {
+			width: 100%;
+			height: 150px;
+			margin-bottom: 10px;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.demo-user {
+			width: 60%;
+			height: 140px;
+			background-color: rgb(237, 184, 85);
+			border-radius: 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -40,14 +58,16 @@
 	<!-- Start Header Area -->
 	<header class="header_area sticky-header">
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light main_box" style="border-radius: 25px; background-color: #f1f0f0;">
+			<nav class="navbar navbar-expand-lg navbar-light main_box"
+				style="border-radius: 25px; background-color: #f1f0f0;">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="/home">
 						<div class="" style="height: 80px;">
-							<img src="/assets/imgs/theme/willink-watches-logo (2).png" style="height: 80px; width: 100%; object-fit: cover;" alt="">
+							<img src="/assets/imgs/theme/willink-watches-logo (2).png"
+								style="height: 80px; width: 100%; object-fit: cover;" alt="">
 						</div>
-                </a>
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -59,11 +79,11 @@
 
 						<ul class="nav navbar-nav d-flex align-items-center  menu_nav ml-auto">
 							<li class="nav-item active"><a href="/home" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
-								class="bi bi-house"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: rgb(0, 0, 0);"
+										class="bi bi-house"></span></a></li>
 							<li class="nav-item"><a href="/show-all-products" class="profile-icon nav-link"><span
-								style="font-size: 22px; width: 30px; height: 30px; color: black;"
-								class="bi bi-shop"></span></a></li>
+										style="font-size: 22px; width: 30px; height: 30px; color: black;"
+										class="bi bi-shop"></span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -96,7 +116,8 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="login_box_img">
-						<img style="height: 500px; object-fit: cover;" class="img-fluid" src="/user-assets/img/login.jpg" alt="">
+						<img style="height: 500px; object-fit: cover;" class="img-fluid" src="/user-assets/img/login.jpg"
+							alt="">
 						<div class="hover">
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is
@@ -106,19 +127,25 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
+					<div class="demo-container">
+						<div class="demo-user">
+							<h4>Demo User</h4>
+							<h6>Email : testuser@gmail.com</h6>
+							<h6>Password : Test@123</h6>
+						</div>
+					</div>
 					<div class="login_form_inner">
 
 						<h3>Log in to enter</h3>
 						<form class="row login_form" action="" method="post" id="LoginForm">
 							<div class="col-md-12 form-group">
-								<input type="text"  class="form-control" id="email" name="email"
-									placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+								<input type="text" class="form-control" id="email" name="email" placeholder="Email"
+									onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
 								<p style="color: red;" id="emailError"></p>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password"   class="form-control" id="password" name="password"
-									placeholder="Password" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Password'">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password"
+									onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 								<p style="color: red;" id="passwordError"></p>
 							</div>
 							<div class="col-md-12 form-group">
@@ -142,8 +169,8 @@
 						<h6>About Us</h6>
 						<p>
 							Welcome to Willink Watches, where time meets elegance. We are dedicated to providing you with
-							exquisite timepieces that blend craftsmanship, style, and precision. 
-							
+							exquisite timepieces that blend craftsmanship, style, and precision.
+
 						</p>
 					</div>
 				</div>
@@ -153,7 +180,7 @@
 						<p>Have a question or need assistance? Don't hesitate to reach out. We're here to help.</p>
 						<div class="" id="mc_embed_signup">
 							<p style="margin-bottom: 0px; cursor: pointer;"><span>Email : info@willinkwatches.com</span></p>
-							<p style="margin-top: 0px; cursor: pointer;"> <span >Phone : +91 987654321</span></p>
+							<p style="margin-top: 0px; cursor: pointer;"> <span>Phone : +91 987654321</span></p>
 
 						</div>
 					</div>

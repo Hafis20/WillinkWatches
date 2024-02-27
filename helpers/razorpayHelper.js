@@ -7,6 +7,7 @@ var instance = new Razorpay({
    key_secret: process.env.RAZORPAY_SECRET_ID,
  });
 
+
 const generateRazorPay = async(orderId,total)=>{
    return new Promise((resolve,reject)=>{
       var options = {
