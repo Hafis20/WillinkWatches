@@ -122,7 +122,7 @@
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is
 								the</p>
-							<a class="primary-btn" href="/register">Create an Account</a>
+							<a id="createAccButton" class="primary-btn" href="/login">Create an Account</a>
 						</div>
 					</div>
 				</div>
@@ -256,6 +256,19 @@
 				}
 			}
 
+		})
+	</script>
+
+	<script>
+		document.getElementById('createAccButton').addEventListener('click',(event)=>{
+			event.preventDefault()
+			Toastify({
+						text: 'Registration OTP using twilio expired...Please login with test user',
+						className: "warning",
+						style: {
+							background: "linear-gradient(to right, #007bff)",
+						}
+					}).showToast();
 		})
 	</script>
 
