@@ -114,6 +114,7 @@ const verifyUser = async(req,res)=>{
       const userData = await User.findOne({email:email});
       if(userData){
          const isMatch = await pass.checkPassword(password,userData.password);
+         console.log(isMatch)
          if(isMatch){
             if(userData.is_blocked === true){
                res.json({status:'error',message:'You are blocked by user please contact with authority'})
